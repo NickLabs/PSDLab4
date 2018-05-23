@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presenter", "PSDLab4\Presenter.csproj", "{F1786D73-3C9B-47F5-A01E-F998024E7619}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel", "Model\DomainModel.csproj", "{19E98E20-9C84-4CFC-8B8E-466426082F27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{25AE28AB-F596-4EA9-840F-12F5E79E5CB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1786D73-3C9B-47F5-A01E-F998024E7619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1786D73-3C9B-47F5-A01E-F998024E7619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1786D73-3C9B-47F5-A01E-F998024E7619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1786D73-3C9B-47F5-A01E-F998024E7619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19E98E20-9C84-4CFC-8B8E-466426082F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E98E20-9C84-4CFC-8B8E-466426082F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E98E20-9C84-4CFC-8B8E-466426082F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E98E20-9C84-4CFC-8B8E-466426082F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25AE28AB-F596-4EA9-840F-12F5E79E5CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25AE28AB-F596-4EA9-840F-12F5E79E5CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25AE28AB-F596-4EA9-840F-12F5E79E5CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25AE28AB-F596-4EA9-840F-12F5E79E5CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
