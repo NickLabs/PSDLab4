@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Configuration;
+using System.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace DomainModel.Service
         public DataTable GetAccounts()
         {
             DataTable table = new DataTable();
-            string sqlQuery = "Select * FROM Catalog";
+            string sqlQuery = "Select * FROM Accounts";
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, sqlConnection);
             adapter.Fill(table);
@@ -28,9 +29,22 @@ namespace DomainModel.Service
             return table;
         }
 
-        public void AddAccount(params string[] options)
+        public void AddAccount(string name, string balance, string status, string registration_date)
         {
+            
+            string sqlQuery = string.Format("INSERT INTO Accounts (fullname, balance, status, registration_date) values('{0}','{1}','{2}','{3}')",
+                name, balance, status, registration_date);
+            
+            sqlCommand.CommandText = sqlQuery;
+            sqlCommand.ExecuteNonQuery();
+        }
+        public void ChangeAccount(int id, string name, string balance, string status, string registration_date)
+        {
+            string sqlQuery = string.Format("UPDATE Accounts SET name = '{0}', balance='{1}',status='{2}',registration_date ='{3}' WHERE id='{4}'",
+                name, balance, status, registration_date, id);
 
+            sqlCommand.CommandText = sqlQuery;
+            sqlCommand.ExecuteNonQuery();
         }
 
         public void CreateDb(string filepath)
@@ -47,14 +61,14 @@ namespace DomainModel.Service
             sqlConnection.Open();
             sqlCommand.Connection = sqlConnection;
 
-            sqlCommand.CommandText = "CREATE TABLE IF NOT EXISTS Catalog (id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "author TEXT, book TEXT)";
+            sqlCommand.CommandText = "CREATE TABLE IF NOT EXISTS Accounts (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "fullname TEXT, balance TEXT, status TEXT, registration_date TEXT)";
             sqlCommand.ExecuteNonQuery();
         }
 
         public Model()
         {
-            dbName = ConfigurationManager.AppSettings["database"];
+            dbName = "first";// ConfigurationManager.AppSettings["database"];
             if (!File.Exists(dbName))
             {
                 CreateDb(dbName);

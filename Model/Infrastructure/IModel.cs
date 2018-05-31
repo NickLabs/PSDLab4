@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Configuration;
+using System.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,6 @@ namespace DomainModel.Infrastructure
         void CreateDb(string filepath);
         void OpenDb(string filepath);
         DataTable GetAccounts();
-        void AddAccount(params string[] parametrs);
+        void AddAccount(string name, string balance, string status, string registration_date);
     }
 }

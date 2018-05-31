@@ -6,6 +6,7 @@ using View.Forms;
 using View.ViewInterfaces;
 using System.Windows.Forms;
 using Autofac;
+using PSDLab4.Presenters;
 
 namespace PSDLab4
 {
@@ -19,8 +20,7 @@ namespace PSDLab4
             RegisterTypes();
 
             var presenter = _container.Resolve<Pres>();
-            //presenter.view = _container.Resolve<MainForm>();
-            //presenter.model = _container.Resolve<Model>();
+            
             try
             {
                 presenter.Run();
@@ -34,6 +34,8 @@ namespace PSDLab4
         private static void RegisterTypes()
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<AddingForm>().As<IInputView>();
+            builder.RegisterType<SubPres>();
             builder.RegisterType<Model>().As<IModel>();
             builder.RegisterType<MainForm>().As<IMainView>();
             builder.RegisterType<Pres>();
