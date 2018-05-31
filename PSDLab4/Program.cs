@@ -1,5 +1,9 @@
 ﻿using System;
-using 
+using DomainModel.Infrastructure;
+using DomainModel.Service;
+using Presenters.Presenters;
+using View.Forms;
+using View.ViewInterfaces;
 using System.Windows.Forms;
 using Autofac;
 
@@ -31,7 +35,7 @@ namespace PSDLab4
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<Model>().As<IModel>();
-            builder.RegisterType<MainForm>().As<IView>();
+            builder.RegisterType<MainForm>().As<IMainView>();
             builder.RegisterType<Pres>();
             _container = builder.Build();
         }
