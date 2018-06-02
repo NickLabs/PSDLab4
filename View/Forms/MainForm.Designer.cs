@@ -1,4 +1,6 @@
-﻿namespace View.Forms
+﻿using System.Windows.Forms;
+
+namespace View.Forms
 {
     partial class MainForm
     {
@@ -31,6 +33,8 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileMenuButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewFileButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFileButton = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenuButton = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BankGrid = new System.Windows.Forms.DataGridView();
@@ -42,8 +46,6 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.ChangeButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.NewFileButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFileButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BankGrid)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +69,20 @@
             this.FileMenuButton.Name = "FileMenuButton";
             this.FileMenuButton.Size = new System.Drawing.Size(37, 20);
             this.FileMenuButton.Text = "File";
+            // 
+            // NewFileButton
+            // 
+            this.NewFileButton.Name = "NewFileButton";
+            this.NewFileButton.Size = new System.Drawing.Size(103, 22);
+            this.NewFileButton.Text = "New";
+            this.NewFileButton.Click += new System.EventHandler(this.NewFileButton_Click);
+            // 
+            // OpenFileButton
+            // 
+            this.OpenFileButton.Name = "OpenFileButton";
+            this.OpenFileButton.Size = new System.Drawing.Size(103, 22);
+            this.OpenFileButton.Text = "Open";
+            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // HelpMenuButton
             // 
@@ -151,20 +167,6 @@
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
-            // NewFileButton
-            // 
-            this.NewFileButton.Name = "NewFileButton";
-            this.NewFileButton.Size = new System.Drawing.Size(152, 22);
-            this.NewFileButton.Text = "New";
-            this.NewFileButton.Click += new System.EventHandler(this.NewFileButton_Click);
-            // 
-            // OpenFileButton
-            // 
-            this.OpenFileButton.Name = "OpenFileButton";
-            this.OpenFileButton.Size = new System.Drawing.Size(152, 22);
-            this.OpenFileButton.Text = "Open";
-            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -184,6 +186,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void BankGrid_RowHeaderMouseClick(object sender, System.Windows.Forms.DataGridViewCellMouseEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

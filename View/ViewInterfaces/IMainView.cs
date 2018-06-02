@@ -9,6 +9,12 @@ namespace View.ViewInterfaces
 {
     public interface IMainView
     {
+        string IdValue { get; }
+        string NameValue { get; }
+        string BalanceValue { get; }
+        string StatusValue { get; }
+        string RegistrationDateValue { get; }
+        void RowSelectionErrorMessage();
         void Start();
         void ShowAccounts(DataTable table);
         event EventHandler Add;

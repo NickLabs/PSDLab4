@@ -36,8 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.DateTxt = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.AddBut = new System.Windows.Forms.Button();
-            this.ChangeBut = new System.Windows.Forms.Button();
+            this.AddChangeBut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -104,33 +103,23 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Дата оформления";
             // 
-            // AddBut
+            // AddChangeBut
             // 
-            this.AddBut.Location = new System.Drawing.Point(133, 177);
-            this.AddBut.Name = "AddBut";
-            this.AddBut.Size = new System.Drawing.Size(75, 23);
-            this.AddBut.TabIndex = 8;
-            this.AddBut.Text = "Добавить";
-            this.AddBut.UseVisualStyleBackColor = true;
-            this.AddBut.Click += new System.EventHandler(this.AddBut_Click);
-            // 
-            // ChangeBut
-            // 
-            this.ChangeBut.Location = new System.Drawing.Point(133, 148);
-            this.ChangeBut.Name = "ChangeBut";
-            this.ChangeBut.Size = new System.Drawing.Size(75, 23);
-            this.ChangeBut.TabIndex = 9;
-            this.ChangeBut.Text = "Изменить";
-            this.ChangeBut.UseVisualStyleBackColor = true;
-            this.ChangeBut.Click += new System.EventHandler(this.ChangeBut_Click);
+            this.AddChangeBut.Location = new System.Drawing.Point(133, 148);
+            this.AddChangeBut.Name = "AddChangeBut";
+            this.AddChangeBut.Size = new System.Drawing.Size(75, 23);
+            this.AddChangeBut.TabIndex = 9;
+            this.AddChangeBut.Text = "Изменить";
+            this.AddChangeBut.UseVisualStyleBackColor = true;
+            this.AddChangeBut.Click += new System.EventHandler(this.AddChangeBut_Click);
             // 
             // AddingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(220, 212);
-            this.Controls.Add(this.ChangeBut);
-            this.Controls.Add(this.AddBut);
+            this.ClientSize = new System.Drawing.Size(220, 182);
+            this.ControlBox = false;
+            this.Controls.Add(this.AddChangeBut);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DateTxt);
             this.Controls.Add(this.label3);
@@ -157,7 +146,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox DateTxt;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button AddBut;
-        private System.Windows.Forms.Button ChangeBut;
+        private System.Windows.Forms.Button AddChangeBut;
     }
 }

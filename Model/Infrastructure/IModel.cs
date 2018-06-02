@@ -15,5 +15,7 @@ namespace DomainModel.Infrastructure
         void OpenDb(string filepath);
         DataTable GetAccounts();
         void AddAccount(string name, string balance, string status, string registration_date);
+        void ChangeAccount(int id, string name, string balance, string status, string registration_date);
+        void DeleteAccount(int id);
     }
 }

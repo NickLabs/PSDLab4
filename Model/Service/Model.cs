@@ -38,11 +38,19 @@ namespace DomainModel.Service
             sqlCommand.CommandText = sqlQuery;
             sqlCommand.ExecuteNonQuery();
         }
+
         public void ChangeAccount(int id, string name, string balance, string status, string registration_date)
         {
-            string sqlQuery = string.Format("UPDATE Accounts SET name = '{0}', balance='{1}',status='{2}',registration_date ='{3}' WHERE id='{4}'",
+            string sqlQuery = string.Format("UPDATE Accounts SET fullname = '{0}', balance='{1}',status='{2}',registration_date ='{3}' WHERE id='{4}'",
                 name, balance, status, registration_date, id);
 
+            sqlCommand.CommandText = sqlQuery;
+            sqlCommand.ExecuteNonQuery();
+        }
+
+        public void DeleteAccount(int id)
+        {
+            string sqlQuery = string.Format("Delete FROM Accounts WHERE id='{0}'", id);
             sqlCommand.CommandText = sqlQuery;
             sqlCommand.ExecuteNonQuery();
         }

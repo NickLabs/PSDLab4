@@ -8,13 +8,16 @@ namespace View.ViewInterfaces
 {
     public interface IInputView
     {
-        string FullName { get; }
-        string Balance { get; }
-        string Status { get; }
-        string RegistrationDate { get; }
+        string FullName { get; set; }
+        string Balance { get; set; }
+        string Status { get; set; }
+        string RegistrationDate { get; set; }
         event EventHandler Add;
         event EventHandler Change;
         void WrongInput();
         void Show();
+        void Hide();
+        void ChangeToAddButton();
+        void AddToChangeButton();
     }
 }
