@@ -76,11 +76,13 @@ namespace View.Forms
 
         public void ChangeToAddButton()
         {
+            this.Text = "Добавление";
             this.AddChangeBut.Text = "Добавить";
         }
 
         public void AddToChangeButton()
         {
+            this.Text = "Изменение";
             this.AddChangeBut.Text = "Изменить";
         }
 

@@ -33,6 +33,37 @@ namespace Presenters.Presenters
             view.Add += View_Add;
             view.Change += View_Change;
             view.Delete += View_Delete;
+            view.New += View_New;
+            view.Open += View_Open;
+        }
+
+        #region бинд действий на события
+        private void View_Open(object sender, EventArgs e)
+        {
+            string pathToDb = view.OpenFileDialogForChangingDB();
+            if (pathToDb != "")
+            {
+                model.OpenDb(pathToDb);
+            }
+            else
+            {
+                view.WrongFileSelection();
+            }
+            ShowAccounts();
+        }
+
+        private void View_New(object sender, EventArgs e)
+        {
+            string pathToDb = view.OpenFileDialogForCreatingDB();
+            if (pathToDb != "")
+            {
+                model.CreateDb(pathToDb);
+            }
+            else
+            {
+                view.WrongFileSelection();
+            }
+            ShowAccounts();
         }
 
         private void View_Delete(object sender, EventArgs e)
@@ -74,6 +105,7 @@ namespace Presenters.Presenters
         {
             ShowAccounts();
         }
+        #endregion
 
         public void Run()
         {

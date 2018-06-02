@@ -14,7 +14,10 @@ namespace View.ViewInterfaces
         string BalanceValue { get; }
         string StatusValue { get; }
         string RegistrationDateValue { get; }
+        string OpenFileDialogForChangingDB();
+        string OpenFileDialogForCreatingDB();
         void RowSelectionErrorMessage();
+        void WrongFileSelection();
         void Start();
         void ShowAccounts(DataTable table);
         event EventHandler Add;

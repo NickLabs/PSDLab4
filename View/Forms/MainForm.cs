@@ -43,12 +43,60 @@ namespace View.Forms
             }
         }
 
+        #region работа с откртыием и созданием баз
+        public string OpenFileDialogForCreatingDB()
+        {
+            FileDialog fd = new SaveFileDialog();
+            fd.Filter = "Database Files| *.db";
+            fd.AddExtension = false;
+
+            string finalPath = "";
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                finalPath = fd.FileName;
+            }
+            return finalPath;
+        }
+
+        public string OpenFileDialogForChangingDB()
+        {
+            FileDialog fd = new OpenFileDialog();
+            fd.Filter = "Database Files| *.db";
+            fd.AddExtension = false;
+            
+            string finalPath = "";
+            if(fd.ShowDialog() == DialogResult.OK)
+            {
+                finalPath = fd.FileName;
+            }
+            return finalPath;
+        }
+        #endregion
+
+        #region вывод ошибок и приветствие
         public void RowSelectionErrorMessage()
         {
             string caption = "Ошибка при попытке изменить счёт";
             string message = "Для изменения параметров счёта необходимо выбрать только один аккаунт.\nНи больше, ни меньше!";
             MessageBox.Show(message, caption, MessageBoxButtons.OK);
         }
+
+        public void WrongFileSelection()
+        {
+            string caption = "Ошибка при открытии файла";
+            string message = "Нужно указать путь к валидному файлу базы данных";
+            MessageBox.Show(message, caption, MessageBoxButtons.OK);
+        }
+
+        public void Greetings()
+        {
+            string caption = "Здравствуй";
+            string message = "Данная программа представляет собой симуляцию хранения банковских счетов\n"+
+                "Можно создавать, изменять и удалять информацию об аккаунтах, а также создавать и открывать новые экземпляры"+
+                "Программа была написана студентов 465 группы Винокуровым Никитой Александровичем";
+            MessageBox.Show(message, caption, MessageBoxButtons.OK);
+        }
+        #endregion
 
         public MainForm()
         {

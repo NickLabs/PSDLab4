@@ -76,7 +76,7 @@ namespace DomainModel.Service
 
         public Model()
         {
-            dbName = "first";// ConfigurationManager.AppSettings["database"];
+            dbName = "first.db";// ConfigurationManager.AppSettings["database"];
             if (!File.Exists(dbName))
             {
                 CreateDb(dbName);
