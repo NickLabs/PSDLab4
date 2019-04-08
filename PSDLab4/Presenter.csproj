@@ -66,8 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenters\AdministratorPresenter.cs" />
     <Compile Include="Presenters\Pres.cs" />
-    <Compile Include="Presenters\SubPres.cs" />
+    <Compile Include="Presenters\RegistrationPresenter.cs" />
+    <Compile Include="Presenters\ResearcherPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

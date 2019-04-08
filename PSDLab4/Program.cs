@@ -17,28 +17,33 @@ namespace PSDLab4
         [STAThread]
         static void Main()
         {
-            RegisterTypes();
+            //RegisterTypes();
 
-            var presenter = _container.Resolve<Pres>();
-            
-            try
-            {
-                presenter.Run();
-            }
-            catch (Exception e)
-            {
-                Application.Exit();
-            }
+            //var presenter = _container.Resolve<Pres>();
+
+            //try
+            //{
+            //    presenter.Run();
+            // }
+            // catch (Exception e)
+            //{
+            //   Application.Exit();
+            //}
+            Application.Run(new ResearcherForm());
         }
 
         private static void RegisterTypes()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<AddingForm>().As<IInputView>();
-            builder.RegisterType<SubPres>();
-            builder.RegisterType<Model>().As<IModel>();
-            builder.RegisterType<MainForm>().As<IMainView>();
-            builder.RegisterType<Pres>();
+            ///
+            //builder.RegisterType<AddingForm>().As<IInputView>();
+            //builder.RegisterType<SubPres>();
+            //builder.RegisterType<Model>().As<IModel>();
+            //builder.RegisterType<MainForm>().As<IMainView>();
+            //builder.RegisterType<Pres>();
+            ///
+            builder.RegisterType<RegistrationPresenter>();
+            builder.RegisterType<RegistrationPresenter>();
             _container = builder.Build();
         }
     }
