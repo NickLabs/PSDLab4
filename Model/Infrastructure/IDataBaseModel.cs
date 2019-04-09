@@ -16,7 +16,10 @@ namespace DomainModel.Infrastructure
         string getUserLoginPassViaId(int id);
         string getUserNameViaId(int id);
         string[] getAllMaterials();
+        int getMaterialIdViaName(string name);
         double[] fetchAllProperties(string materialName);
         double[] fetchAllCoefficients(string materialName);
+        double[] fetchLimitsMin(int idMaterial);
+        double[] fetchLimitsMax(int idMaterial);
     }
 }

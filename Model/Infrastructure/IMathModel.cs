@@ -14,6 +14,7 @@ namespace DomainModel.Infrastructure
         double[] temperatures { get; }
         double[] viscosity { get; }
         double performance { get; }
-        void Calculate();
+        event EventHandler calculationFinished;
+        void Calculate(double[] Coefficients, double[] Properties, double[] canalGeometry, double[] varParametrs, int numberOfSteps);
     }
 }
