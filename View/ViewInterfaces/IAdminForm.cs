@@ -9,6 +9,9 @@ namespace View.ViewInterfaces
 {
     public interface IAdminForm
     {
-        event EventHandler Save;
+        string currentMaterial { get; }
+        event EventHandler materialChanged;
+        void Start(string[] tableNames);
+        void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, Dictionary<string, int>>> columnReferencesTable);
     }
 }

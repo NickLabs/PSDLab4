@@ -11,15 +11,17 @@ namespace DomainModel.Infrastructure
 {
     public interface IDataBaseModel
     {
-        bool[] doesUserExist(string login, string password);
-        int getUserIdViaLogin(string login);
-        string getUserLoginPassViaId(int id);
-        string getUserNameViaId(int id);
-        string[] getAllMaterials();
-        int getMaterialIdViaName(string name);
-        double[] fetchAllProperties(string materialName);
-        double[] fetchAllCoefficients(string materialName);
-        double[] fetchLimitsMin(int idMaterial);
-        double[] fetchLimitsMax(int idMaterial);
+        bool[] DoesUserExist(string login, string password);
+        int GetUserIdViaLogin(string login);
+        string GetUserLoginPassViaId(int id);
+        string GetUserNameViaId(int id);
+        string[] GetAllMaterials();
+        string[] GetAllTables();
+        int GetMaterialIdViaName(string name);
+        double[] FetchAllProperties(string materialName);
+        double[] FetchAllCoefficients(string materialName);
+        double[] FetchLimitsMin(int idMaterial);
+        double[] FetchLimitsMax(int idMaterial);
+        Dictionary<string, int> IdAndRelevantNames(string tableName);
     }
 }

@@ -8,7 +8,7 @@ using DomainModel.Infrastructure;
 
 namespace PSDLab4.Presenters
 {
-    class ResearcherPresenter
+    public class ResearcherPresenter
     {
         private readonly IResearcherForm form;
         private readonly IMathModel model;
@@ -30,9 +30,9 @@ namespace PSDLab4.Presenters
 
         public void Start(string login)
         {
-            this.researcherId=this.dataBase.getUserIdViaLogin(login);
-            this.researcherName = this.dataBase.getUserNameViaId(this.researcherId);
-            this.form.Start(this.researcherName, this.dataBase.getAllMaterials());
+            this.researcherId=this.dataBase.GetUserIdViaLogin(login);
+            this.researcherName = this.dataBase.GetUserNameViaId(this.researcherId);
+            this.form.Start(this.researcherName, this.dataBase.GetAllMaterials());
             this.form.calculate += Calculate;
             this.form.materialChanged += FetchMaterialCoefficientsAndProperties;
             this.model.calculationFinished += ModelCalculationsFinished;
@@ -40,18 +40,18 @@ namespace PSDLab4.Presenters
 
         private void ModelCalculationsFinished(object sender, EventArgs e)
         {
-            
+            //Дальше кидаем в базу результаты, и кидаем всё в форму для графиков и прочего
         }
 
         private void FetchMaterialCoefficientsAndProperties(object sender, EventArgs e)
         {
-            this.materialId = this.dataBase.getMaterialIdViaName(this.form.ChosenMaterial);
-            this.materialCoefficients= this.dataBase.fetchAllCoefficients(this.form.ChosenMaterial);
-            this.materialProperties = this.dataBase.fetchAllProperties(this.form.ChosenMaterial);
+            this.materialId = this.dataBase.GetMaterialIdViaName(this.form.ChosenMaterial);
+            this.materialCoefficients= this.dataBase.FetchAllCoefficients(this.form.ChosenMaterial);
+            this.materialProperties = this.dataBase.FetchAllProperties(this.form.ChosenMaterial);
             this.form.Coefficients = this.materialCoefficients;
             this.form.Properties = this.materialProperties;
-            this.minLimitations = this.dataBase.fetchLimitsMin(this.materialId);
-            this.minLimitations = this.dataBase.fetchLimitsMax(this.materialId);
+            this.minLimitations = this.dataBase.FetchLimitsMin(this.materialId);
+            this.minLimitations = this.dataBase.FetchLimitsMax(this.materialId);
         }
 
         private void Calculate(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace PSDLab4.Presenters
                 {
                     this.model.Calculate(materialCoefficients, materialProperties,
                         this.form.CanalGeometry, this.form.VariableParams , this.form.NumberOfSteps);
-                    //Дальше кидаем в базу результаты, и кидаем всё в форму для графиков и прочего
+                    
                 }
                 catch (DivideByZeroException)
                 {

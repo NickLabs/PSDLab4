@@ -9,7 +9,7 @@ namespace DomainModel.Service
 {
     class MathModel : IMathModel
     {
-        public double[] temperatures { get { return temperaturesT.ToArray(); } set {temperatures = value } }
+        public double[] temperatures { get { return temperaturesT.ToArray(); } set { temperatures = value; } }
         public double[] viscosity { get { return viscosityT.ToArray(); } set { viscosity = value; } }
         public double performance { get { return performance; }  set { performance = value; } }
 

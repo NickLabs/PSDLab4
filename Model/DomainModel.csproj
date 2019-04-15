@@ -63,6 +63,8 @@
     <Compile Include="Infrastructure\IDataBaseModel.cs" />
     <Compile Include="Infrastructure\IMathModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\DatabaseParser.cs" />
+    <Compile Include="Service\FlowModelDataBase.cs" />
     <Compile Include="Service\MathModel.cs" />
   </ItemGroup>
   <ItemGroup>

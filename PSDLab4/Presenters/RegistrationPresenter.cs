@@ -44,7 +44,7 @@ namespace PSDLab4.Presenters
         {
             bool isSuccesful = true;
             bool isAdmin = false;
-            bool[] temporary = this.dataBase.doesUserExist(this.registration.login.ToLower(), this.registration.password);
+            bool[] temporary = this.dataBase.DoesUserExist(this.registration.login.ToLower(), this.registration.password);
             isSuccesful = temporary[0];
             isAdmin = temporary[1];           
             //Какой-то код с вызовом базы
@@ -66,7 +66,7 @@ namespace PSDLab4.Presenters
                 numberOfTries = numberOfTries > 0 ? numberOfTries-1 : 0;
                 if (numberOfTries == 0)
                 {
-                    string[] tempLogPass = this.dataBase.getUserLoginPassViaId(1).Split(' ');
+                    string[] tempLogPass = this.dataBase.GetUserLoginPassViaId(1).Split(' ');
                     string adminLogin = tempLogPass[0];
                     string adminPass = tempLogPass[1];
 
