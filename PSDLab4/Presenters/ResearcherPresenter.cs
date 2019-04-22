@@ -51,7 +51,7 @@ namespace PSDLab4.Presenters
             this.form.Coefficients = this.materialCoefficients;
             this.form.Properties = this.materialProperties;
             this.minLimitations = this.dataBase.FetchLimitsMin(this.materialId);
-            this.minLimitations = this.dataBase.FetchLimitsMax(this.materialId);
+            this.maxLimitations = this.dataBase.FetchLimitsMax(this.materialId);
         }
 
         private void Calculate(object sender, EventArgs e)

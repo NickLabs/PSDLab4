@@ -35,13 +35,16 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.TableView = new System.Windows.Forms.DataGridView();
             this.Modify = new System.Windows.Forms.Button();
             this.Delete = new System.Windows.Forms.Button();
             this.DBRow = new System.Windows.Forms.GroupBox();
+            this.сменитьПользователяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.addChangeStatus = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
             this.SuspendLayout();
             // 
             // tablesList
@@ -57,6 +60,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сменитьПользователяToolStripMenuItem,
             this.помощьToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.выходToolStripMenuItem});
@@ -104,22 +108,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Выбор таблицы";
             // 
-            // dataGridView1
+            // TableView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 96);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 223);
-            this.dataGridView1.TabIndex = 4;
+            this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableView.Location = new System.Drawing.Point(12, 96);
+            this.TableView.Name = "TableView";
+            this.TableView.Size = new System.Drawing.Size(776, 223);
+            this.TableView.TabIndex = 4;
             // 
             // Modify
             // 
-            this.Modify.Location = new System.Drawing.Point(632, 325);
+            this.Modify.Location = new System.Drawing.Point(583, 325);
             this.Modify.Name = "Modify";
-            this.Modify.Size = new System.Drawing.Size(75, 23);
+            this.Modify.Size = new System.Drawing.Size(124, 23);
             this.Modify.TabIndex = 6;
-            this.Modify.Text = "Изменить";
+            this.Modify.Text = "Изменить/Добавить";
             this.Modify.UseVisualStyleBackColor = true;
+            this.Modify.Click += new System.EventHandler(this.ModifyClick);
             // 
             // Delete
             // 
@@ -129,6 +134,7 @@
             this.Delete.TabIndex = 7;
             this.Delete.Text = "Удалить";
             this.Delete.UseVisualStyleBackColor = true;
+            this.Delete.Click += new System.EventHandler(this.DeleteClick);
             // 
             // DBRow
             // 
@@ -139,15 +145,40 @@
             this.DBRow.TabStop = false;
             this.DBRow.Text = "Выбранная строка";
             // 
+            // сменитьПользователяToolStripMenuItem
+            // 
+            this.сменитьПользователяToolStripMenuItem.Name = "сменитьПользователяToolStripMenuItem";
+            this.сменитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
+            this.сменитьПользователяToolStripMenuItem.Text = "Сменить пользователя";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 336);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(135, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Текущий режим работы: ";
+            // 
+            // addChangeStatus
+            // 
+            this.addChangeStatus.AutoSize = true;
+            this.addChangeStatus.Location = new System.Drawing.Point(154, 336);
+            this.addChangeStatus.Name = "addChangeStatus";
+            this.addChangeStatus.Size = new System.Drawing.Size(0, 13);
+            this.addChangeStatus.TabIndex = 10;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.addChangeStatus);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.DBRow);
             this.Controls.Add(this.Delete);
             this.Controls.Add(this.Modify);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.TableView);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -157,7 +188,7 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,9 +203,12 @@
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView TableView;
         private System.Windows.Forms.Button Modify;
         private System.Windows.Forms.Button Delete;
         private System.Windows.Forms.GroupBox DBRow;
+        private System.Windows.Forms.ToolStripMenuItem сменитьПользователяToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label addChangeStatus;
     }
 }

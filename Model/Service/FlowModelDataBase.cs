@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DomainModel.Infrastructure;
 using System.Data.SQLite;
 using System.Data;
+using System.Collections;
 
 namespace DomainModel.Service
 {
@@ -20,6 +21,18 @@ namespace DomainModel.Service
             this.connection = new SQLiteConnection(dbName);
             this.connection.Open();
             command.Connection = connection;
+        }
+
+        public void DeleteRow(string table, int id)
+        {
+            string query = String.Format("DELETE FROM {0} WHERE id={1}", table, id);
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+        }
+
+        public void DeleteRow(string table, int id1, int id2, string column1, string column2)
+        {
+            throw new NotImplementedException();
         }
 
         public bool[] DoesUserExist(string login, string password)
@@ -56,6 +69,7 @@ namespace DomainModel.Service
         {
             List<string> tables= new List<string>();
             DataTable dt = this.connection.GetSchema("Tables");
+            
             foreach(DataRow row in dt.Rows)
             {
                 tables.Add(row[2].ToString());
@@ -67,6 +81,15 @@ namespace DomainModel.Service
         public int GetMaterialIdViaName(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public DataTable GetTableData(string tableName)
+        {
+            DataTable dt = new DataTable();
+            string query = String.Format("SELECT * FROM {0}", tableName);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, this.connection);
+            adapter.Fill(dt);
+            return dt;
         }
 
         public int GetUserIdViaLogin(string login)
@@ -87,6 +110,43 @@ namespace DomainModel.Service
         public Dictionary<string, int> IdAndRelevantNames(string tableName)
         {
             return null;
+        }
+
+        public void InsertRow(string table, ArrayList values)
+        {
+            string query = String.Format("insert into {0} values (", table);
+            for(int i = 0; i < values.Count; i++)
+            {
+                if (i != values.Count - 1)
+                {
+                    query += values[i].ToString() + ",";
+                }
+                else
+                {
+                    query += values[i].ToString() + ")";
+                }
+            }
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+        }
+
+        public void UpdateRow(string table, ArrayList values, string[] columnNames)
+        {
+            string query = String.Format("Update {0} set", table);
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (i != values.Count - 1)
+                {
+                    query += columnNames[i] + "=" +values[i].ToString() + ",";
+                }
+                else
+                {
+                    query += columnNames[i] + "=" + values[i].ToString();
+                }
+            }
+            command.CommandText = query;
+            command.ExecuteNonQuery();
         }
     }
 }

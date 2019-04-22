@@ -66,9 +66,12 @@ namespace DomainModel.Service
                                 rulesIndex++;
                             }
                             rulesIndex += 2;
-                            for (int i = rulesIndex; rule[i] != ' '; i++)
+                            for (int i = rulesIndex; i < rule.Length; i++)
                             {
-                                columnType += rule[i];
+                                if (rule[i] != ' ')
+                                {
+                                    columnType += rule[i];
+                                }
                             }
 
                             string columnTypeForDataTable = "";

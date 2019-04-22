@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace DomainModel.Infrastructure
 {
@@ -22,6 +23,11 @@ namespace DomainModel.Infrastructure
         double[] FetchAllCoefficients(string materialName);
         double[] FetchLimitsMin(int idMaterial);
         double[] FetchLimitsMax(int idMaterial);
+        void InsertRow(string table, ArrayList values);
+        void UpdateRow(string table, ArrayList values,string[] columnNames);
+        void DeleteRow(string table, int id);
+        void DeleteRow(string table, int id1, int id2, string column1, string column2);
         Dictionary<string, int> IdAndRelevantNames(string tableName);
+        DataTable GetTableData(string tableName);
     }
 }
