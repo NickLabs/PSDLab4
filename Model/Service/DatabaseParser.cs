@@ -12,7 +12,7 @@ namespace DomainModel.Service
     {
         private Dictionary<string, Dictionary<string, string>> dataBaseRules;
         private Dictionary<string, Dictionary<string, string>> references;
-        private string connectionToDb = "Data Source=C:\\Users\\prais\\AVPIoO.db";
+        private string connectionToDb = @"Data Source = C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\bin\Debug\AVPIoO.db";
         
         public DatabaseParser() { }
 

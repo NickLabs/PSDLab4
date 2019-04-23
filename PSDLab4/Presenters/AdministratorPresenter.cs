@@ -54,16 +54,16 @@ namespace PSDLab4.Presenters
                 for (int i = 0; i < refColumns.Length; i++)
                 {
                     Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i], this.parser.GetTablesColumnNames(outerTables[i]));
-                    //Dictionary<int, string> keyNames = this.dataBase.IdAndRelevantNamesReverse(outerTables[i], this.parser.GetTablesColumnNames(outerTables[i]));
+                    Dictionary<int, string> keyNames = this.dataBase.IdAndRelevantNameReverse(outerTables[i], this.parser.GetTablesColumnNames(outerTables[i]));
                     this.columnReferencesTableNameKeys.Add(refColumns[i], nameKeys);
-                    //this.columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
+                    this.columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
                 }
             }
 
             this.form.GenerateInputFields(columnNames, columnTypes, this.columnReferencesTableNameKeys);
             DataTable s = this.dataBase.GetTableData(table);
             this.form.SetColumnNames(columnNames);
-            this.form.SetData(s, columnReferencesTableNameKeys);
+            this.form.SetData(s, columnReferencesTableKeyNames);
 
             var ar = new ArrayList();
             for (int i = 0; i < this.numberOfColumns; i++)
@@ -101,7 +101,7 @@ namespace PSDLab4.Presenters
 
                 this.dataBase.InsertRow(this.form.CurrentTable, tmp);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
 
                 var ar = new ArrayList();
                 for (int i = 0; i < this.numberOfColumns; i++)
@@ -123,7 +123,7 @@ namespace PSDLab4.Presenters
                 }
                 this.dataBase.UpdateRow(this.form.CurrentTable, tmp, columnNames);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
 
                 var ar = new ArrayList();
                 for (int i = 0; i < this.numberOfColumns; i++)
@@ -140,7 +140,7 @@ namespace PSDLab4.Presenters
             {
                 this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0], this.form.SelectedItemIndex[1], this.columnNames[0], this.columnNames[1]);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();
                 for (int i = 0; i < this.numberOfColumns; i++)
                 {
@@ -152,7 +152,7 @@ namespace PSDLab4.Presenters
             {
                 this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0]);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();
                 for (int i = 0; i < this.numberOfColumns; i++)
                 {

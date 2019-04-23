@@ -192,6 +192,7 @@ namespace View.Forms
             }
             else
             {
+
                 foreach (DataRow dr in dt.Rows)
                 {
                     List<object> list = new List<object>();
@@ -218,8 +219,23 @@ namespace View.Forms
                             list.Add(dr.ItemArray[i]);
                         }
                     }
+
                     
-                    TableView.Rows.Add(list);
+
+                    for(int i = 0; i < dr.ItemArray.Length; i++)
+                    {
+                        dr.ItemArray.SetValue(list[i], i);
+                    }
+
+                    dr.ItemArray = list.ToArray();
+
+                    foreach(object o in list)
+                    {
+                        MessageBox.Show(o.ToString());
+                    }
+                    
+
+                    TableView.Rows.Add(dr.ItemArray);
                 }
             }
         }
