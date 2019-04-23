@@ -14,7 +14,7 @@ namespace View.ViewInterfaces
         ArrayList ValuesToSubmit { get; set; }
         ArrayList ValuesToInsert { get; }
         int NumberOfSelectedRows { get; }
-        int SelectedItemIndex { get; }
+        int[] SelectedItemIndex { get; }
         event EventHandler materialChanged;
         event EventHandler delete;
         event EventHandler changeAdd;
@@ -22,9 +22,10 @@ namespace View.ViewInterfaces
         void UpdateTable();
         void ShowChangeOrDeleteError();
         void SetColumnNames(string[] columns);
-        void SetData(DataTable data);
+        void SetData(DataTable data, Dictionary<string, Dictionary<int, string>> columnReferencesTableKeyNames);
+        void SetData(DataTable data, Dictionary<string, Dictionary<string, int>> columnReferencesTable);
         void ChangeAddCirculation(string status, ArrayList values);
         void Start(string[] tableNames);
-        void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, Dictionary<string, int>>> columnReferencesTable);
+        void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, int>> columnReferencesTable);
     }
 }

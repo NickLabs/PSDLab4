@@ -76,8 +76,8 @@ namespace DomainModel.Service
                 double secondLog;
                 firstLog = (viscosityTemperatureCoefficient*this.frictionHeatGain+width*capHeatTransmissionCoefficient)/
                    (viscosityTemperatureCoefficient*this.capHeatGain);
-                secondLog = 1 - Math.Log(-1 * (i * viscosityTemperatureCoefficient * capHeatGain / (density * heatCapacity * this.streamVolumeConsumptionRate)));
-                thirdLog = Math.Log(viscosityTemperatureCoefficient * (meltingTemperature - temperatureAlign - (i * capHeatGain) / (density * heatCapacity * this.streamVolumeConsumptionRate)));
+                secondLog = 1 - Math.Exp(-1 * (i * viscosityTemperatureCoefficient * capHeatGain / (density * heatCapacity * this.streamVolumeConsumptionRate)));
+                thirdLog = Math.Exp(viscosityTemperatureCoefficient * (meltingTemperature - temperatureAlign - (i * capHeatGain) / (density * heatCapacity * this.streamVolumeConsumptionRate)));
                 logPart = firstLog * secondLog + thirdLog;
                 double temperatureOnThisStep = temperatureAlign + 1 / viscosityTemperatureCoefficient * Math.Log(logPart);
                 temperaturesT.Add(temperatureOnThisStep);
@@ -87,7 +87,7 @@ namespace DomainModel.Service
         {
             foreach(double T in this.temperaturesT)
             {
-                double consistencyCoefficient = consistencyCoefficientAllign*Math.Log(-1*viscosityTemperatureCoefficient*(T-temperatureAllign));
+                double consistencyCoefficient = consistencyCoefficientAllign*Math.Exp(-1*viscosityTemperatureCoefficient*(T-temperatureAllign));
                 double viscosityOnThisStep = consistencyCoefficient * Math.Pow(this.inputStreamSpeed, flowIndex);
                 this.viscosityT.Add(viscosityOnThisStep);
             }

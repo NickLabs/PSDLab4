@@ -26,6 +26,11 @@ namespace DomainModel.Service
             return references;
         }
 
+        public string[] GetTablesColumnNames(string tableName)
+        {
+            return dataBaseRules[tableName].Keys.ToArray();
+        }
+
         public void Parse()
         {
             SQLiteConnection c = new SQLiteConnection(connectionToDb);
@@ -68,12 +73,18 @@ namespace DomainModel.Service
                             rulesIndex += 2;
                             for (int i = rulesIndex; i < rule.Length; i++)
                             {
+                                
+
                                 if (rule[i] != ' ')
                                 {
                                     columnType += rule[i];
                                 }
+                                else
+                                {
+                                    break;
+                                }
                             }
-
+                            
                             string columnTypeForDataTable = "";
                             switch (columnType)
                             {

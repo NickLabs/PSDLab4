@@ -17,9 +17,11 @@ namespace PSDLab4.Presenters
         private readonly IDataBaseModel dataBase;
         private readonly DatabaseParser parser;
         private enum rowStatus { ADD, CHANGE };
+
         private int numberOfColumns = -1;
         private string[] columnNames;
-
+        private Dictionary<string, Dictionary<string, int>> columnReferencesTableNameKeys = new Dictionary<string, Dictionary<string, int>>();
+        private Dictionary<string, Dictionary<int, string>> columnReferencesTableKeyNames = new Dictionary<string, Dictionary<int, string>>();
 
         private rowStatus status = rowStatus.CHANGE;
 
@@ -32,35 +34,36 @@ namespace PSDLab4.Presenters
 
         private void MaterialChanged(object sender, EventArgs e)
         {
-            //Dictionary<string, Dictionary<string, object>> dataBaseRules;
-            //private Dictionary<string, Dictionary<string, string>> references;
             //Из парсера взять правила по типам и зависимости для конкретного материала
             //отправить эти правила в форму
+            columnReferencesTableNameKeys = new Dictionary<string, Dictionary<string, int>>();
+            columnReferencesTableKeyNames = new Dictionary<string, Dictionary<int, string>>();
+
             this.status = rowStatus.ADD;
             string table = this.form.CurrentTable;
             this.columnNames = this.parser.GetDataBaseRules()[table].Select(x => x.Key).ToArray();
             string[] columnTypes = this.parser.GetDataBaseRules()[table].Select(x => x.Value).ToArray();
             numberOfColumns = columnNames.Length;
-            Dictionary<string, Dictionary<string, Dictionary<string, int>>> columnReferencesTable = new Dictionary<string, Dictionary<string, Dictionary<string, int>>>();
 
             //Получаем названия внешних таблиц
             string[] refColumns = this.parser.GetReferences()[table].Select(x => x.Key).ToArray();
             string[] outerTables = this.parser.GetReferences()[table].Select(x => x.Value).ToArray();
             if (outerTables.Length > 0)
             {
-                //Для каждой связной таблицы получаем айдишники и их текстовые представления для наглядности
-                Dictionary<string, Dictionary<string, int>> tableNameKey = new Dictionary<string, Dictionary<string, int>>();
+                //Для каждой связной таблицы получаем айдишники и их текстовые представления для наглядности 
                 for (int i = 0; i < refColumns.Length; i++)
                 {
-                    Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i]);
-                    tableNameKey.Add(outerTables[i], nameKeys);
-                    columnReferencesTable.Add(refColumns[i], tableNameKey);
+                    Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i], this.parser.GetTablesColumnNames(outerTables[i]));
+                    //Dictionary<int, string> keyNames = this.dataBase.IdAndRelevantNamesReverse(outerTables[i], this.parser.GetTablesColumnNames(outerTables[i]));
+                    this.columnReferencesTableNameKeys.Add(refColumns[i], nameKeys);
+                    //this.columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
                 }
             }
-            this.form.GenerateInputFields(columnNames, columnTypes, columnReferencesTable);
+
+            this.form.GenerateInputFields(columnNames, columnTypes, this.columnReferencesTableNameKeys);
             DataTable s = this.dataBase.GetTableData(table);
             this.form.SetColumnNames(columnNames);
-            this.form.SetData(s);
+            this.form.SetData(s, columnReferencesTableNameKeys);
 
             var ar = new ArrayList();
             for (int i = 0; i < this.numberOfColumns; i++)
@@ -86,15 +89,48 @@ namespace PSDLab4.Presenters
         {
             if (status == rowStatus.ADD)
             {
-                this.dataBase.InsertRow(this.form.CurrentTable, this.form.ValuesToSubmit);
+                ArrayList tmp = new ArrayList();
+                tmp = this.form.ValuesToSubmit;
+                for(int i = 0; i < tmp.Count; i++)
+                {
+                    if (columnNames[i].StartsWith("id") && columnNames[i].Length > 2)
+                    {
+                        tmp[i] = columnReferencesTableNameKeys[columnNames[i]][(tmp[i] as string)];
+                    }
+                }
+
+                this.dataBase.InsertRow(this.form.CurrentTable, tmp);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable));
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+
+                var ar = new ArrayList();
+                for (int i = 0; i < this.numberOfColumns; i++)
+                {
+                    ar.Add("");
+                }
+                this.form.ValuesToSubmit = ar;
             }
             else
             {
-                this.dataBase.UpdateRow(this.form.CurrentTable, this.form.ValuesToSubmit, columnNames);
+                ArrayList tmp = new ArrayList();
+                tmp = this.form.ValuesToSubmit;
+                for (int i = 0; i < tmp.Count; i++)
+                {
+                    if (columnNames[i].StartsWith("id") && columnNames[i].Length > 2)
+                    {
+                        tmp[i] = columnReferencesTableNameKeys[this.form.CurrentTable][(tmp[i] as string)];
+                    }
+                }
+                this.dataBase.UpdateRow(this.form.CurrentTable, tmp, columnNames);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable));
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+
+                var ar = new ArrayList();
+                for (int i = 0; i < this.numberOfColumns; i++)
+                {
+                    ar.Add("");
+                }
+                this.form.ValuesToSubmit = ar;
             }
         }
 
@@ -104,13 +140,25 @@ namespace PSDLab4.Presenters
             {
                 this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0], this.form.SelectedItemIndex[1], this.columnNames[0], this.columnNames[1]);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable));
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                var ar = new ArrayList();
+                for (int i = 0; i < this.numberOfColumns; i++)
+                {
+                    ar.Add("");
+                }
+                this.form.ValuesToSubmit = ar;
             }
             else
             {
                 this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0]);
                 this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable));
+                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableNameKeys);
+                var ar = new ArrayList();
+                for (int i = 0; i < this.numberOfColumns; i++)
+                {
+                    ar.Add("");
+                }
+                this.form.ValuesToSubmit = ar;
             }
         }
 

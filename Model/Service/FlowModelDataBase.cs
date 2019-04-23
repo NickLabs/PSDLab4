@@ -7,6 +7,7 @@ using DomainModel.Infrastructure;
 using System.Data.SQLite;
 using System.Data;
 using System.Collections;
+using System.Data.Common;
 
 namespace DomainModel.Service
 {
@@ -32,7 +33,9 @@ namespace DomainModel.Service
 
         public void DeleteRow(string table, int id1, int id2, string column1, string column2)
         {
-            throw new NotImplementedException();
+            string query = String.Format("DELETE FROM {0} WHERE {1}={2} AND {3}={4}", table, id1, column1, id2, column2);
+            command.CommandText = query;
+            command.ExecuteNonQuery();
         }
 
         public bool[] DoesUserExist(string login, string password)
@@ -107,9 +110,32 @@ namespace DomainModel.Service
             throw new NotImplementedException();
         }
 
-        public Dictionary<string, int> IdAndRelevantNames(string tableName)
+        public Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames)
         {
-            return null;
+            string namePresenter = "";
+            
+            foreach(string n in columnNames)
+            {
+                if (n.Contains("name"))
+                {
+                    namePresenter = n;
+                    break;
+                }
+            }
+
+            string query = String.Format("SELECT {0}, id from {1}", namePresenter, tableName);
+
+            Dictionary<string, int> nameId = new Dictionary<string, int>();
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach(DbDataRecord record in reader)
+            {
+                int id = Convert.ToInt32(record[1].ToString());
+                string name = record[0].ToString();
+                nameId[name] = id;
+            }
+            reader.Close();
+            return nameId;
         }
 
         public void InsertRow(string table, ArrayList values)
@@ -119,11 +145,11 @@ namespace DomainModel.Service
             {
                 if (i != values.Count - 1)
                 {
-                    query += values[i].ToString() + ",";
+                    query += "'" + values[i].ToString() + "',";
                 }
                 else
                 {
-                    query += values[i].ToString() + ")";
+                    query += "'" + values[i].ToString() + "')";
                 }
             }
             command.CommandText = query;
@@ -132,7 +158,7 @@ namespace DomainModel.Service
 
         public void UpdateRow(string table, ArrayList values, string[] columnNames)
         {
-            string query = String.Format("Update {0} set", table);
+            string query = String.Format("Update {0} set ", table);
 
             for (int i = 0; i < values.Count; i++)
             {
