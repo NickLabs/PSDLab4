@@ -28,7 +28,7 @@ namespace DomainModel.Infrastructure
         void DeleteRow(string table, int id);
         void DeleteRow(string table, int id1, int id2, string column1, string column2);
         Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames);
-        //Dictionary<int, string> IdAndRelevantNames(string tableName, string[] columnNames);
+        Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames);
         DataTable GetTableData(string tableName);
     }
 }

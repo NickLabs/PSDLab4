@@ -15,7 +15,7 @@ namespace DomainModel.Service
     {
         private readonly SQLiteConnection connection;
         private SQLiteCommand command = new SQLiteCommand();
-        private string dbName = "Data Source=C:\\Users\\prais\\AVPIoO.db";
+        private string dbName = @"Data Source=C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\bin\Debug\AVPIoO.db";
 
         public FlowModelDataBase()
         {
@@ -116,7 +116,7 @@ namespace DomainModel.Service
             
             foreach(string n in columnNames)
             {
-                if (n.Contains("name"))
+                if (n.Contains("name") || n.Contains("Name"))
                 {
                     namePresenter = n;
                     break;
@@ -136,6 +136,34 @@ namespace DomainModel.Service
             }
             reader.Close();
             return nameId;
+        }
+
+        public Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames)
+        {
+            string namePresenter = "";
+
+            foreach (string n in columnNames)
+            {
+                if (n.Contains("name") || n.Contains("Name"))
+                {
+                    namePresenter = n;
+                    break;
+                }
+            }
+
+            string query = String.Format("SELECT id, {0} from {1}", namePresenter, tableName);
+
+            Dictionary<int, string> idName = new Dictionary<int, string>();
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                int id = Convert.ToInt32(record[0].ToString());
+                string name = record[1].ToString();
+                idName[id] = name;
+            }
+            reader.Close();
+            return idName;
         }
 
         public void InsertRow(string table, ArrayList values)
