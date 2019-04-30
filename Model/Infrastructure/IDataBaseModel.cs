@@ -12,6 +12,7 @@ namespace DomainModel.Infrastructure
 {
     public interface IDataBaseModel
     {
+        bool GetRule(string tableName);
         bool[] DoesUserExist(string login, string password);
         int GetUserIdViaLogin(string login);
         string GetUserLoginPassViaId(int id);

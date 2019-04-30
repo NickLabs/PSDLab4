@@ -70,7 +70,7 @@ namespace PSDLab4.Presenters
             {
                 ar.Add("");
             }
-
+            this.form.SetChangeDeleteRules(this.dataBase.GetRule(table));
             this.form.ChangeAddCirculation("Добавление", ar);
         }
 
@@ -91,24 +91,30 @@ namespace PSDLab4.Presenters
             {
                 ArrayList tmp = new ArrayList();
                 tmp = this.form.ValuesToSubmit;
-                for(int i = 0; i < tmp.Count; i++)
+                for (int i = 0; i < tmp.Count; i++)
                 {
                     if (columnNames[i].StartsWith("id") && columnNames[i].Length > 2)
                     {
                         tmp[i] = columnReferencesTableNameKeys[columnNames[i]][(tmp[i] as string)];
                     }
                 }
-
-                this.dataBase.InsertRow(this.form.CurrentTable, tmp);
-                this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
-
-                var ar = new ArrayList();
-                for (int i = 0; i < this.numberOfColumns; i++)
+                try
                 {
-                    ar.Add("");
+                    this.dataBase.InsertRow(this.form.CurrentTable, tmp);
+                    this.form.UpdateTable();
+                    this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+
+                    var ar = new ArrayList();
+                    for (int i = 0; i < this.numberOfColumns; i++)
+                    {
+                        ar.Add("");
+                    }
+                    this.form.ValuesToSubmit = ar;
                 }
-                this.form.ValuesToSubmit = ar;
+                catch (Exception)
+                {
+                    this.form.ShowSQLInjectionError();
+                }
             }
             else
             {
@@ -121,16 +127,23 @@ namespace PSDLab4.Presenters
                         tmp[i] = columnReferencesTableNameKeys[this.form.CurrentTable][(tmp[i] as string)];
                     }
                 }
-                this.dataBase.UpdateRow(this.form.CurrentTable, tmp, columnNames);
-                this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
-
-                var ar = new ArrayList();
-                for (int i = 0; i < this.numberOfColumns; i++)
+                try
                 {
-                    ar.Add("");
+                    this.dataBase.UpdateRow(this.form.CurrentTable, tmp, columnNames);
+                    this.form.UpdateTable();
+                    this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+
+                    var ar = new ArrayList();
+                    for (int i = 0; i < this.numberOfColumns; i++)
+                    {
+                        ar.Add("");
+                    }
+                    this.form.ValuesToSubmit = ar;
                 }
-                this.form.ValuesToSubmit = ar;
+                catch (Exception)
+                {
+                    this.form.ShowSQLInjectionError();
+                }
             }
         }
 

@@ -15,7 +15,14 @@ namespace DomainModel.Service
     {
         private readonly SQLiteConnection connection;
         private SQLiteCommand command = new SQLiteCommand();
-        private string dbName = @"Data Source=C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\bin\Debug\AVPIoO.db";
+        private string dbName = @"Data Source=C:\Users\prais\4.db;foreign keys=true;";
+        private Dictionary<string, bool> DatabaseRules = new Dictionary<string, bool>();
+        private string[] dropVariaties = { "drop ", "droP ", "drOp ", "drOP ", "dRop ", "dRoP ", "dROp ", "dROP ", "Drop ", "DroP ", "DrOp ", "DrOP ", "DRop ", "DRoP ", "DROp ", "DROP " };
+
+        public bool GetRule(string tableName)
+        {
+            return DatabaseRules[tableName];
+        }
 
         public FlowModelDataBase()
         {
@@ -77,7 +84,12 @@ namespace DomainModel.Service
             {
                 tables.Add(row[2].ToString());
             }
+
             tables.Remove("sqlite_sequence");
+            DatabaseRules = tables.ToDictionary(x => x, x => true);
+            DatabaseRules["experiment"] = false;
+            DatabaseRules["canal"] = false;
+            DatabaseRules["expers_variables"] = false;
             return tables.ToArray();
         }
 
@@ -113,34 +125,8 @@ namespace DomainModel.Service
         public Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames)
         {
             string namePresenter = "";
-            
-            foreach(string n in columnNames)
-            {
-                if (n.Contains("name") || n.Contains("Name"))
-                {
-                    namePresenter = n;
-                    break;
-                }
-            }
-
-            string query = String.Format("SELECT {0}, id from {1}", namePresenter, tableName);
-
+            string query = "";
             Dictionary<string, int> nameId = new Dictionary<string, int>();
-            command.CommandText = query;
-            SQLiteDataReader reader = command.ExecuteReader();
-            foreach(DbDataRecord record in reader)
-            {
-                int id = Convert.ToInt32(record[1].ToString());
-                string name = record[0].ToString();
-                nameId[name] = id;
-            }
-            reader.Close();
-            return nameId;
-        }
-
-        public Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames)
-        {
-            string namePresenter = "";
 
             foreach (string n in columnNames)
             {
@@ -151,23 +137,162 @@ namespace DomainModel.Service
                 }
             }
 
-            string query = String.Format("SELECT id, {0} from {1}", namePresenter, tableName);
-
-            Dictionary<int, string> idName = new Dictionary<int, string>();
-            command.CommandText = query;
-            SQLiteDataReader reader = command.ExecuteReader();
-            foreach (DbDataRecord record in reader)
+            if (namePresenter.Equals(""))
             {
-                int id = Convert.ToInt32(record[0].ToString());
-                string name = record[1].ToString();
-                idName[id] = name;
+                bool ableToMakeName = true;
+                foreach (string n in columnNames)
+                {
+                    if (n.Length > 3 && n.StartsWith("id"))
+                    {
+                        ableToMakeName = false;
+                        break;
+                    }
+                }
+                if (!ableToMakeName)
+                {
+                    query = String.Format("SELECT id, id from {0}", tableName);
+
+                    nameId = new Dictionary<string, int>();
+                    command.CommandText = query;
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    foreach (DbDataRecord record in reader)
+                    {
+                        int id = Convert.ToInt32(record[0].ToString());
+                        string name = record[1].ToString();
+                        nameId[name] = id;
+                    }
+                    reader.Close();
+                }
+                else
+                {
+                    query = String.Format("SELECT * from {0}", tableName);
+
+                    nameId = new Dictionary<string, int>();
+                    command.CommandText = query;
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    foreach (DbDataRecord record in reader)
+                    {
+                        int id = Convert.ToInt32(record[0].ToString());
+                        string name = "";
+                        for (int i = 1; i < record.FieldCount; i++)
+                        {
+                            name += record[i];
+                            if (i + 1 != record.FieldCount)
+                            {
+                                name += "*";
+                            }
+                        }
+                        nameId[name] = id;
+                    }
+                    reader.Close();
+                }
             }
-            reader.Close();
+            else
+            {
+                query = String.Format("SELECT id, {0} from {1}", namePresenter, tableName);
+
+                nameId = new Dictionary<string, int>();  
+                command.CommandText = query;
+                SQLiteDataReader reader = command.ExecuteReader();
+                foreach (DbDataRecord record in reader)
+                {
+                    int id = Convert.ToInt32(record[0].ToString());
+                    string name = record[1].ToString();
+                    nameId[name] = id;
+                }
+                reader.Close();
+            }
+            return nameId;
+        }
+
+
+        public Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames)
+        {
+            string namePresenter = "";
+            string query = "";
+            Dictionary<int, string> idName = new Dictionary<int, string>();
+
+            foreach (string n in columnNames)
+            {
+                if (n.Contains("name") || n.Contains("Name"))
+                {
+                    namePresenter = n;
+                    break;
+                }
+            }
+
+            if (namePresenter.Equals(""))
+            {
+                bool ableToMakeName = true;
+                foreach (string n in columnNames)
+                {
+                    if (n.Length < 3 && n.StartsWith("id"))
+                    {
+                        ableToMakeName = false;
+                        break;
+                    }
+                }
+                if (!ableToMakeName)
+                {
+                    query = String.Format("SELECT id, id from {0}", tableName);
+
+                    idName = new Dictionary<int, string>();
+                    command.CommandText = query;
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    foreach (DbDataRecord record in reader)
+                    {
+                        int id = Convert.ToInt32(record[0].ToString());
+                        string name = record[1].ToString();
+                        idName[id] = name;
+                    }
+                    reader.Close();
+                }
+                else
+                {
+                    query = String.Format("SELECT * from {0}", tableName);
+
+                    idName = new Dictionary<int, string>();
+                    command.CommandText = query;
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    foreach (DbDataRecord record in reader)
+                    {
+                        int id = Convert.ToInt32(record[0].ToString());
+                        string name = "";
+                        for(int i = 1; i < record.FieldCount; i++)
+                        {
+                            name += record[i];
+                            if(i+1 != record.FieldCount)
+                            {
+                                name += "*";
+                            }
+                        }
+                        idName[id] = name;
+                    }
+                    reader.Close();
+                }
+            }
+            else
+            {
+                query = String.Format("SELECT id, {0} from {1}", namePresenter, tableName);
+
+                idName = new Dictionary<int, string>();
+                command.CommandText = query;
+                SQLiteDataReader reader = command.ExecuteReader();
+                foreach (DbDataRecord record in reader)
+                {
+                    int id = Convert.ToInt32(record[0].ToString());
+                    string name = record[1].ToString();
+                    idName[id] = name;
+                }
+                reader.Close();
+            }
             return idName;
         }
 
         public void InsertRow(string table, ArrayList values)
         {
+            CheckInjection(values);
+
             string query = String.Format("insert into {0} values (", table);
             for(int i = 0; i < values.Count; i++)
             {
@@ -186,6 +311,8 @@ namespace DomainModel.Service
 
         public void UpdateRow(string table, ArrayList values, string[] columnNames)
         {
+            CheckInjection(values);
+
             string query = String.Format("Update {0} set ", table);
 
             for (int i = 0; i < values.Count; i++)
@@ -201,6 +328,20 @@ namespace DomainModel.Service
             }
             command.CommandText = query;
             command.ExecuteNonQuery();
+        }
+
+        private void CheckInjection(ArrayList values)
+        {
+            foreach (object val in values)
+            {
+                foreach (string s in dropVariaties)
+                {
+                    if (val.ToString().Contains(s))
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
         }
     }
 }

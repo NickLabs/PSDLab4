@@ -19,8 +19,10 @@ namespace View.ViewInterfaces
         event EventHandler delete;
         event EventHandler changeAdd;
         event EventHandler submit;
+        void SetChangeDeleteRules(bool isAllowed);
         void UpdateTable();
         void ShowChangeOrDeleteError();
+        void ShowSQLInjectionError();
         void SetColumnNames(string[] columns);
         void SetData(DataTable data, Dictionary<string, Dictionary<int, string>> columnReferencesTableKeyNames);
         void SetData(DataTable data, Dictionary<string, Dictionary<string, int>> columnReferencesTable);

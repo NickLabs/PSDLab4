@@ -171,6 +171,20 @@ namespace View.Forms
             this.DBRow.Controls.Add(Submit);
         }
 
+        public void SetChangeDeleteRules(bool isAllowed)
+        {
+            if (!isAllowed)
+            {
+                DBRow.Enabled = false;
+                Modify.Enabled = false;
+            }
+            else
+            {
+                DBRow.Enabled = true;
+                Modify.Enabled = true;
+            }
+        }
+
         public void SetColumnNames(string[] columnNames)
         {
             TableView.Columns.Clear();
@@ -188,6 +202,17 @@ namespace View.Forms
                 foreach (DataRow dr in dt.Rows)
                 {
                     TableView.Rows.Add(dr.ItemArray);
+                }
+
+                if (dt.Rows.Count < 1)
+                {
+                    this.Modify.Enabled = false;
+                    this.Delete.Enabled = false;
+                }
+                else
+                {
+                    this.Modify.Enabled = true;
+                    this.Delete.Enabled = true;
                 }
             }
             else
@@ -219,23 +244,18 @@ namespace View.Forms
                             list.Add(dr.ItemArray[i]);
                         }
                     }
+                    TableView.Rows.Add(list.ToArray());
+                }
 
-                    
-
-                    for(int i = 0; i < dr.ItemArray.Length; i++)
-                    {
-                        dr.ItemArray.SetValue(list[i], i);
-                    }
-
-                    dr.ItemArray = list.ToArray();
-
-                    foreach(object o in list)
-                    {
-                        MessageBox.Show(o.ToString());
-                    }
-                    
-
-                    TableView.Rows.Add(dr.ItemArray);
+                if (dt.Rows.Count < 1)
+                {
+                    this.Modify.Enabled = false;
+                    this.Delete.Enabled = false;
+                }
+                else
+                {
+                    this.Modify.Enabled = true;
+                    this.Delete.Enabled = true;
                 }
             }
         }
@@ -248,6 +268,16 @@ namespace View.Forms
             foreach (DataRow dr in dt.Rows)
             {
                 TableView.Rows.Add(dr.ItemArray);
+            }
+            if (dt.Rows.Count < 1)
+            {
+                this.Modify.Enabled = false;
+                this.Delete.Enabled = false;
+            }
+            else
+            {
+                this.Modify.Enabled = true;
+                this.Delete.Enabled = true;
             }
         }
 
@@ -406,6 +436,13 @@ namespace View.Forms
         {
             string caption = "Ошибка при попытке манипуляции данными таблицы";
             string message = "Для изменения параметров таблицы или их удаления необходимо выбрать только один ряд.";
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void ShowSQLInjectionError()
+        {
+            string caption = "Предотвращзённая попытка порчи данных";
+            string message = "Данная операция могла привести к потере данных, поэтому она была заблокирована системой";
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
