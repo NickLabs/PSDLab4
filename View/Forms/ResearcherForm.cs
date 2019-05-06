@@ -35,8 +35,10 @@ namespace View.Forms
             }
         }
 
+        public event EventHandler generateReport;
         public event EventHandler calculate;
         public event EventHandler materialChanged;
+        public event EventHandler changeUser;
 
         public ResearcherForm()
         {
@@ -210,6 +212,29 @@ namespace View.Forms
             chartFromLength.ChartAreas[0].AxisY.Minimum = viscosity.Min();
             chartFromLength.ChartAreas[0].AxisY.Maximum = viscosity.Max();
             chartFromLength.Series["Вязкость, Па * с"].Points.DataBindXY(steps, viscosity);
+        }
+
+        private void GenerateReportClick(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "docx files (*.docx)|*.docx";
+            save.CheckFileExists = true;
+            save.CreatePrompt = true;
+            save.OverwritePrompt = true;
+            save.AddExtension = true;
+            if (save.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = save.FileName;
+
+            generateReport?.Invoke(this, null);
+        }
+
+        private void сменитьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Вы точно хотите выйти из данного меню?\nВсе несохранённые данные будут утрачены", "Подтвердите выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+            {
+
+            }
         }
     }
 }

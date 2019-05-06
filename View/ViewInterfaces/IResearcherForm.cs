@@ -14,6 +14,8 @@ namespace View.ViewInterfaces
         int NumberOfSteps { get; }
         event EventHandler calculate;
         event EventHandler materialChanged;
+        event EventHandler generateReport;
+        event EventHandler changeUser;
         void Start(string name, string[] materialNames);
         void VariableOutOfBounds(List<int> variablesWithErrors, double[] minLimits,
             double[] maxLimits);

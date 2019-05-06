@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using View.ViewInterfaces;
 using DomainModel.Infrastructure;
+using Autofac;
 
 namespace PSDLab4.Presenters
 {
@@ -27,8 +28,14 @@ namespace PSDLab4.Presenters
             this.model = model;
             this.dataBase = dataBase;
             this.form.calculate += Calculate;
+            this.form.changeUser += ChangeUserLogics;
             this.form.materialChanged += FetchMaterialCoefficientsAndProperties;
             this.model.calculationFinished += ModelCalculationsFinished;
+        }
+
+        private void ChangeUserLogics(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void Start(string login)
@@ -36,6 +43,7 @@ namespace PSDLab4.Presenters
             this.researcherId = this.dataBase.GetUserIdViaLogin(login);
             this.researcherName = this.dataBase.GetUserNameViaId(this.researcherId);
             this.form.Start(this.researcherName, this.dataBase.GetAllMaterials());
+            
         }
 
         private void ModelCalculationsFinished(object sender, EventArgs e)

@@ -1,7 +1,7 @@
 ﻿using System;
 using DomainModel.Infrastructure;
 using DomainModel.Service;
-using Presenters.Presenters;
+
 using View.Forms;
 using View.ViewInterfaces;
 using System.Windows.Forms;
@@ -37,15 +37,15 @@ namespace PSDLab4
         private static void RegisterTypes()
         {
             var builder = new ContainerBuilder();
-            ///
-            //builder.RegisterType<AddingForm>().As<IInputView>();
-            //builder.RegisterType<SubPres>();
-            //builder.RegisterType<Model>().As<IModel>();
-            //builder.RegisterType<MainForm>().As<IMainView>();
-            //builder.RegisterType<Pres>();
-            ///
+            builder.RegisterType<AdministratorPresenter>();
             builder.RegisterType<RegistrationPresenter>();
-            builder.RegisterType<RegistrationPresenter>();
+            builder.RegisterType<ResearcherPresenter>();
+            builder.RegisterType<AdminForm>().As<IAdminForm>();
+            builder.RegisterType<ResearcherForm>().As<IResearcherForm>();
+            builder.RegisterType<RegistrationForm>().As<IRegistrationForm>();
+            builder.RegisterType<DatabaseParser>();
+            builder.RegisterType<FlowModelDataBase>().As<IDataBaseModel>();
+            builder.RegisterType<MathModel>().As<IMathModel>();
             _container = builder.Build();
         }
     }
