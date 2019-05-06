@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.depth = new System.Windows.Forms.TextBox();
@@ -73,6 +79,27 @@
             this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label17 = new System.Windows.Forms.Label();
             this.nameSurname = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.resOutput = new System.Windows.Forms.Label();
+            this.resViscosity = new System.Windows.Forms.Label();
+            this.resTemperature = new System.Windows.Forms.Label();
+            this.generateReport = new System.Windows.Forms.Button();
+            this.resultSet = new System.Windows.Forms.DataGridView();
+            this.step = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.temperatureOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.viscosityOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartFromLength = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label21 = new System.Windows.Forms.Label();
+            this.chartFromViscosity = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,12 +107,21 @@
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultSet)).BeginInit();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFromLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFromViscosity)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 38);
+            this.label1.Location = new System.Drawing.Point(9, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 0;
@@ -179,7 +215,7 @@
             // meltingTemperature
             // 
             this.meltingTemperature.AutoSize = true;
-            this.meltingTemperature.Location = new System.Drawing.Point(326, 73);
+            this.meltingTemperature.Location = new System.Drawing.Point(282, 73);
             this.meltingTemperature.Name = "meltingTemperature";
             this.meltingTemperature.Size = new System.Drawing.Size(13, 13);
             this.meltingTemperature.TabIndex = 5;
@@ -188,7 +224,7 @@
             // heatCapacity
             // 
             this.heatCapacity.AutoSize = true;
-            this.heatCapacity.Location = new System.Drawing.Point(326, 51);
+            this.heatCapacity.Location = new System.Drawing.Point(282, 51);
             this.heatCapacity.Name = "heatCapacity";
             this.heatCapacity.Size = new System.Drawing.Size(13, 13);
             this.heatCapacity.TabIndex = 4;
@@ -197,8 +233,9 @@
             // density
             // 
             this.density.AutoSize = true;
-            this.density.Location = new System.Drawing.Point(326, 29);
+            this.density.Location = new System.Drawing.Point(282, 29);
             this.density.Name = "density";
+            this.density.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.density.Size = new System.Drawing.Size(13, 13);
             this.density.TabIndex = 3;
             this.density.Text = "0";
@@ -238,7 +275,7 @@
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Location = new System.Drawing.Point(9, 72);
+            this.groupBox3.Location = new System.Drawing.Point(6, 50);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(355, 301);
             this.groupBox3.TabIndex = 3;
@@ -316,9 +353,9 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 61);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(85, 13);
+            this.label14.Size = new System.Drawing.Size(128, 13);
             this.label14.TabIndex = 1;
-            this.label14.Text = "Темература, °C";
+            this.label14.Text = "Темература крышки, °C";
             // 
             // label13
             // 
@@ -351,7 +388,7 @@
             // heatTransferCoefficient
             // 
             this.heatTransferCoefficient.AutoSize = true;
-            this.heatTransferCoefficient.Location = new System.Drawing.Point(326, 117);
+            this.heatTransferCoefficient.Location = new System.Drawing.Point(282, 117);
             this.heatTransferCoefficient.Name = "heatTransferCoefficient";
             this.heatTransferCoefficient.Size = new System.Drawing.Size(13, 13);
             this.heatTransferCoefficient.TabIndex = 10;
@@ -360,7 +397,7 @@
             // flowIndex
             // 
             this.flowIndex.AutoSize = true;
-            this.flowIndex.Location = new System.Drawing.Point(326, 95);
+            this.flowIndex.Location = new System.Drawing.Point(282, 95);
             this.flowIndex.Name = "flowIndex";
             this.flowIndex.Size = new System.Drawing.Size(13, 13);
             this.flowIndex.TabIndex = 9;
@@ -369,7 +406,7 @@
             // reductionTemperature
             // 
             this.reductionTemperature.AutoSize = true;
-            this.reductionTemperature.Location = new System.Drawing.Point(326, 73);
+            this.reductionTemperature.Location = new System.Drawing.Point(282, 73);
             this.reductionTemperature.Name = "reductionTemperature";
             this.reductionTemperature.Size = new System.Drawing.Size(13, 13);
             this.reductionTemperature.TabIndex = 8;
@@ -378,7 +415,7 @@
             // viscosityCoefficient
             // 
             this.viscosityCoefficient.AutoSize = true;
-            this.viscosityCoefficient.Location = new System.Drawing.Point(326, 51);
+            this.viscosityCoefficient.Location = new System.Drawing.Point(282, 51);
             this.viscosityCoefficient.Name = "viscosityCoefficient";
             this.viscosityCoefficient.Size = new System.Drawing.Size(13, 13);
             this.viscosityCoefficient.TabIndex = 7;
@@ -387,7 +424,7 @@
             // consistencyRatio
             // 
             this.consistencyRatio.AutoSize = true;
-            this.consistencyRatio.Location = new System.Drawing.Point(326, 29);
+            this.consistencyRatio.Location = new System.Drawing.Point(282, 26);
             this.consistencyRatio.Name = "consistencyRatio";
             this.consistencyRatio.Size = new System.Drawing.Size(13, 13);
             this.consistencyRatio.TabIndex = 5;
@@ -442,7 +479,7 @@
             // 
             this.materialType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.materialType.FormattingEnabled = true;
-            this.materialType.Location = new System.Drawing.Point(110, 35);
+            this.materialType.Location = new System.Drawing.Point(113, 14);
             this.materialType.Name = "materialType";
             this.materialType.Size = new System.Drawing.Size(121, 21);
             this.materialType.TabIndex = 5;
@@ -453,7 +490,7 @@
             // 
             this.groupBox6.Controls.Add(this.groupBox2);
             this.groupBox6.Controls.Add(this.groupBox4);
-            this.groupBox6.Location = new System.Drawing.Point(402, 72);
+            this.groupBox6.Location = new System.Drawing.Point(369, 50);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(364, 301);
             this.groupBox6.TabIndex = 6;
@@ -462,7 +499,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(344, 400);
+            this.button1.Location = new System.Drawing.Point(328, 360);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -478,7 +515,7 @@
             this.помощьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(766, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(774, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -503,7 +540,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(402, 37);
+            this.label17.Location = new System.Drawing.Point(366, 17);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(84, 13);
             this.label17.TabIndex = 9;
@@ -512,24 +549,251 @@
             // nameSurname
             // 
             this.nameSurname.AutoSize = true;
-            this.nameSurname.Location = new System.Drawing.Point(492, 38);
+            this.nameSurname.Location = new System.Drawing.Point(456, 18);
             this.nameSurname.Name = "nameSurname";
             this.nameSurname.Size = new System.Drawing.Size(34, 13);
             this.nameSurname.TabIndex = 10;
             this.nameSurname.Text = "ФИО";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(12, 27);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(750, 415);
+            this.tabControl1.TabIndex = 11;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox3);
+            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Controls.Add(this.nameSurname);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Controls.Add(this.materialType);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(742, 389);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Ввод данных";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox8);
+            this.tabPage2.Controls.Add(this.generateReport);
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(742, 389);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Результаты";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.chartFromViscosity);
+            this.tabPage3.Controls.Add(this.label21);
+            this.tabPage3.Controls.Add(this.chartFromLength);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(742, 389);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Графическое представление";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.resTemperature);
+            this.groupBox7.Controls.Add(this.resViscosity);
+            this.groupBox7.Controls.Add(this.resOutput);
+            this.groupBox7.Controls.Add(this.label20);
+            this.groupBox7.Controls.Add(this.label19);
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Location = new System.Drawing.Point(416, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(238, 90);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Результаты";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 19);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(118, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Производительность:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 41);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(55, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Вязкость";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 63);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 13);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Температура";
+            // 
+            // resOutput
+            // 
+            this.resOutput.AutoSize = true;
+            this.resOutput.Location = new System.Drawing.Point(131, 19);
+            this.resOutput.Name = "resOutput";
+            this.resOutput.Size = new System.Drawing.Size(13, 13);
+            this.resOutput.TabIndex = 3;
+            this.resOutput.Text = "0";
+            // 
+            // resViscosity
+            // 
+            this.resViscosity.AutoSize = true;
+            this.resViscosity.Location = new System.Drawing.Point(131, 41);
+            this.resViscosity.Name = "resViscosity";
+            this.resViscosity.Size = new System.Drawing.Size(13, 13);
+            this.resViscosity.TabIndex = 4;
+            this.resViscosity.Text = "0";
+            // 
+            // resTemperature
+            // 
+            this.resTemperature.AutoSize = true;
+            this.resTemperature.Location = new System.Drawing.Point(131, 63);
+            this.resTemperature.Name = "resTemperature";
+            this.resTemperature.Size = new System.Drawing.Size(13, 13);
+            this.resTemperature.TabIndex = 5;
+            this.resTemperature.Text = "0";
+            // 
+            // generateReport
+            // 
+            this.generateReport.Location = new System.Drawing.Point(485, 102);
+            this.generateReport.Name = "generateReport";
+            this.generateReport.Size = new System.Drawing.Size(95, 23);
+            this.generateReport.TabIndex = 1;
+            this.generateReport.Text = "Создать отчёт";
+            this.generateReport.UseVisualStyleBackColor = true;
+            // 
+            // resultSet
+            // 
+            this.resultSet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultSet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.step,
+            this.temperatureOnStep,
+            this.viscosityOnStep});
+            this.resultSet.Location = new System.Drawing.Point(6, 19);
+            this.resultSet.Name = "resultSet";
+            this.resultSet.Size = new System.Drawing.Size(343, 352);
+            this.resultSet.TabIndex = 3;
+            // 
+            // step
+            // 
+            this.step.HeaderText = "Шаг";
+            this.step.Name = "step";
+            // 
+            // temperatureOnStep
+            // 
+            this.temperatureOnStep.HeaderText = "Температура";
+            this.temperatureOnStep.Name = "temperatureOnStep";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.resultSet);
+            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(355, 377);
+            this.groupBox8.TabIndex = 4;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Таблица результатов";
+            // 
+            // viscosityOnStep
+            // 
+            this.viscosityOnStep.HeaderText = "Вязкость";
+            this.viscosityOnStep.Name = "viscosityOnStep";
+            // 
+            // chartFromLength
+            // 
+            this.chartFromLength.BackColor = System.Drawing.Color.Silver;
+            chartArea2.AxisX.Title = "Длина, м";
+            chartArea2.Name = "ChartArea1";
+            this.chartFromLength.ChartAreas.Add(chartArea2);
+            legend2.Alignment = System.Drawing.StringAlignment.Center;
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend2.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend2.Name = "Legend1";
+            this.chartFromLength.Legends.Add(legend2);
+            this.chartFromLength.Location = new System.Drawing.Point(6, 6);
+            this.chartFromLength.Name = "chartFromLength";
+            this.chartFromLength.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Вязкость, Па * с";
+            this.chartFromLength.Series.Add(series2);
+            this.chartFromLength.Size = new System.Drawing.Size(350, 350);
+            this.chartFromLength.TabIndex = 0;
+            this.chartFromLength.Text = "chart1";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(88, 359);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(214, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "График зависимости взякости от длины";
+            // 
+            // chartFromViscosity
+            // 
+            this.chartFromViscosity.BackColor = System.Drawing.Color.Silver;
+            chartArea1.AxisX.Title = "Длина, м";
+            chartArea1.Name = "ChartArea1";
+            this.chartFromViscosity.ChartAreas.Add(chartArea1);
+            legend1.Alignment = System.Drawing.StringAlignment.Center;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.Name = "Legend1";
+            this.chartFromViscosity.Legends.Add(legend1);
+            this.chartFromViscosity.Location = new System.Drawing.Point(388, 6);
+            this.chartFromViscosity.Name = "chartFromViscosity";
+            this.chartFromViscosity.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Температура, °C";
+            this.chartFromViscosity.Series.Add(series1);
+            this.chartFromViscosity.Size = new System.Drawing.Size(348, 350);
+            this.chartFromViscosity.TabIndex = 2;
+            this.chartFromViscosity.Text = "chart2";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(453, 359);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(234, 13);
+            this.label22.TabIndex = 3;
+            this.label22.Text = "График зависимости температуры от длины";
+            // 
             // ResearcherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 450);
-            this.Controls.Add(this.nameSurname);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.materialType);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(774, 454);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ResearcherForm";
@@ -547,6 +811,18 @@
             this.groupBox6.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultSet)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartFromLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFromViscosity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,5 +875,26 @@
         private System.Windows.Forms.Label stepValue;
         private System.Windows.Forms.TextBox stepCanal;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.DataGridView resultSet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn step;
+        private System.Windows.Forms.DataGridViewTextBoxColumn temperatureOnStep;
+        private System.Windows.Forms.DataGridViewTextBoxColumn viscosityOnStep;
+        private System.Windows.Forms.Button generateReport;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label resTemperature;
+        private System.Windows.Forms.Label resViscosity;
+        private System.Windows.Forms.Label resOutput;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFromLength;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFromViscosity;
+        private System.Windows.Forms.Label label21;
     }
 }

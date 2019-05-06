@@ -26,56 +26,65 @@ namespace PSDLab4.Presenters
             this.form = form;
             this.model = model;
             this.dataBase = dataBase;
-        }
-
-        public void Start(string login)
-        {
-            this.researcherId=this.dataBase.GetUserIdViaLogin(login);
-            this.researcherName = this.dataBase.GetUserNameViaId(this.researcherId);
-            this.form.Start(this.researcherName, this.dataBase.GetAllMaterials());
             this.form.calculate += Calculate;
             this.form.materialChanged += FetchMaterialCoefficientsAndProperties;
             this.model.calculationFinished += ModelCalculationsFinished;
         }
 
+        public void Start(string login)
+        {
+            this.researcherId = this.dataBase.GetUserIdViaLogin(login);
+            this.researcherName = this.dataBase.GetUserNameViaId(this.researcherId);
+            this.form.Start(this.researcherName, this.dataBase.GetAllMaterials());
+        }
+
         private void ModelCalculationsFinished(object sender, EventArgs e)
         {
+            double[] visc = this.model.GetViscosity();
+            double[] temper = this.model.GetTemperatures();
+            double perf = this.model.GetPerformance();
+            int canalId = dataBase.CreateCanalRow(this.form.GetCanalGeometry());
+            int experimentId = dataBase.CreateExperiment(visc[visc.Length - 1], temper[temper.Length - 1], perf,
+                this.researcherId, this.materialId, canalId);
+            this.dataBase.CreateVariablesValues(this.form.GetVariableParams(), experimentId);
+            this.form.SetResults(temper, visc, this.form.GetCanalGeometry()[0],perf);
             //Дальше кидаем в базу результаты, и кидаем всё в форму для графиков и прочего
         }
 
         private void FetchMaterialCoefficientsAndProperties(object sender, EventArgs e)
         {
             this.materialId = this.dataBase.GetMaterialIdViaName(this.form.ChosenMaterial);
-            this.materialCoefficients= this.dataBase.FetchAllCoefficients(this.form.ChosenMaterial);
-            this.materialProperties = this.dataBase.FetchAllProperties(this.form.ChosenMaterial);
-            this.form.Coefficients = this.materialCoefficients;
-            this.form.Properties = this.materialProperties;
+            this.materialCoefficients= this.dataBase.FetchAllCoefficients(this.materialId);
+            this.materialProperties = this.dataBase.FetchAllProperties(this.materialId);
+            this.form.SetData(this.materialCoefficients, this.materialProperties);
             this.minLimitations = this.dataBase.FetchLimitsMin(this.materialId);
             this.maxLimitations = this.dataBase.FetchLimitsMax(this.materialId);
         }
 
         private void Calculate(object sender, EventArgs e)
         {
-            int temp = 0;
             bool areInputParametrsCorrect = true;
             List<int> wrongInputParametrsIndexes = new List<int>();
-            for(int i = 0; i < this.form.CanalGeometry.Length; i++)
+            double[] CanalGeometry = this.form.GetCanalGeometry();
+            double[] VariableParams = this.form.GetVariableParams();
+            for(int i = 0; i < CanalGeometry.Length; i++)
             {
-                if(this.form.CanalGeometry[i] < this.minLimitations[i] || 
-                    this.form.CanalGeometry[i] > this.maxLimitations[i])
+                if(CanalGeometry[i] < 0.00001 || 
+                    CanalGeometry[i] > 100000)
+                {
+                    areInputParametrsCorrect = false;
+                    wrongInputParametrsIndexes.Add(-1);
+                    break;
+                }
+            }
+
+            for(int i = 0; i < VariableParams.Length-1; i++)
+            {
+                if(VariableParams[i] < this.minLimitations[i] ||
+                    VariableParams[i] > this.maxLimitations[i])
                 {
                     areInputParametrsCorrect = false;
                     wrongInputParametrsIndexes.Add(i);
-                }
-                temp++;
-            }
-            for(int i = 0; i < this.form.VariableParams.Length-1; i++)
-            {
-                if(this.form.VariableParams[i] < this.minLimitations[i+temp] ||
-                    this.form.VariableParams[i] > this.maxLimitations[i + temp])
-                {
-                    areInputParametrsCorrect = false;
-                    wrongInputParametrsIndexes.Add(i+temp);
                 }
             }
 
@@ -84,7 +93,7 @@ namespace PSDLab4.Presenters
                 try
                 {
                     this.model.Calculate(materialCoefficients, materialProperties,
-                        this.form.CanalGeometry, this.form.VariableParams , this.form.NumberOfSteps);
+                        CanalGeometry, VariableParams , this.form.NumberOfSteps);
                     
                 }
                 catch (DivideByZeroException)

@@ -325,7 +325,6 @@ namespace View.Forms
                 {
                     string message = String.Format("В поле {0} должно быть введено целое неотрицательное число", (sender as TextBox).Name);
                     MessageBox.Show(message, "Неверный тип данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = false;
                 }
             }
         }
@@ -345,7 +344,6 @@ namespace View.Forms
                 {
                     string message = String.Format("В поле {0} должно быть введено вещественное неотрицательное число", (sender as TextBox).Name);
                     MessageBox.Show(message, "Неверный тип данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = false;
                 }
             }
         }
@@ -481,7 +479,6 @@ namespace View.Forms
 
                 DBRow.Controls[1].Enabled = true;
                 DBRow.Controls[3].Enabled = true;
-                this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = false;
             }
         }
 

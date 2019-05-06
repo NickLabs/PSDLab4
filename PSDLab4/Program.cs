@@ -29,8 +29,9 @@ namespace PSDLab4
             //{
             //   Application.Exit();
             //}
-            var pres = new AdministratorPresenter(new AdminForm(), new FlowModelDataBase(), new DatabaseParser());
-            pres.Start();
+            var pres = new ResearcherPresenter(new ResearcherForm(), new MathModel() ,new FlowModelDataBase());
+            //var pres = new AdministratorPresenter(new AdminForm(), new FlowModelDataBase(), new DatabaseParser());
+            pres.Start("nick123");
         }
 
         private static void RegisterTypes()

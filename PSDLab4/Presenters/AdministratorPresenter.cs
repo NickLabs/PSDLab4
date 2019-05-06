@@ -124,7 +124,7 @@ namespace PSDLab4.Presenters
                 {
                     if (columnNames[i].StartsWith("id") && columnNames[i].Length > 2)
                     {
-                        tmp[i] = columnReferencesTableNameKeys[this.form.CurrentTable][(tmp[i] as string)];
+                        tmp[i] = columnReferencesTableNameKeys[columnNames[i]][(tmp[i] as string)];
                     }
                 }
                 try

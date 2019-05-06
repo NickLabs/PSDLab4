@@ -9,10 +9,8 @@ namespace View.ViewInterfaces
     public interface IResearcherForm
     {
         string ChosenMaterial { get; }
-        double[] Properties { set; }
-        double[] Coefficients { set; }
-        double[] CanalGeometry { get; }
-        double[] VariableParams { get; }
+        double[] GetCanalGeometry();
+        double[] GetVariableParams();
         int NumberOfSteps { get; }
         event EventHandler calculate;
         event EventHandler materialChanged;
@@ -20,5 +18,7 @@ namespace View.ViewInterfaces
         void VariableOutOfBounds(List<int> variablesWithErrors, double[] minLimits,
             double[] maxLimits);
         void DivideByZeroError();
+        void SetData(double[] coefficients, double[] properties);
+        void SetResults(double[] temperature, double[] viscosity, double length, double output);
     }
 }

@@ -50,37 +50,82 @@ namespace DomainModel.Service
             throw new NotImplementedException();
         }
 
-        public double[] FetchAllCoefficients(string materialName)
+        public double[] FetchAllCoefficients(int idMaterial)
         {
-            throw new NotImplementedException();
+            List<double> results = new List<double>();
+            string query = String.Format("Select value from materials_coefficients where idMaterial={0} ORDER BY idCoefficient asc", idMaterial);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                results.Add(Convert.ToDouble(record[0]));
+            }
+            reader.Close();
+            return results.ToArray();
         }
 
-        public double[] FetchAllProperties(string materialName)
+        public double[] FetchAllProperties(int idMaterial)
         {
-            throw new NotImplementedException();
+            List<double> results = new List<double>();
+            string query = String.Format("Select value from prop_mat where idMat={0} ORDER BY idProp asc", idMaterial);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                results.Add(Convert.ToDouble(record[0]));
+            }
+            reader.Close();
+            return results.ToArray();
         }
 
         public double[] FetchLimitsMax(int idMaterial)
         {
-            throw new NotImplementedException();
+            List<double> results = new List<double>();
+            string query = String.Format("Select maxValue from params_limitations where idMaterial={0} ORDER BY idVariable asc", idMaterial);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                results.Add(Convert.ToDouble(record[0]));
+            }
+            reader.Close();
+            return results.ToArray();
         }
 
         public double[] FetchLimitsMin(int idMaterial)
         {
-            throw new NotImplementedException();
+            List<double> results = new List<double>();
+            string query = String.Format("Select minValue from params_limitations where idMaterial={0} ORDER BY idVariable asc", idMaterial);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                results.Add(Convert.ToDouble(record[0]));
+            }
+            reader.Close();
+            return results.ToArray();
         }
 
         public string[] GetAllMaterials()
         {
-            throw new NotImplementedException();
+            string query = "Select name from material";
+            List<string> tmp = new List<string>();
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                tmp.Add(record[0].ToString());
+            }
+            reader.Close();
+            return tmp.ToArray();
         }
 
         public string[] GetAllTables()
         {
-            List<string> tables= new List<string>();
+            List<string> tables = new List<string>();
             DataTable dt = this.connection.GetSchema("Tables");
-            
-            foreach(DataRow row in dt.Rows)
+
+            foreach (DataRow row in dt.Rows)
             {
                 tables.Add(row[2].ToString());
             }
@@ -95,7 +140,16 @@ namespace DomainModel.Service
 
         public int GetMaterialIdViaName(string name)
         {
-            throw new NotImplementedException();
+            int result = -1;
+            string query = String.Format("Select id from material where name='{0}'", name);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            foreach (DbDataRecord record in reader)
+            {
+                result = Convert.ToInt32(record[0].ToString());
+            }
+            reader.Close();
+            return result;
         }
 
         public DataTable GetTableData(string tableName)
@@ -109,7 +163,16 @@ namespace DomainModel.Service
 
         public int GetUserIdViaLogin(string login)
         {
-            throw new NotImplementedException();
+            string query = String.Format("Select id from user where login='{0}'", login);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            int id = -1;
+            foreach (DbDataRecord record in reader)
+            {
+               id = Convert.ToInt32(record[0]);
+            }
+            reader.Close();
+            return id;
         }
 
         public string GetUserLoginPassViaId(int id)
@@ -119,7 +182,16 @@ namespace DomainModel.Service
 
         public string GetUserNameViaId(int id)
         {
-            throw new NotImplementedException();
+            string query = String.Format("Select name from user where id='{0}'", id);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            string name = "";
+            foreach (DbDataRecord record in reader)
+            {
+                name = record[0].ToString();
+            }
+            reader.Close();
+            return name;
         }
 
         public Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames)
@@ -191,7 +263,7 @@ namespace DomainModel.Service
             {
                 query = String.Format("SELECT id, {0} from {1}", namePresenter, tableName);
 
-                nameId = new Dictionary<string, int>();  
+                nameId = new Dictionary<string, int>();
                 command.CommandText = query;
                 SQLiteDataReader reader = command.ExecuteReader();
                 foreach (DbDataRecord record in reader)
@@ -258,10 +330,10 @@ namespace DomainModel.Service
                     {
                         int id = Convert.ToInt32(record[0].ToString());
                         string name = "";
-                        for(int i = 1; i < record.FieldCount; i++)
+                        for (int i = 1; i < record.FieldCount; i++)
                         {
                             name += record[i];
-                            if(i+1 != record.FieldCount)
+                            if (i + 1 != record.FieldCount)
                             {
                                 name += "*";
                             }
@@ -294,7 +366,7 @@ namespace DomainModel.Service
             CheckInjection(values);
 
             string query = String.Format("insert into {0} values (", table);
-            for(int i = 0; i < values.Count; i++)
+            for (int i = 0; i < values.Count; i++)
             {
                 if (i != values.Count - 1)
                 {
@@ -314,17 +386,60 @@ namespace DomainModel.Service
             CheckInjection(values);
 
             string query = String.Format("Update {0} set ", table);
-
-            for (int i = 0; i < values.Count; i++)
+            if (columnNames[0].StartsWith("id") && columnNames[0].Length > 2)
             {
-                if (i != values.Count - 1)
+                int startIndex = 0;
+                for (int i = 0; i < columnNames.Length; i++)
                 {
-                    query += columnNames[i] + "=" +values[i].ToString() + ",";
+                    if (!columnNames[i].StartsWith("id"))
+                    {
+                        break;
+                    }
+                    startIndex++;
                 }
-                else
+                for (int i = startIndex; i < values.Count; i++)
                 {
-                    query += columnNames[i] + "=" + values[i].ToString();
+                    if (values[i].ToString().Contains(","))
+                    {
+                        values[i] = values[i].ToString().Replace(',', '.');
+                    }
+                    if (i != values.Count - 1)
+                    {
+                        query += columnNames[i] + "='" + values[i].ToString() + "',";
+                    }
+                    else
+                    {
+                        query += columnNames[i] + "='" + values[i].ToString() + "' ";
+                    }
                 }
+                query += "Where ";
+                for (int i = 0; i < startIndex; i++)
+                {
+
+                    if (i != startIndex - 1)
+                    {
+                        query += String.Format("{0}='{1}' and ", columnNames[i], values[i]);
+                    }
+                    else
+                    {
+                        query += String.Format("{0}='{1}'", columnNames[i], values[i]);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 1; i < values.Count; i++)
+                {
+                    if (i != values.Count - 1)
+                    {
+                        query += columnNames[i] + "='" + values[i].ToString() + "',";
+                    }
+                    else
+                    {
+                        query += columnNames[i] + "='" + values[i].ToString() + "' ";
+                    }
+                }
+                query += String.Format("Where id='{0}'", values[0]);
             }
             command.CommandText = query;
             command.ExecuteNonQuery();
@@ -342,6 +457,58 @@ namespace DomainModel.Service
                     }
                 }
             }
+        }
+
+        public int CreateExperiment(double viscosity, double temperature, double performance, int idUser, int idMaterial, int idCanal)
+        {
+            string query = "Select COUNT(*) FROM 'experiment'";
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            int id = 1;
+            foreach (DbDataRecord record in reader)
+            {
+                id = Convert.ToInt32(record[0]);
+            }
+            reader.Close();
+
+            query = String.Format("insert into experiment values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", id, idCanal, idMaterial, idUser, DateTime.Today.ToShortDateString(), performance, viscosity, temperature);
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+            
+
+            return id;
+        }
+
+        public int CreateCanalRow(double[] dimensionsLWD)
+        {
+            string query = "SELECT COUNT(*) FROM 'canal'";
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            int id = 0;
+            foreach (DbDataRecord record in reader)
+            {
+               id = Convert.ToInt32(record[0]);
+            }
+            reader.Close();
+
+            id++;
+            query = String.Format("insert into canal values ('{0}','{1}','{2}','{3}')",id, dimensionsLWD[0], dimensionsLWD[1], dimensionsLWD[2]);
+
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+
+            return id;
+        }
+
+        public void CreateVariablesValues(double[] variablesST, int experimentId)
+        {
+            string query = String.Format("insert into expers_variables values ('{0}','{1}','{2}')", experimentId, 1, variablesST[0]);
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+
+            query = String.Format("insert into expers_variables values ('{0}','{1}','{2}')", experimentId, 2, variablesST[1]);
+            command.CommandText = query;
+            command.ExecuteNonQuery();
         }
     }
 }

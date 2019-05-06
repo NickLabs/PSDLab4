@@ -20,10 +20,13 @@ namespace DomainModel.Infrastructure
         string[] GetAllMaterials();
         string[] GetAllTables();
         int GetMaterialIdViaName(string name);
-        double[] FetchAllProperties(string materialName);
-        double[] FetchAllCoefficients(string materialName);
+        double[] FetchAllProperties(int idMaterial);
+        double[] FetchAllCoefficients(int idMaterial);
         double[] FetchLimitsMin(int idMaterial);
         double[] FetchLimitsMax(int idMaterial);
+        int CreateExperiment(double viscosity, double temperature, double performance, int userId,  int materialId, int canalId);
+        int CreateCanalRow(double[] dimensionsLWD);
+        void CreateVariablesValues(double[] variablesST, int experimentId);
         void InsertRow(string table, ArrayList values);
         void UpdateRow(string table, ArrayList values,string[] columnNames);
         void DeleteRow(string table, int id);

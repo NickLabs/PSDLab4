@@ -13,65 +13,19 @@ namespace View.Forms
 {
     public partial class ResearcherForm : Form, IResearcherForm
     {
-        public string ChosenMaterial{ get {return this.materialType.SelectedItem.ToString();}}
-        public double[] Properties
+        public string ChosenMaterial { get { return this.materialType.SelectedItem.ToString(); } }
+
+        public double[] GetCanalGeometry()
         {
-            set
-            {
-                Label[] temporary = { density, heatCapacity, meltingTemperature };
-                Properties = value;
-                for(int i = 0; i < temporary.Length; i++)
-                {
-                    temporary[i].Text = Properties[i].ToString();
-                }
-            }
-            get
-            {
-                return Properties;
-            }
+            double[] results = { Convert.ToDouble(length.Text), Convert.ToDouble(width.Text), Convert.ToDouble(depth.Text) };
+            return results;
         }
 
-        public double[] Coefficients
+        public double[] GetVariableParams()
         {
-            set
-            {
-                Label[] temporary = { consistencyRatio, viscosityCoefficient, reductionTemperature, flowIndex, heatTransferCoefficient };
-                Coefficients = value;
-                for (int i = 0; i < temporary.Length; i++)
-                {
-                    temporary[i].Text = Coefficients[i].ToString();
-                }
-            }
-            get
-            {
-                return Coefficients;
-            }
-        }
-
-        public double[] CanalGeometry
-        {
-            get
-            {
-                double[] temporary = { Convert.ToDouble(length.Text), Convert.ToDouble(width.Text), Convert.ToDouble(depth.Text) };
-                return temporary;
-            }
-            set
-            {
-                CanalGeometry = value;
-            }
-        }
-
-        public double[] VariableParams
-        {
-            get
-            {
-                double[] temporary = { Convert.ToDouble(capSpeed.Text), Convert.ToDouble(temperature.Text) };
-                return temporary;
-            }
-            set
-            {
-                VariableParams = value;
-            }
+            double[] results = {Convert.ToDouble(this.capSpeed.Text), Convert.ToDouble(this.temperature.Text),
+                    Convert.ToDouble(this.stepCanal.Text) };
+            return results;
         }
         public int NumberOfSteps
         {
@@ -93,27 +47,27 @@ namespace View.Forms
         {
             this.nameSurname.Text = name;
             this.materialType.Items.AddRange(materialNames);
-            this.Show();
+            Application.Run(this);
         }
 
         private void KeyPressHandle(object sender, KeyPressEventArgs e)
-        {      
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
             {
                 e.Handled = true;
             }
 
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
             {
                 e.Handled = true;
-            }      
+            }
         }
 
         private void LengthLeave(object sender, EventArgs e)
         {
             if (!length.Text.Equals("") && !stepCanal.Text.Equals(""))
             {
-                stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / Convert.ToDouble(stepCanal.Text),2).ToString();
+                stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / Convert.ToDouble(stepCanal.Text), 2).ToString();
             }
         }
 
@@ -133,7 +87,7 @@ namespace View.Forms
                 }
                 else
                 {
-                    stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / tmp , 2).ToString();
+                    stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / tmp, 4).ToString();
                 }
             }
             catch (Exception)
@@ -144,7 +98,7 @@ namespace View.Forms
 
         private void TextChangedHandle(object sender, EventArgs e)
         {
-            if((sender as TextBox).Text.Split('.')[0].StartsWith("00"))
+            if ((sender as TextBox).Text.Split('.')[0].StartsWith("00"))
             {
                 (sender as TextBox).Text = "0";
             }
@@ -152,22 +106,21 @@ namespace View.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if((!length.Text.Equals("") && !width.Text.Equals("") && !depth.Text.Equals("") && materialType.Text.Equals("") &&
-                !capSpeed.Text.Equals("") && !temperature.Text.Equals("") && !stepCanal.Text.Equals("")))
+            if (!length.Text.Equals("") && !width.Text.Equals("") && !depth.Text.Equals("") && !materialType.Text.Equals("") &&
+                !capSpeed.Text.Equals("") && !temperature.Text.Equals("") && !stepCanal.Text.Equals(""))
             {
                 double[] temporaryGeometry = {Convert.ToDouble(this.length.Text), Convert.ToDouble(this.width.Text),
                     Convert.ToDouble(this.depth.Text) };
                 double[] temporaryVar = {Convert.ToDouble(this.capSpeed.Text), Convert.ToDouble(this.temperature.Text),
                     Convert.ToDouble(this.stepCanal.Text) };
-                VariableParams = temporaryVar;
-                CanalGeometry = temporaryGeometry;
+
                 this.calculate?.Invoke(this, null);
             }
         }
 
         private void MaterialTypeSelected(object sender, EventArgs e)
         {
-            if(materialType.SelectedValue.ToString().Equals("") || materialType.SelectedText.Equals(""))
+            if (materialType.Text.ToString().Equals("") || materialType.Text.Equals(""))
             {
                 MessageBox.Show("Не выбран материал", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -176,6 +129,7 @@ namespace View.Forms
                 materialChanged?.Invoke(this, null);
             }
         }
+
         private void MaterialTypeLeave(object sender, EventArgs e)
         {
             if (!materialType.Text.Equals(""))
@@ -191,24 +145,18 @@ namespace View.Forms
         public void VariableOutOfBounds(List<int> variablesWithErrors, double[] minLimits, double[] maxLimits)
         {
             string errorMessage = "";
-            foreach(int variable in variablesWithErrors)
+            foreach (int variable in variablesWithErrors)
             {
                 switch (variable)
                 {
+                    case -1:
+                        errorMessage += string.Format("Длина/Ширина/Глубина не должна быть больше {0} или меньше {1}\n", 0.00001, 100000);
+                        break;
                     case 0:
-                        errorMessage += string.Format("Длина не должна быть больше {0} или меньше {1}\n", minLimits[0], maxLimits[0]);
+                        errorMessage += string.Format("Скорость крышки не должна быть больше {0} или меньше {1}\n", minLimits[0], maxLimits[0]);
                         break;
                     case 1:
-                        errorMessage += string.Format("Ширина не должна быть больше {0} или меньше {1}\n", minLimits[1], maxLimits[1]);
-                        break;
-                    case 2:
-                        errorMessage += string.Format("Глубина не должна быть больше {0} или меньше {1}\n", minLimits[2], maxLimits[2]);
-                        break;
-                    case 3:
-                        errorMessage += string.Format("Скорость крышки не должна быть больше {0} или меньше {1}\n", minLimits[3], maxLimits[3]);
-                        break;
-                    case 4:
-                        errorMessage += string.Format("Температура не должна быть больше {0} или меньше {1}\n", minLimits[4], maxLimits[4]);
+                        errorMessage += string.Format("Температура не должна быть больше {0} или меньше {1}\n", minLimits[1], maxLimits[1]);
                         break;
                 }
             }
@@ -219,6 +167,49 @@ namespace View.Forms
         public void DivideByZeroError()
         {
             MessageBox.Show("В процессе вычислений с данными параметрами возникла ситуация деления на 0", "Деление на ноль", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void SetData(double[] coefficients, double[] properties)
+        {
+            Label[] temporary = { consistencyRatio, viscosityCoefficient, reductionTemperature, flowIndex, heatTransferCoefficient };
+
+            for (int i = 0; i < coefficients.Length; i++)
+            {
+                temporary[i].Text = coefficients[i].ToString();
+            }
+
+            Label[] temporary2 = { density, heatCapacity, meltingTemperature };
+            for (int i = 0; i < properties.Length; i++)
+            {
+                temporary2[i].Text = properties[i].ToString();
+            }
+        }
+
+        public void SetResults(double[] temperature, double[] viscosity, double length, double output)
+        {
+            double currentLength = 0;
+            double stepIncrease = length / temperature.Length;
+            double[] steps = new double[temperature.Length];
+            for(int i = 0; i < temperature.Length; i++)
+            {
+                currentLength += stepIncrease;
+                resultSet.Rows.Add(Math.Round(currentLength,4), Math.Round(temperature[i],3), Math.Round(viscosity[i],3));
+                steps[i] = currentLength;
+            }
+            resOutput.Text = Math.Round(output, 3).ToString();
+            resTemperature.Text = Math.Round(temperature[temperature.Length-1], 3).ToString();
+            resViscosity.Text = Math.Round(viscosity[viscosity.Length-1], 3).ToString();
+            tabControl1.SelectTab(1);
+
+            temperature=temperature.Select(x => Math.Round(x, 3)).ToArray();
+            viscosity = viscosity.Select(x => Math.Round(x, 3)).ToArray();
+
+            chartFromViscosity.ChartAreas[0].AxisY.Minimum = temperature.Min();
+            chartFromViscosity.ChartAreas[0].AxisY.Maximum = temperature.Max();
+            chartFromViscosity.Series["Температура, °C"].Points.DataBindXY(steps, temperature);
+            chartFromLength.ChartAreas[0].AxisY.Minimum = viscosity.Min();
+            chartFromLength.ChartAreas[0].AxisY.Maximum = viscosity.Max();
+            chartFromLength.Series["Вязкость, Па * с"].Points.DataBindXY(steps, viscosity);
         }
     }
 }
