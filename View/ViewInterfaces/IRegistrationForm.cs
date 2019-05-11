@@ -8,11 +8,12 @@ namespace View.ViewInterfaces
 {
     public interface IRegistrationForm
     {
-        string login { get; }
-        string password { get; }
+        string GetLogin();
+        string GetPassword();
         event EventHandler authentificationAttempt;
         void AuthentificationFail(int tries_left);
         void DeactivateLoginFunctionality(string adminLogin, string adminPass);
-        void Close();
+        void Start();
+        void Stop();
     }
 }

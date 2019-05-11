@@ -17,6 +17,7 @@ namespace View.Forms
         public event EventHandler materialChanged;
         public event EventHandler delete;
         public event EventHandler changeAdd;
+        public event EventHandler changeUser;
         public event EventHandler submit;
 
         public int[] SelectedItemIndex
@@ -96,7 +97,12 @@ namespace View.Forms
         public void Start(string[] names)
         {
             this.tablesList.Items.AddRange(names);
-            Application.Run(this);
+            this.Visible = true;
+        }
+
+        public void Stop()
+        {
+            this.Visible = false;
         }
 
         public void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, int>> columnReferencesTable)
@@ -111,12 +117,12 @@ namespace View.Forms
                 Label ColumnName = new Label();
                 Control variableColumn;
 
-                if (!columnNames[i].StartsWith("id"))
+                if (!columnNames[i].StartsWith("Ид"))
                 {
                     variableColumn = new TextBox();
 
                 }
-                else if (columnNames[i].Length < 3)
+                else if (columnNames[i].StartsWith("Иде"))
                 {
                     variableColumn = new TextBox();
                     variableColumn.Leave += new System.EventHandler(UniqueID);
@@ -126,7 +132,7 @@ namespace View.Forms
                     variableColumn = new ComboBox();
                     (variableColumn as ComboBox).DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
                     (variableColumn as ComboBox).Items.AddRange(columnReferencesTable[columnNames[i]].Keys.ToArray());
-                    if (!columnNames.Contains("id"))
+                    if (columnNames.Contains("Ид "))
                     {
                         variableColumn.Leave += new System.EventHandler(UniqueCompositeKey);
                     }
@@ -369,11 +375,11 @@ namespace View.Forms
         {
             //Наверное лучше делать через презентер всё через ивент
             List<string> compositeKeyElements = new List<string>();
-            if (!this.DBRow.Controls.ContainsKey("id"))
+            if (!this.DBRow.Controls.ContainsKey("Ид "))
             {
                 foreach (Control c in this.DBRow.Controls)
                 {
-                    if (c.Text.Contains("id"))
+                    if (c.Text.Contains("Ид "))
                     {
                         compositeKeyElements.Add(c.Text);
                     }
@@ -463,7 +469,7 @@ namespace View.Forms
             if (status.Equals("Изменение"))
             {
                 this.ValuesToSubmit = values;
-                if (!DBRow.Controls[1].Name.Equals("id"))
+                if (DBRow.Controls[1].Name.StartsWith("Ид "))
                 {
                     DBRow.Controls[1].Enabled = false;
                     DBRow.Controls[3].Enabled = false;
@@ -485,6 +491,14 @@ namespace View.Forms
         public void UpdateTable()
         {
             this.TableView.Rows.Clear();
+        }
+
+        private void сменитьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Вы точно хотите выйти из данного меню?\nВсе несохранённые данные будут утрачены", "Подтвердите выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+            {
+                changeUser?.Invoke(this, null);
+            }
         }
     }
 }

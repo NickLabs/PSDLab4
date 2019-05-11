@@ -13,52 +13,55 @@ namespace PSDLab4.Presenters
     {
         private readonly IRegistrationForm registration;
         private readonly IDataBaseModel dataBase;
-        private readonly IContainer container;
         private int numberOfTries = 5;
+        public event EventHandler adminPass;
+        public event EventHandler researcehrPass;
+        private string userName;
+
 
         public RegistrationPresenter(IRegistrationForm registration, IDataBaseModel dataBase)
         {
             this.registration = registration;
             this.dataBase = dataBase;
-
-            ContainerBuilder builder = new ContainerBuilder();
-            builder.RegisterType<ResearcherPresenter>();
-            builder.RegisterType<AdministratorPresenter>();
-            builder.RegisterInstance(dataBase).As<IDataBaseModel>().ExternallyOwned();
-            builder.RegisterType<IMathModel>().As<IMathModel>();
-            container = builder.Build();
-        }
-
-        private void Close()
-        {
-            //Перед выходом, смотреть, если число попыток равно нулю, то бросать это число в базу
-            this.registration.Close();
-        }
-
-        private void EventActivator()
-        {
             this.registration.authentificationAttempt += AuthentificationAttempt;
+        }
+
+        public string GetUserName()
+        {
+            return userName;
+        }
+
+        public void Start()
+        {
+            this.registration.Start();
+        }
+
+        public void Close()
+        {
+            this.registration.Stop();
         }
 
         private void AuthentificationAttempt(object sender, EventArgs e)
         {
             bool isSuccesful = true;
             bool isAdmin = false;
-            bool[] temporary = this.dataBase.DoesUserExist(this.registration.login.ToLower(), this.registration.password);
+            bool[] temporary = this.dataBase.DoesUserExist(this.registration.GetLogin().ToLower(), this.registration.GetPassword());
             isSuccesful = temporary[0];
-            isAdmin = temporary[1];           
+            isAdmin = temporary[1];       
+            
             //Какой-то код с вызовом базы
             if (isSuccesful)
             {
+                userName = this.registration.GetLogin();
                 if (isAdmin)
                 {
-                    container.Resolve<AdministratorPresenter>().Start();
                     this.Close();
+                    adminPass?.Invoke(this, null);
                 }
                 else
                 {
-                    container.Resolve<ResearcherPresenter>().Start(this.registration.login.ToLower());
                     this.Close();
+                    researcehrPass?.Invoke(this, null);  
                 }
             }
             else

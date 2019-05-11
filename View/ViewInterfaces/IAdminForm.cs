@@ -19,6 +19,7 @@ namespace View.ViewInterfaces
         event EventHandler delete;
         event EventHandler changeAdd;
         event EventHandler submit;
+        event EventHandler changeUser;
         void SetChangeDeleteRules(bool isAllowed);
         void UpdateTable();
         void ShowChangeOrDeleteError();
@@ -28,6 +29,7 @@ namespace View.ViewInterfaces
         void SetData(DataTable data, Dictionary<string, Dictionary<string, int>> columnReferencesTable);
         void ChangeAddCirculation(string status, ArrayList values);
         void Start(string[] tableNames);
+        void Stop();
         void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, int>> columnReferencesTable);
     }
 }

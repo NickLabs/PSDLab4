@@ -104,3 +104,5 @@ C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.CoreCompi
 C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.CopyComplete
 C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\obj\Debug\PSDLab4.exe
 C:\Users\Vadim\Source\Repos\PSDLab4\PSDLab4\obj\Debug\PSDLab4.pdb
+C:\Users\prais\Desktop\Programming\Projects\C#\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.ResolveComReference.cache
+C:\Users\prais\Desktop\Programming\Projects\C#\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Xceed.Words.NET.dll

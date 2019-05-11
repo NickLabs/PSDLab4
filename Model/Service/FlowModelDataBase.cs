@@ -15,9 +15,71 @@ namespace DomainModel.Service
     {
         private readonly SQLiteConnection connection;
         private SQLiteCommand command = new SQLiteCommand();
-        private string dbName = @"Data Source=C:\Users\prais\4.db;foreign keys=true;";
+        
+        private string dbName = @"Data Source=C:\Users\prais\Desktop\Programming\Projects\C#\c#MVPLab4\PSDLab4\PSDLab4\resources\4.db;foreign keys=true;";
         private Dictionary<string, bool> DatabaseRules = new Dictionary<string, bool>();
         private string[] dropVariaties = { "drop ", "droP ", "drOp ", "drOP ", "dRop ", "dRoP ", "dROp ", "dROP ", "Drop ", "DroP ", "DrOp ", "DrOP ", "DRop ", "DRoP ", "DROp ", "DROP " };
+        private Dictionary<string, string> EngToRus = new Dictionary<string, string>(){
+            { "id","Идентификационный номер"},
+            { "name","Имя"},
+            { "login","Логин"},
+            { "password","Пароль"},
+            { "idRole","Ид Роль"},
+            
+            { "idMaterial","Ид Материал"},
+            { "idCoefficient","Ид Коеффициент"},
+            { "value","Значение"},
+
+            { "idMat","Ид Материал "},
+            { "idProp","Ид Параметр "},
+            
+            { "length","Длина"},
+            { "width","Ширина"},
+            { "depth","Глубина"},
+
+            { "idVariable","Ид Варьируемый параметр"},
+            { "minValue","Минимальное значение"},
+            { "maxValue","Максимальное значение"},
+
+            { "idMeasurementUnit","Ид Единица измерения"},
+
+            { "idExper","Номер эксперимента"},
+            { "idVar","Варьируемый параметр "},
+            { "idCanal","Канал"},
+            { "idEmployee","Ид Пользователь"},
+            { "date","Дата"},
+            { "performance","Производительность, кг/с"},
+            { "viscosity","Вязкость, Па*с"},
+            { "temperature","Температура, °C"},
+
+            { "units_name","Название единицы измерения"},
+
+            { "user","Пользователи"},
+            { "materials_coefficients","Коэффициенты материалов"},
+            { "prop_mat","Параметры материалов"},
+            { "material","Материалы"},
+            { "canal","Каналы"},
+            { "roles_list","Список ролей"},
+            { "params_limitations","Ограничения варьиуремых параметров"},
+            { "propertie","Параметры"},
+            { "expers_variables","Варьируемые параметры в экспериментах"},
+            { "experiment","Эксперименты"},
+            { "varible_params","Варьируемые параметры"},
+            { "coefficient","Коэффициенты"},
+            { "measurement_unit","Список единиц измерения"}
+        };
+        private Dictionary<string, string> RusToEng = new Dictionary<string, string>();
+
+        public string GetTranslationToRus(string str)
+        {
+            return EngToRus[str];
+        }
+
+        public string GetTranslationToEng(string str)
+        {
+            return RusToEng[str];
+        }
+
 
         public bool GetRule(string tableName)
         {
@@ -29,25 +91,65 @@ namespace DomainModel.Service
             this.connection = new SQLiteConnection(dbName);
             this.connection.Open();
             command.Connection = connection;
+            RusToEng = EngToRus.ToDictionary(x => x.Value, x => x.Key);
         }
 
         public void DeleteRow(string table, int id)
         {
+            table = RusToEng[table];
+
             string query = String.Format("DELETE FROM {0} WHERE id={1}", table, id);
             command.CommandText = query;
+
+            table = EngToRus[table];
             command.ExecuteNonQuery();
         }
 
         public void DeleteRow(string table, int id1, int id2, string column1, string column2)
         {
+            table = RusToEng[table];
+            column1 = RusToEng[column1];
+            column2 = RusToEng[column2];
+
             string query = String.Format("DELETE FROM {0} WHERE {1}={2} AND {3}={4}", table, id1, column1, id2, column2);
+
+            
+            table = EngToRus[table];
+            column1 = EngToRus[column1];
+            column2 = EngToRus[column2];
+
             command.CommandText = query;
             command.ExecuteNonQuery();
         }
 
         public bool[] DoesUserExist(string login, string password)
         {
-            throw new NotImplementedException();
+            string query = String.Format("Select idRole from user where login='{0}' and password='{1}'", login, password);
+            command.CommandText = query;
+            SQLiteDataReader reader = command.ExecuteReader();
+            bool[] result = new bool[2];
+            result[0] = reader.HasRows;
+            if (result[0])
+            {
+                foreach(DbDataRecord record in reader)
+                {
+                    if (record[0].ToString().Equals("1"))
+                    {
+                        result[1] = true;
+                    }
+                    else
+                    {
+                        result[1] = false;
+                    }
+                }
+            }
+            else
+            {
+                result[0] = false;
+                result[1] = false;
+            }
+            reader.Close();
+            return result;
         }
 
         public double[] FetchAllCoefficients(int idMaterial)
@@ -127,14 +229,21 @@ namespace DomainModel.Service
 
             foreach (DataRow row in dt.Rows)
             {
-                tables.Add(row[2].ToString());
+                try
+                {
+                    tables.Add(EngToRus[row[2].ToString()]);
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
-            tables.Remove("sqlite_sequence");
+            //tables.Remove("sqlite_sequence");
             DatabaseRules = tables.ToDictionary(x => x, x => true);
-            DatabaseRules["experiment"] = false;
-            DatabaseRules["canal"] = false;
-            DatabaseRules["expers_variables"] = false;
+            DatabaseRules[EngToRus["experiment"]] = false;
+            DatabaseRules[EngToRus["canal"]] = false;
+            DatabaseRules[EngToRus["expers_variables"]] = false;
             return tables.ToArray();
         }
 
@@ -154,10 +263,15 @@ namespace DomainModel.Service
 
         public DataTable GetTableData(string tableName)
         {
+            tableName = RusToEng[tableName];
+
             DataTable dt = new DataTable();
             string query = String.Format("SELECT * FROM {0}", tableName);
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, this.connection);
             adapter.Fill(dt);
+
+            
+            tableName = EngToRus[tableName];
             return dt;
         }
 
@@ -194,10 +308,19 @@ namespace DomainModel.Service
             return name;
         }
 
+        //Сюда поступают русские названия колонок и таблицы
         public Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames)
         {
             string namePresenter = "";
             string query = "";
+            //Перевод
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                columnNames[i] = RusToEng[columnNames[i]];
+            }
+            tableName = RusToEng[tableName];
+
+
             Dictionary<string, int> nameId = new Dictionary<string, int>();
 
             foreach (string n in columnNames)
@@ -277,12 +400,18 @@ namespace DomainModel.Service
             return nameId;
         }
 
-
+        //Сюда поступают русские названия колонок и таблицы
         public Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames)
         {
             string namePresenter = "";
             string query = "";
             Dictionary<int, string> idName = new Dictionary<int, string>();
+            //Перевод
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                columnNames[i] = RusToEng[columnNames[i]];
+            }
+            tableName = RusToEng[tableName];
 
             foreach (string n in columnNames)
             {
@@ -364,6 +493,8 @@ namespace DomainModel.Service
         public void InsertRow(string table, ArrayList values)
         {
             CheckInjection(values);
+            //Перевод
+            table = RusToEng[table];
 
             string query = String.Format("insert into {0} values (", table);
             for (int i = 0; i < values.Count; i++)
@@ -377,6 +508,8 @@ namespace DomainModel.Service
                     query += "'" + values[i].ToString() + "')";
                 }
             }
+            
+            table = EngToRus[table];
             command.CommandText = query;
             command.ExecuteNonQuery();
         }
@@ -384,6 +517,12 @@ namespace DomainModel.Service
         public void UpdateRow(string table, ArrayList values, string[] columnNames)
         {
             CheckInjection(values);
+            //Перевод
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                columnNames[i] = RusToEng[columnNames[i]];
+            }
+            table = RusToEng[table];
 
             string query = String.Format("Update {0} set ", table);
             if (columnNames[0].StartsWith("id") && columnNames[0].Length > 2)
@@ -441,6 +580,11 @@ namespace DomainModel.Service
                 }
                 query += String.Format("Where id='{0}'", values[0]);
             }
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                columnNames[i] = EngToRus[columnNames[i]];
+            }
+            table = EngToRus[table];
             command.CommandText = query;
             command.ExecuteNonQuery();
         }

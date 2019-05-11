@@ -34,5 +34,7 @@ namespace DomainModel.Infrastructure
         Dictionary<string, int> IdAndRelevantNames(string tableName, string[] columnNames);
         Dictionary<int, string> IdAndRelevantNameReverse(string tableName, string[] columnNames);
         DataTable GetTableData(string tableName);
+        string GetTranslationToRus(string str);
+        string GetTranslationToEng(string str);
     }
 }

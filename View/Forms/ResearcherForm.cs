@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using View.ViewInterfaces;
 
 namespace View.Forms
@@ -14,7 +16,7 @@ namespace View.Forms
     public partial class ResearcherForm : Form, IResearcherForm
     {
         public string ChosenMaterial { get { return this.materialType.SelectedItem.ToString(); } }
-
+        private string Filename = "";
         public double[] GetCanalGeometry()
         {
             double[] results = { Convert.ToDouble(length.Text), Convert.ToDouble(width.Text), Convert.ToDouble(depth.Text) };
@@ -49,7 +51,19 @@ namespace View.Forms
         {
             this.nameSurname.Text = name;
             this.materialType.Items.AddRange(materialNames);
-            Application.Run(this);
+            this.Visible = true;
+        }
+        
+        public void Stop()
+        {
+            this.Visible = false;
+            this.materialType.Text = "";
+            this.length.Text = "";
+            this.width.Text = "";
+            this.depth.Text = "";
+            this.capSpeed.Text = "";
+            this.temperature.Text = "";
+            this.stepCanal.Text = "";
         }
 
         private void KeyPressHandle(object sender, KeyPressEventArgs e)
@@ -118,6 +132,7 @@ namespace View.Forms
 
                 this.calculate?.Invoke(this, null);
             }
+            
         }
 
         private void MaterialTypeSelected(object sender, EventArgs e)
@@ -218,23 +233,56 @@ namespace View.Forms
         {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "docx files (*.docx)|*.docx";
-            save.CheckFileExists = true;
             save.CreatePrompt = true;
             save.OverwritePrompt = true;
             save.AddExtension = true;
             if (save.ShowDialog() == DialogResult.Cancel)
                 return;
-            string filename = save.FileName;
+            Filename = save.FileName;
+
+            Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/tmp");
+            chartFromLength.SaveImage(Directory.GetCurrentDirectory() + "/tmp/" + "1.png", ChartImageFormat.Png);
+            chartFromViscosity.SaveImage(Directory.GetCurrentDirectory() + "/tmp/" + "2.png", ChartImageFormat.Png);
 
             generateReport?.Invoke(this, null);
+        }
+
+        public string GetFileName()
+        {
+            return Filename;
+        }
+
+        public DataTable GetDataForReport()
+        {
+            DataTable tmp = new DataTable();
+            tmp.Columns.Add();
+            tmp.Columns.Add();
+            tmp.Columns.Add();
+            for (int i = 0; i < resultSet.Rows.Count; i++)
+            {
+                object[] ttt = new object[resultSet.Rows[i].Cells.Count];
+                for(int j = 0; j < resultSet.Rows[i].Cells.Count; j++)
+                {
+                    ttt[j] = resultSet.Rows[i].Cells[j].Value;
+                }
+                
+                tmp.Rows.Add(ttt);
+            }
+            return tmp;
         }
 
         private void сменитьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Вы точно хотите выйти из данного меню?\nВсе несохранённые данные будут утрачены", "Подтвердите выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
             {
-
+                changeUser?.Invoke(this, null);
             }
+        }
+
+        public double[] GetResults()
+        {
+            double[] res = { Convert.ToDouble(this.resOutput.Text), Convert.ToDouble(resTemperature.Text), Convert.ToDouble(resViscosity.Text) };
+            return res;
         }
     }
 }
