@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
+using System.IO;
 
 namespace DomainModel.Service
 {
@@ -12,8 +13,8 @@ namespace DomainModel.Service
     {
         private Dictionary<string, Dictionary<string, string>> dataBaseRules;
         private Dictionary<string, Dictionary<string, string>> references;
-        private string connectionToDb = @"Data Source = C:\Users\prais\Desktop\Programming\Projects\C#\c#MVPLab4\PSDLab4\PSDLab4\resources\4.db;foreign keys=true;";
-        
+        private string connectionToDb = "Data Source=" + Directory.GetCurrentDirectory() + "\\4.db;foreign keys=true;";
+
         public DatabaseParser() { }
 
         public Dictionary<string, Dictionary<string, string>> GetDataBaseRules()

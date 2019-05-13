@@ -38,6 +38,8 @@ namespace DomainModel.Service
 
         public void Calculate(double[] coefficients, double[] properties, double[] canalGeometry, double[] varParametrs, int numberOfSteps)
         {
+            temperaturesT.Clear();
+            viscosityT.Clear();
             double width, depth, length, capSpeed, capTemperature, step, density, meltingTemperature, heatCapacity;
             double consistencyCoefficientAllign, viscosityTemperatureCoefficient, temperatureAlign, flowIndex, capHeatTransmissionCoefficient;
             length = canalGeometry[0]; width = canalGeometry[1]; depth = canalGeometry[2];
@@ -72,8 +74,8 @@ namespace DomainModel.Service
         private void CapHeatGainCalculation(double width, double viscosityTemperatureCoefficient,
             double capHeatTransmissionCoefficient, double capTemperature, double temperatureAlign)
         {
-            this.capHeatGain = width * capHeatTransmissionCoefficient * (1 / viscosityTemperatureCoefficient +
-                 capTemperature - temperatureAlign);
+            this.capHeatGain = width * capHeatTransmissionCoefficient * (1 / viscosityTemperatureCoefficient -
+                 capTemperature + temperatureAlign);
         }
         private void FrictionHeatGainCalculation(double width, double depth, double consistencyCoefficient, double streamFollowIndex)
         {
@@ -82,7 +84,7 @@ namespace DomainModel.Service
         private void TemperatureCalculation(double viscosityTemperatureCoefficient, double temperatureAlign, double width,
             double step, double density, double heatCapacity, double meltingTemperature, double length, double capHeatTransmissionCoefficient)
         {
-            for(double i = 0; i < length+1; i += step)
+            for(double i = 0; i <= length; i += step)
             {
                 double logPart;
                 double firstLog;

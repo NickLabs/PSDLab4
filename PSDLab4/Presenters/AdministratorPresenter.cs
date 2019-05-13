@@ -97,6 +97,7 @@ namespace PSDLab4.Presenters
 
         private void ChangeUser(object sender, EventArgs e)
         {
+            this.form.Stop();
             changeUser?.Invoke(this, null);
         }
 

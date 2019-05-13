@@ -8,6 +8,7 @@ using System.Data.SQLite;
 using System.Data;
 using System.Collections;
 using System.Data.Common;
+using System.IO;
 
 namespace DomainModel.Service
 {
@@ -16,7 +17,7 @@ namespace DomainModel.Service
         private readonly SQLiteConnection connection;
         private SQLiteCommand command = new SQLiteCommand();
         
-        private string dbName = @"Data Source=C:\Users\prais\Desktop\Programming\Projects\C#\c#MVPLab4\PSDLab4\PSDLab4\resources\4.db;foreign keys=true;";
+        private string dbName = "Data Source="+Directory.GetCurrentDirectory()+"\\4.db;foreign keys=true;";
         private Dictionary<string, bool> DatabaseRules = new Dictionary<string, bool>();
         private string[] dropVariaties = { "drop ", "droP ", "drOp ", "drOP ", "dRop ", "dRoP ", "dROp ", "dROP ", "Drop ", "DroP ", "DrOp ", "DrOP ", "DRop ", "DRoP ", "DROp ", "DROP " };
         private Dictionary<string, string> EngToRus = new Dictionary<string, string>(){
