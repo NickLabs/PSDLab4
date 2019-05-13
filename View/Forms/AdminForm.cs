@@ -96,6 +96,7 @@ namespace View.Forms
 
         public void Start(string[] names)
         {
+            
             this.tablesList.Items.AddRange(names);
             this.Visible = true;
         }
@@ -130,6 +131,9 @@ namespace View.Forms
                 else
                 {
                     variableColumn = new ComboBox();
+
+                    //this.tablesList.Items.Clear();
+
                     (variableColumn as ComboBox).DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
                     (variableColumn as ComboBox).Items.AddRange(columnReferencesTable[columnNames[i]].Keys.ToArray());
                     if (columnNames.Contains("Ид "))
@@ -144,9 +148,9 @@ namespace View.Forms
                     paddingSize = 80;
                 }
                 ColumnName.Location = new System.Drawing.Point(pad, 20);
-                ColumnName.Size = new System.Drawing.Size(paddingSize, 20);
+                ColumnName.Size = new System.Drawing.Size(paddingSize, 40);
                 ColumnName.Text = columnNames[i];
-                variableColumn.Location = new System.Drawing.Point(pad, 40);
+                variableColumn.Location = new System.Drawing.Point(pad, 60);
                 variableColumn.Size = new System.Drawing.Size(paddingSize, 20);
 
                 ColumnName.Name = "Label" + forNames;
@@ -167,7 +171,7 @@ namespace View.Forms
                 this.DBRow.Controls.Add(variableColumn);
             }
             Button Submit = new Button();
-            Submit.Location = new System.Drawing.Point(694, 31);
+            Submit.Location = new System.Drawing.Point(694, 37);
             Submit.Name = "Submit";
             Submit.Size = new System.Drawing.Size(75, 23);
             Submit.TabIndex = 0;
@@ -499,6 +503,11 @@ namespace View.Forms
             {
                 changeUser?.Invoke(this, null);
             }
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

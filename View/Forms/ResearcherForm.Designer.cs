@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.depth = new System.Windows.Forms.TextBox();
@@ -85,6 +85,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.resultSet = new System.Windows.Forms.DataGridView();
+            this.step = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.temperatureOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.viscosityOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.generateReportButton = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.resTemperature = new System.Windows.Forms.Label();
@@ -98,9 +101,6 @@
             this.chartFromViscosity = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label21 = new System.Windows.Forms.Label();
             this.chartFromLength = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.step = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.temperatureOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.viscosityOnStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -122,9 +122,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 17);
+            this.label1.Location = new System.Drawing.Point(12, 21);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 13);
+            this.label1.Size = new System.Drawing.Size(127, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Выбор материала";
             // 
@@ -136,36 +137,41 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(6, 19);
+            this.groupBox1.Location = new System.Drawing.Point(8, 23);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(323, 116);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(431, 143);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Геометрические параметры канала";
             // 
             // depth
             // 
-            this.depth.Location = new System.Drawing.Point(217, 84);
+            this.depth.Location = new System.Drawing.Point(289, 103);
+            this.depth.Margin = new System.Windows.Forms.Padding(4);
             this.depth.Name = "depth";
-            this.depth.Size = new System.Drawing.Size(100, 20);
+            this.depth.Size = new System.Drawing.Size(132, 22);
             this.depth.TabIndex = 5;
             this.depth.TextChanged += new System.EventHandler(this.TextChangedHandle);
             this.depth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressHandle);
             // 
             // width
             // 
-            this.width.Location = new System.Drawing.Point(217, 55);
+            this.width.Location = new System.Drawing.Point(289, 68);
+            this.width.Margin = new System.Windows.Forms.Padding(4);
             this.width.Name = "width";
-            this.width.Size = new System.Drawing.Size(100, 20);
+            this.width.Size = new System.Drawing.Size(132, 22);
             this.width.TabIndex = 4;
             this.width.TextChanged += new System.EventHandler(this.TextChangedHandle);
             this.width.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressHandle);
             // 
             // length
             // 
-            this.length.Location = new System.Drawing.Point(217, 26);
+            this.length.Location = new System.Drawing.Point(289, 32);
+            this.length.Margin = new System.Windows.Forms.Padding(4);
             this.length.Name = "length";
-            this.length.Size = new System.Drawing.Size(100, 20);
+            this.length.Size = new System.Drawing.Size(132, 22);
             this.length.TabIndex = 3;
             this.length.TextChanged += new System.EventHandler(this.TextChangedHandle);
             this.length.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressHandle);
@@ -174,27 +180,30 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 87);
+            this.label4.Location = new System.Drawing.Point(8, 107);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(80, 17);
             this.label4.TabIndex = 2;
             this.label4.Text = "Глубина, м";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 58);
+            this.label3.Location = new System.Drawing.Point(8, 71);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(76, 17);
             this.label3.TabIndex = 1;
             this.label3.Text = "Ширина, м";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 29);
+            this.label2.Location = new System.Drawing.Point(8, 36);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.Size = new System.Drawing.Size(68, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Длина, м";
             // 
@@ -206,9 +215,11 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(6, 19);
+            this.groupBox2.Location = new System.Drawing.Point(8, 23);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(345, 116);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(460, 143);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры свойств материала";
@@ -216,55 +227,61 @@
             // meltingTemperature
             // 
             this.meltingTemperature.AutoSize = true;
-            this.meltingTemperature.Location = new System.Drawing.Point(282, 73);
+            this.meltingTemperature.Location = new System.Drawing.Point(376, 90);
+            this.meltingTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.meltingTemperature.Name = "meltingTemperature";
-            this.meltingTemperature.Size = new System.Drawing.Size(13, 13);
+            this.meltingTemperature.Size = new System.Drawing.Size(16, 17);
             this.meltingTemperature.TabIndex = 5;
             this.meltingTemperature.Text = "0";
             // 
             // heatCapacity
             // 
             this.heatCapacity.AutoSize = true;
-            this.heatCapacity.Location = new System.Drawing.Point(282, 51);
+            this.heatCapacity.Location = new System.Drawing.Point(376, 63);
+            this.heatCapacity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.heatCapacity.Name = "heatCapacity";
-            this.heatCapacity.Size = new System.Drawing.Size(13, 13);
+            this.heatCapacity.Size = new System.Drawing.Size(16, 17);
             this.heatCapacity.TabIndex = 4;
             this.heatCapacity.Text = "0";
             // 
             // density
             // 
             this.density.AutoSize = true;
-            this.density.Location = new System.Drawing.Point(282, 29);
+            this.density.Location = new System.Drawing.Point(376, 36);
+            this.density.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.density.Name = "density";
             this.density.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.density.Size = new System.Drawing.Size(13, 13);
+            this.density.Size = new System.Drawing.Size(16, 17);
             this.density.TabIndex = 3;
             this.density.Text = "0";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 73);
+            this.label12.Location = new System.Drawing.Point(8, 90);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(151, 13);
+            this.label12.Size = new System.Drawing.Size(198, 17);
             this.label12.TabIndex = 2;
             this.label12.Text = "Температура плавления, °C ";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 51);
+            this.label11.Location = new System.Drawing.Point(8, 63);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(198, 13);
+            this.label11.Size = new System.Drawing.Size(250, 17);
             this.label11.TabIndex = 1;
             this.label11.Text = "Удельная теплоёмкость, Дж/( кг*°C )";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 29);
+            this.label10.Location = new System.Drawing.Point(8, 36);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.Size = new System.Drawing.Size(112, 17);
             this.label10.TabIndex = 0;
             this.label10.Text = "Плотность кг/м³";
             // 
@@ -276,9 +293,11 @@
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Location = new System.Drawing.Point(6, 50);
+            this.groupBox3.Location = new System.Drawing.Point(8, 62);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(355, 301);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(473, 370);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Варьируемые параметры модели";
@@ -286,36 +305,40 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(12, 275);
+            this.label16.Location = new System.Drawing.Point(16, 338);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 13);
+            this.label16.Size = new System.Drawing.Size(109, 17);
             this.label16.TabIndex = 9;
             this.label16.Text = "Величина шага";
             // 
             // stepValue
             // 
             this.stepValue.AutoSize = true;
-            this.stepValue.Location = new System.Drawing.Point(220, 275);
+            this.stepValue.Location = new System.Drawing.Point(293, 338);
+            this.stepValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.stepValue.Name = "stepValue";
             this.stepValue.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.stepValue.Size = new System.Drawing.Size(13, 13);
+            this.stepValue.Size = new System.Drawing.Size(16, 17);
             this.stepValue.TabIndex = 6;
             this.stepValue.Text = "0";
             // 
             // stepCanal
             // 
-            this.stepCanal.Location = new System.Drawing.Point(223, 246);
+            this.stepCanal.Location = new System.Drawing.Point(297, 303);
+            this.stepCanal.Margin = new System.Windows.Forms.Padding(4);
             this.stepCanal.Name = "stepCanal";
-            this.stepCanal.Size = new System.Drawing.Size(100, 20);
+            this.stepCanal.Size = new System.Drawing.Size(132, 22);
             this.stepCanal.TabIndex = 5;
             this.stepCanal.Leave += new System.EventHandler(this.StepCanalLeave);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(12, 249);
+            this.label15.Location = new System.Drawing.Point(16, 306);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(187, 13);
+            this.label15.Size = new System.Drawing.Size(244, 17);
             this.label15.TabIndex = 4;
             this.label15.Text = "Количество шагов по длине канала";
             // 
@@ -325,45 +348,51 @@
             this.groupBox5.Controls.Add(this.capSpeed);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Location = new System.Drawing.Point(6, 141);
+            this.groupBox5.Location = new System.Drawing.Point(8, 174);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(323, 99);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(431, 122);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Режимные параметры";
             // 
             // temperature
             // 
-            this.temperature.Location = new System.Drawing.Point(217, 59);
+            this.temperature.Location = new System.Drawing.Point(289, 73);
+            this.temperature.Margin = new System.Windows.Forms.Padding(4);
             this.temperature.Name = "temperature";
-            this.temperature.Size = new System.Drawing.Size(100, 20);
+            this.temperature.Size = new System.Drawing.Size(132, 22);
             this.temperature.TabIndex = 3;
             this.temperature.TextChanged += new System.EventHandler(this.TextChangedHandle);
             this.temperature.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressHandle);
             // 
             // capSpeed
             // 
-            this.capSpeed.Location = new System.Drawing.Point(217, 26);
+            this.capSpeed.Location = new System.Drawing.Point(289, 32);
+            this.capSpeed.Margin = new System.Windows.Forms.Padding(4);
             this.capSpeed.Name = "capSpeed";
-            this.capSpeed.Size = new System.Drawing.Size(100, 20);
+            this.capSpeed.Size = new System.Drawing.Size(132, 22);
             this.capSpeed.TabIndex = 2;
             this.capSpeed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressHandle);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 61);
+            this.label14.Location = new System.Drawing.Point(8, 75);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(128, 13);
+            this.label14.Size = new System.Drawing.Size(166, 17);
             this.label14.TabIndex = 1;
             this.label14.Text = "Темература крышки, °C";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 29);
+            this.label13.Location = new System.Drawing.Point(8, 36);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(176, 13);
+            this.label13.Size = new System.Drawing.Size(220, 17);
             this.label13.TabIndex = 0;
             this.label13.Text = "Скорость движения крышки, м/с";
             // 
@@ -379,9 +408,11 @@
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Location = new System.Drawing.Point(6, 141);
+            this.groupBox4.Location = new System.Drawing.Point(8, 174);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(345, 158);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(460, 194);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Эмпирические коэффициенты математической модели";
@@ -389,90 +420,100 @@
             // heatTransferCoefficient
             // 
             this.heatTransferCoefficient.AutoSize = true;
-            this.heatTransferCoefficient.Location = new System.Drawing.Point(282, 117);
+            this.heatTransferCoefficient.Location = new System.Drawing.Point(376, 144);
+            this.heatTransferCoefficient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.heatTransferCoefficient.Name = "heatTransferCoefficient";
-            this.heatTransferCoefficient.Size = new System.Drawing.Size(13, 13);
+            this.heatTransferCoefficient.Size = new System.Drawing.Size(16, 17);
             this.heatTransferCoefficient.TabIndex = 10;
             this.heatTransferCoefficient.Text = "0";
             // 
             // flowIndex
             // 
             this.flowIndex.AutoSize = true;
-            this.flowIndex.Location = new System.Drawing.Point(282, 95);
+            this.flowIndex.Location = new System.Drawing.Point(376, 117);
+            this.flowIndex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.flowIndex.Name = "flowIndex";
-            this.flowIndex.Size = new System.Drawing.Size(13, 13);
+            this.flowIndex.Size = new System.Drawing.Size(16, 17);
             this.flowIndex.TabIndex = 9;
             this.flowIndex.Text = "0";
             // 
             // reductionTemperature
             // 
             this.reductionTemperature.AutoSize = true;
-            this.reductionTemperature.Location = new System.Drawing.Point(282, 73);
+            this.reductionTemperature.Location = new System.Drawing.Point(376, 90);
+            this.reductionTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.reductionTemperature.Name = "reductionTemperature";
-            this.reductionTemperature.Size = new System.Drawing.Size(13, 13);
+            this.reductionTemperature.Size = new System.Drawing.Size(16, 17);
             this.reductionTemperature.TabIndex = 8;
             this.reductionTemperature.Text = "0";
             // 
             // viscosityCoefficient
             // 
             this.viscosityCoefficient.AutoSize = true;
-            this.viscosityCoefficient.Location = new System.Drawing.Point(282, 51);
+            this.viscosityCoefficient.Location = new System.Drawing.Point(376, 63);
+            this.viscosityCoefficient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.viscosityCoefficient.Name = "viscosityCoefficient";
-            this.viscosityCoefficient.Size = new System.Drawing.Size(13, 13);
+            this.viscosityCoefficient.Size = new System.Drawing.Size(16, 17);
             this.viscosityCoefficient.TabIndex = 7;
             this.viscosityCoefficient.Text = "0";
             // 
             // consistencyRatio
             // 
             this.consistencyRatio.AutoSize = true;
-            this.consistencyRatio.Location = new System.Drawing.Point(282, 26);
+            this.consistencyRatio.Location = new System.Drawing.Point(376, 32);
+            this.consistencyRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.consistencyRatio.Name = "consistencyRatio";
-            this.consistencyRatio.Size = new System.Drawing.Size(13, 13);
+            this.consistencyRatio.Size = new System.Drawing.Size(16, 17);
             this.consistencyRatio.TabIndex = 5;
             this.consistencyRatio.Text = "0";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 117);
+            this.label9.Location = new System.Drawing.Point(8, 144);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(250, 13);
+            this.label9.Size = new System.Drawing.Size(329, 17);
             this.label9.TabIndex = 4;
             this.label9.Text = "Коэффициент теплоотдачи от крышки, Вт/(м²*с)";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 95);
+            this.label8.Location = new System.Drawing.Point(8, 117);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(146, 13);
+            this.label8.Size = new System.Drawing.Size(191, 17);
             this.label8.TabIndex = 3;
             this.label8.Text = "Индекс течения материала";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 73);
+            this.label7.Location = new System.Drawing.Point(8, 90);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(157, 13);
+            this.label7.Size = new System.Drawing.Size(206, 17);
             this.label7.TabIndex = 2;
             this.label7.Text = "Температура привидения,  °C";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 51);
+            this.label6.Location = new System.Drawing.Point(8, 63);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(238, 13);
+            this.label6.Size = new System.Drawing.Size(307, 17);
             this.label6.TabIndex = 1;
             this.label6.Text = "Температурный коэффициент вязкости, 1/°C";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 29);
+            this.label5.Location = new System.Drawing.Point(8, 36);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(187, 13);
+            this.label5.Size = new System.Drawing.Size(241, 17);
             this.label5.TabIndex = 0;
             this.label5.Text = "Коэффициент консистенции, Па*сⁿ";
             // 
@@ -480,9 +521,10 @@
             // 
             this.materialType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.materialType.FormattingEnabled = true;
-            this.materialType.Location = new System.Drawing.Point(113, 14);
+            this.materialType.Location = new System.Drawing.Point(151, 17);
+            this.materialType.Margin = new System.Windows.Forms.Padding(4);
             this.materialType.Name = "materialType";
-            this.materialType.Size = new System.Drawing.Size(121, 21);
+            this.materialType.Size = new System.Drawing.Size(160, 24);
             this.materialType.TabIndex = 5;
             this.materialType.SelectedValueChanged += new System.EventHandler(this.MaterialTypeSelected);
             this.materialType.Leave += new System.EventHandler(this.MaterialTypeLeave);
@@ -491,18 +533,21 @@
             // 
             this.groupBox6.Controls.Add(this.groupBox2);
             this.groupBox6.Controls.Add(this.groupBox4);
-            this.groupBox6.Location = new System.Drawing.Point(369, 50);
+            this.groupBox6.Location = new System.Drawing.Point(492, 62);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(364, 301);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Size = new System.Drawing.Size(485, 370);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Неизменямые параметры модели";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(328, 360);
+            this.button1.Location = new System.Drawing.Point(437, 443);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 7;
             this.button1.Text = "Расчёт";
             this.button1.UseVisualStyleBackColor = true;
@@ -510,6 +555,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сменитьПользователяToolStripMenuItem,
             this.файлToolStripMenuItem,
@@ -517,50 +563,55 @@
             this.помощьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(774, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1032, 28);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // сменитьПользователяToolStripMenuItem
             // 
             this.сменитьПользователяToolStripMenuItem.Name = "сменитьПользователяToolStripMenuItem";
-            this.сменитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
+            this.сменитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.сменитьПользователяToolStripMenuItem.Text = "Сменить пользователя";
             this.сменитьПользователяToolStripMenuItem.Click += new System.EventHandler(this.сменитьПользователяToolStripMenuItem_Click);
             // 
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.СправкаToolStripMenuItem_Click);
             // 
             // помощьToolStripMenuItem
             // 
             this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
-            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.помощьToolStripMenuItem.Text = "Помощь";
+            this.помощьToolStripMenuItem.Click += new System.EventHandler(this.ПомощьToolStripMenuItem_Click);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(366, 17);
+            this.label17.Location = new System.Drawing.Point(488, 21);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(84, 13);
+            this.label17.Size = new System.Drawing.Size(107, 17);
             this.label17.TabIndex = 9;
             this.label17.Text = "Вы вошли как: ";
             // 
             // nameSurname
             // 
             this.nameSurname.AutoSize = true;
-            this.nameSurname.Location = new System.Drawing.Point(456, 18);
+            this.nameSurname.Location = new System.Drawing.Point(608, 22);
+            this.nameSurname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nameSurname.Name = "nameSurname";
-            this.nameSurname.Size = new System.Drawing.Size(34, 13);
+            this.nameSurname.Size = new System.Drawing.Size(42, 17);
             this.nameSurname.TabIndex = 10;
             this.nameSurname.Text = "ФИО";
             // 
@@ -569,10 +620,11 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 27);
+            this.tabControl1.Location = new System.Drawing.Point(16, 33);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(750, 415);
+            this.tabControl1.Size = new System.Drawing.Size(1000, 511);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -584,10 +636,11 @@
             this.tabPage1.Controls.Add(this.label17);
             this.tabPage1.Controls.Add(this.materialType);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(742, 389);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(992, 482);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ввод данных";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -597,10 +650,11 @@
             this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.generateReportButton);
             this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(742, 389);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(992, 482);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Результаты";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -608,9 +662,11 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.resultSet);
-            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Location = new System.Drawing.Point(8, 7);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(373, 377);
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox8.Size = new System.Drawing.Size(497, 464);
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Таблица результатов";
@@ -622,16 +678,40 @@
             this.step,
             this.temperatureOnStep,
             this.viscosityOnStep});
-            this.resultSet.Location = new System.Drawing.Point(6, 19);
+            this.resultSet.Location = new System.Drawing.Point(8, 23);
+            this.resultSet.Margin = new System.Windows.Forms.Padding(4);
             this.resultSet.Name = "resultSet";
-            this.resultSet.Size = new System.Drawing.Size(360, 352);
+            this.resultSet.RowHeadersWidth = 51;
+            this.resultSet.Size = new System.Drawing.Size(480, 433);
             this.resultSet.TabIndex = 3;
+            // 
+            // step
+            // 
+            this.step.HeaderText = "Шаг, м";
+            this.step.MinimumWidth = 6;
+            this.step.Name = "step";
+            this.step.Width = 125;
+            // 
+            // temperatureOnStep
+            // 
+            this.temperatureOnStep.HeaderText = "Температура, °C";
+            this.temperatureOnStep.MinimumWidth = 6;
+            this.temperatureOnStep.Name = "temperatureOnStep";
+            this.temperatureOnStep.Width = 125;
+            // 
+            // viscosityOnStep
+            // 
+            this.viscosityOnStep.HeaderText = "Вязкость, Па*с";
+            this.viscosityOnStep.MinimumWidth = 6;
+            this.viscosityOnStep.Name = "viscosityOnStep";
+            this.viscosityOnStep.Width = 120;
             // 
             // generateReportButton
             // 
-            this.generateReportButton.Location = new System.Drawing.Point(560, 102);
+            this.generateReportButton.Location = new System.Drawing.Point(747, 126);
+            this.generateReportButton.Margin = new System.Windows.Forms.Padding(4);
             this.generateReportButton.Name = "generateReportButton";
-            this.generateReportButton.Size = new System.Drawing.Size(95, 23);
+            this.generateReportButton.Size = new System.Drawing.Size(127, 28);
             this.generateReportButton.TabIndex = 1;
             this.generateReportButton.Text = "Создать отчёт";
             this.generateReportButton.UseVisualStyleBackColor = true;
@@ -645,9 +725,11 @@
             this.groupBox7.Controls.Add(this.label20);
             this.groupBox7.Controls.Add(this.label19);
             this.groupBox7.Controls.Add(this.label18);
-            this.groupBox7.Location = new System.Drawing.Point(467, 6);
+            this.groupBox7.Location = new System.Drawing.Point(623, 7);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(269, 90);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox7.Size = new System.Drawing.Size(359, 111);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Результаты";
@@ -655,54 +737,60 @@
             // resTemperature
             // 
             this.resTemperature.AutoSize = true;
-            this.resTemperature.Location = new System.Drawing.Point(162, 63);
+            this.resTemperature.Location = new System.Drawing.Point(216, 78);
+            this.resTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.resTemperature.Name = "resTemperature";
-            this.resTemperature.Size = new System.Drawing.Size(13, 13);
+            this.resTemperature.Size = new System.Drawing.Size(16, 17);
             this.resTemperature.TabIndex = 5;
             this.resTemperature.Text = "0";
             // 
             // resViscosity
             // 
             this.resViscosity.AutoSize = true;
-            this.resViscosity.Location = new System.Drawing.Point(162, 41);
+            this.resViscosity.Location = new System.Drawing.Point(216, 50);
+            this.resViscosity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.resViscosity.Name = "resViscosity";
-            this.resViscosity.Size = new System.Drawing.Size(13, 13);
+            this.resViscosity.Size = new System.Drawing.Size(16, 17);
             this.resViscosity.TabIndex = 4;
             this.resViscosity.Text = "0";
             // 
             // resOutput
             // 
             this.resOutput.AutoSize = true;
-            this.resOutput.Location = new System.Drawing.Point(162, 19);
+            this.resOutput.Location = new System.Drawing.Point(216, 23);
+            this.resOutput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.resOutput.Name = "resOutput";
-            this.resOutput.Size = new System.Drawing.Size(13, 13);
+            this.resOutput.Size = new System.Drawing.Size(16, 17);
             this.resOutput.TabIndex = 3;
             this.resOutput.Text = "0";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 63);
+            this.label20.Location = new System.Drawing.Point(8, 78);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(97, 13);
+            this.label20.Size = new System.Drawing.Size(127, 17);
             this.label20.TabIndex = 2;
             this.label20.Text = "Температура, °C :";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 41);
+            this.label19.Location = new System.Drawing.Point(8, 50);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(91, 13);
+            this.label19.Size = new System.Drawing.Size(114, 17);
             this.label19.TabIndex = 1;
             this.label19.Text = "Вязкость, Па*с :";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 19);
+            this.label18.Location = new System.Drawing.Point(8, 23);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(146, 13);
+            this.label18.Size = new System.Drawing.Size(182, 17);
             this.label18.TabIndex = 0;
             this.label18.Text = "Производительность кг/с :";
             // 
@@ -712,10 +800,11 @@
             this.tabPage3.Controls.Add(this.chartFromViscosity);
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.chartFromLength);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(742, 389);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Size = new System.Drawing.Size(992, 482);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Графическое представление";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -723,90 +812,80 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(453, 359);
+            this.label22.Location = new System.Drawing.Point(604, 442);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(234, 13);
+            this.label22.Size = new System.Drawing.Size(303, 17);
             this.label22.TabIndex = 3;
             this.label22.Text = "График зависимости температуры от длины";
             // 
             // chartFromViscosity
             // 
             this.chartFromViscosity.BackColor = System.Drawing.Color.Silver;
-            chartArea7.AxisX.Title = "Длина, м";
-            chartArea7.Name = "ChartArea1";
-            this.chartFromViscosity.ChartAreas.Add(chartArea7);
-            legend7.Alignment = System.Drawing.StringAlignment.Center;
-            legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend7.Name = "Legend1";
-            this.chartFromViscosity.Legends.Add(legend7);
-            this.chartFromViscosity.Location = new System.Drawing.Point(388, 6);
+            chartArea3.AxisX.Title = "Длина, м";
+            chartArea3.Name = "ChartArea1";
+            this.chartFromViscosity.ChartAreas.Add(chartArea3);
+            legend3.Alignment = System.Drawing.StringAlignment.Center;
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend3.Name = "Legend1";
+            this.chartFromViscosity.Legends.Add(legend3);
+            this.chartFromViscosity.Location = new System.Drawing.Point(517, 7);
+            this.chartFromViscosity.Margin = new System.Windows.Forms.Padding(4);
             this.chartFromViscosity.Name = "chartFromViscosity";
             this.chartFromViscosity.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Legend = "Legend1";
-            series7.Name = "Температура, °C";
-            this.chartFromViscosity.Series.Add(series7);
-            this.chartFromViscosity.Size = new System.Drawing.Size(348, 350);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Температура, °C";
+            this.chartFromViscosity.Series.Add(series3);
+            this.chartFromViscosity.Size = new System.Drawing.Size(464, 431);
             this.chartFromViscosity.TabIndex = 2;
             this.chartFromViscosity.Text = "chart2";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(88, 359);
+            this.label21.Location = new System.Drawing.Point(117, 442);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(214, 13);
+            this.label21.Size = new System.Drawing.Size(274, 17);
             this.label21.TabIndex = 1;
             this.label21.Text = "График зависимости взякости от длины";
             // 
             // chartFromLength
             // 
             this.chartFromLength.BackColor = System.Drawing.Color.Silver;
-            chartArea8.AxisX.Title = "Длина, м";
-            chartArea8.Name = "ChartArea1";
-            this.chartFromLength.ChartAreas.Add(chartArea8);
-            legend8.Alignment = System.Drawing.StringAlignment.Center;
-            legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend8.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
-            legend8.Name = "Legend1";
-            this.chartFromLength.Legends.Add(legend8);
-            this.chartFromLength.Location = new System.Drawing.Point(6, 6);
+            chartArea4.AxisX.Title = "Длина, м";
+            chartArea4.Name = "ChartArea1";
+            this.chartFromLength.ChartAreas.Add(chartArea4);
+            legend4.Alignment = System.Drawing.StringAlignment.Center;
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend4.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend4.Name = "Legend1";
+            this.chartFromLength.Legends.Add(legend4);
+            this.chartFromLength.Location = new System.Drawing.Point(8, 7);
+            this.chartFromLength.Margin = new System.Windows.Forms.Padding(4);
             this.chartFromLength.Name = "chartFromLength";
             this.chartFromLength.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.Name = "Вязкость, Па * с";
-            this.chartFromLength.Series.Add(series8);
-            this.chartFromLength.Size = new System.Drawing.Size(350, 350);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "Вязкость, Па * с";
+            this.chartFromLength.Series.Add(series4);
+            this.chartFromLength.Size = new System.Drawing.Size(467, 431);
             this.chartFromLength.TabIndex = 0;
             this.chartFromLength.Text = "chart1";
             // 
-            // step
-            // 
-            this.step.HeaderText = "Шаг, м";
-            this.step.Name = "step";
-            // 
-            // temperatureOnStep
-            // 
-            this.temperatureOnStep.HeaderText = "Температура, °C";
-            this.temperatureOnStep.Name = "temperatureOnStep";
-            // 
-            // viscosityOnStep
-            // 
-            this.viscosityOnStep.HeaderText = "Вязкость, Па*с";
-            this.viscosityOnStep.Name = "viscosityOnStep";
-            this.viscosityOnStep.Width = 120;
-            // 
             // ResearcherForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 454);
+            this.ClientSize = new System.Drawing.Size(1032, 559);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ResearcherForm";
             this.Text = "Flow model";
             this.groupBox1.ResumeLayout(false);

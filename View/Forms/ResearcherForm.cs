@@ -50,6 +50,7 @@ namespace View.Forms
         public void Start(string name, string[] materialNames)
         {
             this.nameSurname.Text = name;
+            this.materialType.Items.Clear();
             this.materialType.Items.AddRange(materialNames);
             this.Visible = true;
         }
@@ -64,6 +65,15 @@ namespace View.Forms
             this.capSpeed.Text = "";
             this.temperature.Text = "";
             this.stepCanal.Text = "";
+            this.stepValue.Text = "0";
+            this.density.Text = "0";
+            this.heatCapacity.Text = "0";
+            this.meltingTemperature.Text = "0";
+            this.consistencyRatio.Text = "0";
+            this.viscosityCoefficient.Text = "0";
+            this.reductionTemperature.Text = "0";
+            this.flowIndex.Text = "0";
+            this.heatTransferCoefficient.Text = "0";
         }
 
         private void KeyPressHandle(object sender, KeyPressEventArgs e)
@@ -283,6 +293,31 @@ namespace View.Forms
         {
             double[] res = { Convert.ToDouble(this.resOutput.Text), Convert.ToDouble(resTemperature.Text), Convert.ToDouble(resViscosity.Text) };
             return res;
+        }
+
+        private void СправкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Программу разработали студенты СПбГТИ(ТУ) 465 группы:\n" +
+                "\tВинокуров Никита Александрович\n" +
+                "\tТатаринцев Вадим Павлович\n" +
+                "Под руководством:\n" +
+                "\tПолосина Андрея Николаевича",
+                "Справка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        private void ПомощьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Для корректной работы программы необходимо:\n" +
+                "\t1)Выбрать материал\n" +
+                "\t2)Ввести требуемые значения в поля ввода\n" +
+                "\t3)Нажать кнопку \"Рассчитать\"",
+                "Помощь",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
     }
 }
