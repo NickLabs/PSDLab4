@@ -94,7 +94,7 @@ namespace View.Forms
                 Application.Run(this);
                 
             }
-            catch (Exception)
+            catch (InvalidOperationException e)
             {
                 this.Visible = true;
             }
