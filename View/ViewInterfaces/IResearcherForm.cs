@@ -23,7 +23,7 @@ namespace View.ViewInterfaces
             double[] maxLimits);
         void DivideByZeroError();
         void SetData(double[] coefficients, double[] properties);
-        void SetResults(double[] temperature, double[] viscosity, double length, double output);
+        void SetResults(double[] temperature, double[] viscosity, double length, double output, string time);
         DataTable GetDataForReport();
         string GetFileName();
         double[] GetResults();

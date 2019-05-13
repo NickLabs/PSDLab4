@@ -28,7 +28,7 @@ namespace DomainModel.Service
             { "idRole","Ид Роль"},
             
             { "idMaterial","Ид Материал"},
-            { "idCoefficient","Ид Коеффициент"},
+            { "idCoefficient","Ид Коэффициент"},
             { "value","Значение"},
 
             { "idMat","Ид Материал "},

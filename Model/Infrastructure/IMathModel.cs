@@ -16,5 +16,6 @@ namespace DomainModel.Infrastructure
         double GetPerformance();
         event EventHandler calculationFinished;
         void Calculate(double[] Coefficients, double[] Properties, double[] canalGeometry, double[] varParametrs, int numberOfSteps);
+        string GetTime();
     }
 }

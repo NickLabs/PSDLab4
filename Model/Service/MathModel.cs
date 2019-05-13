@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace DomainModel.Service
         private double capHeatGain;
         private List<double> temperaturesT = new List<double>();
         private List<double> viscosityT = new List<double>();
+        private string t = "";
 
         public event EventHandler calculationFinished;
 
@@ -36,6 +38,11 @@ namespace DomainModel.Service
             return viscosityT.ToArray();
         }
 
+        public string GetTime()
+        {
+            return this.t;
+        }
+
         public void Calculate(double[] coefficients, double[] properties, double[] canalGeometry, double[] varParametrs, int numberOfSteps)
         {
             temperaturesT.Clear();
@@ -48,6 +55,8 @@ namespace DomainModel.Service
             consistencyCoefficientAllign = coefficients[0]; viscosityTemperatureCoefficient = coefficients[1];
             temperatureAlign = coefficients[2]; flowIndex = coefficients[3]; capHeatTransmissionCoefficient = coefficients[4];
 
+            Stopwatch stop = new Stopwatch();
+            stop.Start();
             FormCoefficientCalculation( depth,  width);
             InputStreamSpeedCalculation(depth, capSpeed);
             StreamVolumeConsumptionRateCalculation(depth, width, capSpeed);
@@ -56,6 +65,8 @@ namespace DomainModel.Service
             TemperatureCalculation(viscosityTemperatureCoefficient, temperatureAlign, width,step, density, heatCapacity, meltingTemperature, length, capHeatTransmissionCoefficient);
             ViscosityCalculation(temperatureAlign, viscosityTemperatureCoefficient, consistencyCoefficientAllign, flowIndex);
             productionCalculation(density);
+            stop.Stop();
+            t = stop.Elapsed.ToString().Split(':')[2];
 
             calculationFinished?.Invoke(this, null);
         }

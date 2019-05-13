@@ -65,7 +65,6 @@ namespace View.Forms
             this.capSpeed.Text = "";
             this.temperature.Text = "";
             this.stepCanal.Text = "";
-            this.stepValue.Text = "0";
             this.density.Text = "0";
             this.heatCapacity.Text = "0";
             this.meltingTemperature.Text = "0";
@@ -89,14 +88,6 @@ namespace View.Forms
             }
         }
 
-        private void LengthLeave(object sender, EventArgs e)
-        {
-            if (!length.Text.Equals("") && !stepCanal.Text.Equals(""))
-            {
-                stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / Convert.ToDouble(stepCanal.Text), 2).ToString();
-            }
-        }
-
         private void StepCanalLeave(object sender, EventArgs e)
         {
             int tmp = 0;
@@ -111,14 +102,10 @@ namespace View.Forms
                 {
                     MessageBox.Show("Шаг должен находится в диапозоне от 10 до 10000", "Неправильное количество шагов", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else
-                {
-                    stepValue.Text = Math.Round(Convert.ToDouble(length.Text) / tmp, 4).ToString();
-                }
             }
             catch (Exception)
             {
-                MessageBox.Show("Шаг должен быть целым числом", "Неправильное количество шагов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Шаг должен быть целым числом", "Некорректные данные", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -154,6 +141,12 @@ namespace View.Forms
             else
             {
                 materialChanged?.Invoke(this, null);
+                this.length.Text = "9,5";
+                this.width.Text = "2,5 ";
+                this.depth.Text = "0,001";
+                this.capSpeed.Text = "2";
+                this.temperature.Text = "160";
+                this.stepCanal.Text = "100";
             }
         }
 
@@ -177,7 +170,7 @@ namespace View.Forms
                 switch (variable)
                 {
                     case -1:
-                        errorMessage += string.Format("Длина/Ширина/Глубина не должна быть больше {0} или меньше {1}\n", 0.00001, 100000);
+                        errorMessage += string.Format("Длина/Ширина/Глубина не должна быть меньше {0}\n", 0);
                         break;
                     case 0:
                         errorMessage += string.Format("Скорость крышки не должна быть больше {0} или меньше {1}\n", minLimits[0], maxLimits[0]);
@@ -198,38 +191,40 @@ namespace View.Forms
 
         public void SetData(double[] coefficients, double[] properties)
         {
-            Label[] temporary = { consistencyRatio, viscosityCoefficient, reductionTemperature, flowIndex, heatTransferCoefficient };
+            TextBox[] temporary = { consistencyRatio, viscosityCoefficient, reductionTemperature, flowIndex, heatTransferCoefficient };
 
             for (int i = 0; i < coefficients.Length; i++)
             {
                 temporary[i].Text = coefficients[i].ToString();
             }
 
-            Label[] temporary2 = { density, heatCapacity, meltingTemperature };
+            TextBox[] temporary2 = { density, heatCapacity, meltingTemperature };
             for (int i = 0; i < properties.Length; i++)
             {
                 temporary2[i].Text = properties[i].ToString();
             }
         }
 
-        public void SetResults(double[] temperature, double[] viscosity, double length, double output)
+        public void SetResults(double[] temperature, double[] viscosity, double length, double output, string time)
         {
             double currentLength = 0;
+            resultSet.Rows.Clear();
             double stepIncrease = length / temperature.Length;
             double[] steps = new double[temperature.Length];
             for(int i = 0; i < temperature.Length; i++)
             {
                 currentLength += stepIncrease;
-                resultSet.Rows.Add(Math.Round(currentLength,4), Math.Round(temperature[i],3), Math.Round(viscosity[i],3));
+                resultSet.Rows.Add(Math.Round(currentLength,2), Math.Round(temperature[i],1), Math.Round(viscosity[i],0));
                 steps[i] = currentLength;
             }
-            resOutput.Text = Math.Round(output, 3).ToString();
-            resTemperature.Text = Math.Round(temperature[temperature.Length-1], 3).ToString();
-            resViscosity.Text = Math.Round(viscosity[viscosity.Length-1], 3).ToString();
+            resOutput.Text = Math.Round(output, 2).ToString();
+            resTemperature.Text = Math.Round(temperature[temperature.Length-1], 1).ToString();
+            resViscosity.Text = Math.Round(viscosity[viscosity.Length-1], 0).ToString();
+            timeElapsed.Text = time;
             tabControl1.SelectTab(1);
 
-            temperature=temperature.Select(x => Math.Round(x, 3)).ToArray();
-            viscosity = viscosity.Select(x => Math.Round(x, 3)).ToArray();
+            temperature=temperature.Select(x => Math.Round(x, 1)).ToArray();
+            viscosity = viscosity.Select(x => Math.Round(x, 0)).ToArray();
 
             chartFromViscosity.ChartAreas[0].AxisY.Minimum = temperature.Min();
             chartFromViscosity.ChartAreas[0].AxisY.Maximum = temperature.Max();
@@ -318,6 +313,16 @@ namespace View.Forms
                 "Помощь",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResearcherForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
