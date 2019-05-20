@@ -62,7 +62,6 @@ namespace PSDLab4.Presenters
                 this.researcherId, this.materialId, canalId);
             this.dataBase.CreateVariablesValues(this.form.GetVariableParams(), experimentId);
             this.form.SetResults(temper, visc, this.form.GetCanalGeometry()[0], perf, this.model.GetTime());
-            //Дальше кидаем в базу результаты, и кидаем всё в форму для графиков и прочего
         }
 
         private void FetchMaterialCoefficientsAndProperties(object sender, EventArgs e)
@@ -105,7 +104,7 @@ namespace PSDLab4.Presenters
             {
                 try
                 {
-                    this.model.Calculate(materialCoefficients, materialProperties,
+                    this.model.Calculate(this.form.GetCoefs(), this.form.GetParams(),
                         CanalGeometry, VariableParams, this.form.NumberOfSteps);
 
                 }
@@ -129,7 +128,7 @@ namespace PSDLab4.Presenters
             DataTable dt = this.form.GetDataForReport();
             string fileName = this.form.GetFileName();
             var doc = DocX.Create(fileName);
-            string text = "Отчёт по эксперименту";
+            string text = "Отчёт о моделлировании";
             Formatting f = new Formatting();
             f.FontFamily = new Font("Times New Roman");
             f.Size = 32;
@@ -140,8 +139,8 @@ namespace PSDLab4.Presenters
             int columns = dt.Columns.Count+1;
 
             string[] ParamStr = { "Длина, м", "Ширина, м", "Глубина, м", "Скорость крышки, м/с", "Темература крышки, °C", "Количество шагов по длине канала",
-            "Плотность кг/м³", "Удельная теплоёмкость, Дж/( кг*°C )", "Температура плавления, °C ", "Коэффициент консистенции, Па*сⁿ", "Коэффициент теплоотдачи от крышки, Вт/(м²*с)",
-            "Температурный коэффициент вязкости, 1/°C","Индекс течения материала","Температура привидения,  °C" };
+            "Плотность, кг/м³", "Удельная теплоёмкость, Дж/( кг*°C )", "Температура плавления, °C ", "Коэффициент консистенции, Па*сⁿ", "Коэффициент теплоотдачи от крышки, Вт/(м²*с)",
+            "Температурный коэффициент вязкости, 1/°C","Индекс течения материала","Температура приведения,  °C" };
 
             double[][] tmp = new double[4][];
             tmp[0] = this.form.GetCanalGeometry();
@@ -175,7 +174,7 @@ namespace PSDLab4.Presenters
             Table t = doc.AddTable(rows, columns);
             t.Alignment = Alignment.center;
             t.Rows[0].Cells[0].Paragraphs.First().Append("Номер");
-            t.Rows[0].Cells[1].Paragraphs.First().Append("Длина, м");
+            t.Rows[0].Cells[1].Paragraphs.First().Append("Координата по длине канала, м");
             t.Rows[0].Cells[2].Paragraphs.First().Append("Температура, °C");
             t.Rows[0].Cells[3].Paragraphs.First().Append("Вязкость, Па*с");
             for (int i = 1; i < rows; i++)
@@ -183,7 +182,7 @@ namespace PSDLab4.Presenters
                 t.Rows[i].Cells[0].Paragraphs.First().Append(i.ToString());
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
-                    t.Rows[i].Cells[j+1].Paragraphs.First().Append(dt.Rows[i].ItemArray[j].ToString());
+                    t.Rows[i].Cells[j+1].Paragraphs.First().Append(dt.Rows[i-1].ItemArray[j].ToString());
                 }
             }
             doc.InsertTable(t);
@@ -200,13 +199,13 @@ namespace PSDLab4.Presenters
                 par.Alignment = Alignment.center;
 
                 
-                text = String.Format("Рисунок {0}, зависмость {1} от длины", i, ttmp[i-1]);
+                text = String.Format("Рисунок {0}, зависимость {1} от длины", i, ttmp[i-1]);
                 Paragraph paragraphForUnderLine = doc.InsertParagraph(text, false, f);
                 paragraphForUnderLine.Alignment = Alignment.center;
             }
 
             double[] results = this.form.GetResults();
-            string final = String.Format("Итого на момент окончания эксперимента мы имеем следующие значения основных показателей\nПроизводительность, кг/с: {0}\nТемпература, °C: {1}\nВязкость, Па*с: {2}", results[0], results[1], results[2]);
+            string final = String.Format("Значения выходных параметров:\nПроизводительность, кг/с: {0}\nТемпература, °C: {1}\nВязкость, Па*с: {2}", results[0], results[1], results[2]);
             f.Size = 14;
             Paragraph fin = doc.InsertParagraph(final, false, f);
             fin.Alignment = Alignment.left;

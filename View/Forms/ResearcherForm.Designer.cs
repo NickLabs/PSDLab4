@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.meltingTemperature = new System.Windows.Forms.TextBox();
@@ -63,8 +63,9 @@
             this.nameSurname = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.stepCanal = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.stepCanal = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.temperature = new System.Windows.Forms.TextBox();
             this.capSpeed = new System.Windows.Forms.TextBox();
@@ -78,6 +79,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.timeElapsed = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.resultSet = new System.Windows.Forms.DataGridView();
             this.step = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,13 +100,14 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.chartFromLength = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label16 = new System.Windows.Forms.Label();
-            this.timeElapsed = new System.Windows.Forms.Label();
+            this.visTime = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -187,9 +191,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 29);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
+            this.label10.Size = new System.Drawing.Size(94, 13);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Плотность кг/м³";
+            this.label10.Text = "Плотность, кг/м³";
             // 
             // groupBox4
             // 
@@ -276,7 +280,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(157, 13);
             this.label7.TabIndex = 2;
-            this.label7.Text = "Температура привидения,  °C";
+            this.label7.Text = "Температура приведения,  °C";
             // 
             // label6
             // 
@@ -383,11 +387,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.stepCanal);
             this.tabPage1.Controls.Add(this.nameSurname);
-            this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label17);
@@ -402,22 +405,33 @@
             this.tabPage1.Text = "Ввод данных";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // stepCanal
+            // groupBox3
             // 
-            this.stepCanal.Location = new System.Drawing.Point(229, 289);
-            this.stepCanal.Name = "stepCanal";
-            this.stepCanal.Size = new System.Drawing.Size(100, 20);
-            this.stepCanal.TabIndex = 5;
-            this.stepCanal.Leave += new System.EventHandler(this.StepCanalLeave);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.stepCanal);
+            this.groupBox3.Location = new System.Drawing.Point(12, 282);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(323, 59);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Параметры метода решения";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(18, 292);
+            this.label15.Location = new System.Drawing.Point(6, 26);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(187, 13);
             this.label15.TabIndex = 4;
             this.label15.Text = "Количество шагов по длине канала";
+            // 
+            // stepCanal
+            // 
+            this.stepCanal.Location = new System.Drawing.Point(217, 23);
+            this.stepCanal.Name = "stepCanal";
+            this.stepCanal.Size = new System.Drawing.Size(100, 20);
+            this.stepCanal.TabIndex = 5;
+            this.stepCanal.Leave += new System.EventHandler(this.StepCanalLeave);
             // 
             // groupBox5
             // 
@@ -538,6 +552,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.visTime);
+            this.tabPage2.Controls.Add(this.label24);
             this.tabPage2.Controls.Add(this.timeElapsed);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.groupBox8);
@@ -550,6 +566,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Результаты";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // timeElapsed
+            // 
+            this.timeElapsed.AutoSize = true;
+            this.timeElapsed.Location = new System.Drawing.Point(600, 344);
+            this.timeElapsed.Name = "timeElapsed";
+            this.timeElapsed.Size = new System.Drawing.Size(13, 13);
+            this.timeElapsed.TabIndex = 6;
+            this.timeElapsed.Text = "0";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(464, 344);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(97, 13);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "Время счёта, мс: ";
             // 
             // groupBox8
             // 
@@ -570,6 +604,7 @@
             this.viscosityOnStep});
             this.resultSet.Location = new System.Drawing.Point(6, 19);
             this.resultSet.Name = "resultSet";
+            this.resultSet.ReadOnly = true;
             this.resultSet.RowHeadersWidth = 51;
             this.resultSet.Size = new System.Drawing.Size(415, 352);
             this.resultSet.TabIndex = 3;
@@ -698,21 +733,22 @@
             // chartFromViscosity
             // 
             this.chartFromViscosity.BackColor = System.Drawing.Color.Silver;
-            chartArea15.AxisY.Title = "Температура, °C";
-            chartArea15.Name = "ChartArea1";
-            this.chartFromViscosity.ChartAreas.Add(chartArea15);
-            legend15.Alignment = System.Drawing.StringAlignment.Center;
-            legend15.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend15.Name = "Legend1";
-            this.chartFromViscosity.Legends.Add(legend15);
+            chartArea5.AxisX.Title = "Координата по длине канала, м";
+            chartArea5.AxisY.Title = "Температура, °C";
+            chartArea5.Name = "ChartArea1";
+            this.chartFromViscosity.ChartAreas.Add(chartArea5);
+            legend5.Alignment = System.Drawing.StringAlignment.Center;
+            legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend5.Name = "Legend1";
+            this.chartFromViscosity.Legends.Add(legend5);
             this.chartFromViscosity.Location = new System.Drawing.Point(6, 6);
             this.chartFromViscosity.Name = "chartFromViscosity";
             this.chartFromViscosity.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series15.Legend = "Legend1";
-            series15.Name = "Температура, °C";
-            this.chartFromViscosity.Series.Add(series15);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Температура, °C";
+            this.chartFromViscosity.Series.Add(series5);
             this.chartFromViscosity.Size = new System.Drawing.Size(730, 350);
             this.chartFromViscosity.TabIndex = 2;
             this.chartFromViscosity.Text = "chart2";
@@ -741,43 +777,44 @@
             // chartFromLength
             // 
             this.chartFromLength.BackColor = System.Drawing.Color.Silver;
-            chartArea16.AxisY.Title = "Вязкость, Па * с";
-            chartArea16.Name = "ChartArea1";
-            this.chartFromLength.ChartAreas.Add(chartArea16);
-            legend16.Alignment = System.Drawing.StringAlignment.Center;
-            legend16.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend16.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
-            legend16.Name = "Legend1";
-            this.chartFromLength.Legends.Add(legend16);
+            chartArea6.AxisX.Title = "Координата по длине канала, м";
+            chartArea6.AxisY.Title = "Вязкость, Па * с";
+            chartArea6.Name = "ChartArea1";
+            this.chartFromLength.ChartAreas.Add(chartArea6);
+            legend6.Alignment = System.Drawing.StringAlignment.Center;
+            legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend6.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend6.Name = "Legend1";
+            this.chartFromLength.Legends.Add(legend6);
             this.chartFromLength.Location = new System.Drawing.Point(6, 11);
             this.chartFromLength.Name = "chartFromLength";
             this.chartFromLength.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series16.Legend = "Legend1";
-            series16.Name = "Вязкость, Па * с";
-            this.chartFromLength.Series.Add(series16);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Вязкость, Па * с";
+            this.chartFromLength.Series.Add(series6);
             this.chartFromLength.Size = new System.Drawing.Size(730, 350);
             this.chartFromLength.TabIndex = 2;
             this.chartFromLength.Text = "chart1";
             // 
-            // label16
+            // visTime
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(464, 364);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(97, 13);
-            this.label16.TabIndex = 5;
-            this.label16.Text = "Время счёта, мс: ";
+            this.visTime.AutoSize = true;
+            this.visTime.Location = new System.Drawing.Point(600, 364);
+            this.visTime.Name = "visTime";
+            this.visTime.Size = new System.Drawing.Size(13, 13);
+            this.visTime.TabIndex = 8;
+            this.visTime.Text = "0";
             // 
-            // timeElapsed
+            // label24
             // 
-            this.timeElapsed.AutoSize = true;
-            this.timeElapsed.Location = new System.Drawing.Point(567, 364);
-            this.timeElapsed.Name = "timeElapsed";
-            this.timeElapsed.Size = new System.Drawing.Size(13, 13);
-            this.timeElapsed.TabIndex = 6;
-            this.timeElapsed.Text = "0";
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(464, 364);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(140, 13);
+            this.label24.TabIndex = 7;
+            this.label24.Text = "Время визуализации, мс: ";
             // 
             // ResearcherForm
             // 
@@ -800,6 +837,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -888,5 +927,8 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartFromLength;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label visTime;
+        private System.Windows.Forms.Label label24;
     }
 }

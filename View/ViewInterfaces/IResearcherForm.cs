@@ -12,6 +12,8 @@ namespace View.ViewInterfaces
         string ChosenMaterial { get; }
         double[] GetCanalGeometry();
         double[] GetVariableParams();
+        double[] GetParams();
+        double[] GetCoefs();
         int NumberOfSteps { get; }
         event EventHandler calculate;
         event EventHandler materialChanged;

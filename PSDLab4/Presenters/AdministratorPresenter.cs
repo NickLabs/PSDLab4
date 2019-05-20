@@ -39,9 +39,9 @@ namespace PSDLab4.Presenters
             this.form.Stop();
         }
 
-        private void MaterialChanged(object sender, EventArgs e)
+        private void TableChanged(object sender, EventArgs e)
         {
-            //Из парсера взять правила по типам и зависимости для конкретного материала
+            //Из парсера взять правила по типам и зависимости для конкретной таблицы
             //отправить эти правила в форму
             columnReferencesTableNameKeys = new Dictionary<string, Dictionary<string, int>>();
             columnReferencesTableKeyNames = new Dictionary<string, Dictionary<int, string>>();
@@ -62,7 +62,7 @@ namespace PSDLab4.Presenters
                 //Для каждой связной таблицы получаем айдишники и их текстовые представления для наглядности 
                 for (int i = 0; i < refColumns.Length; i++)
                 {
-                    Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i], this.parser.GetTablesColumnNames(this.dataBase.GetTranslationToEng(outerTables[i])).Select(x=>this.dataBase.GetTranslationToRus(x)).ToArray());
+                    Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i], this.parser.GetTablesColumnNames(this.dataBase.GetTranslationToEng(outerTables[i])).Select(x => this.dataBase.GetTranslationToRus(x)).ToArray());
                     Dictionary<int, string> keyNames = this.dataBase.IdAndRelevantNameReverse(outerTables[i], this.parser.GetTablesColumnNames(this.dataBase.GetTranslationToEng(outerTables[i])).Select(x => this.dataBase.GetTranslationToRus(x)).ToArray());
                     this.columnReferencesTableNameKeys.Add(refColumns[i], nameKeys);
                     this.columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
@@ -88,7 +88,7 @@ namespace PSDLab4.Presenters
             this.form = form;
             this.dataBase = dataBase;
             this.parser = parser;
-            this.form.materialChanged += MaterialChanged;
+            this.form.materialChanged += TableChanged;
             this.form.changeAdd += ChangeAddCycle;
             this.form.delete += DataDeleted;
             this.form.submit += DataSubmitted;
@@ -167,7 +167,10 @@ namespace PSDLab4.Presenters
         {
             if (this.columnNames[0].StartsWith("Ид "))
             {
-                this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0], this.form.SelectedItemIndex[1], this.columnNames[0], this.columnNames[1]);
+
+                int firstIndex = columnReferencesTableNameKeys[columnNames[0]][this.form.SelectedItemIndex[0]];
+                int secondIndex = columnReferencesTableNameKeys[columnNames[1]][this.form.SelectedItemIndex[1]];
+                this.dataBase.DeleteRow(this.form.CurrentTable, firstIndex, secondIndex, this.columnNames[0], this.columnNames[1]);
                 this.form.UpdateTable();
                 this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();
@@ -179,7 +182,8 @@ namespace PSDLab4.Presenters
             }
             else
             {
-                this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0]);
+                int firstIndex = Convert.ToInt32(this.form.SelectedItemIndex[0]);
+                this.dataBase.DeleteRow(this.form.CurrentTable, firstIndex);
                 this.form.UpdateTable();
                 this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();

@@ -95,7 +95,7 @@ namespace DomainModel.Service
         private void TemperatureCalculation(double viscosityTemperatureCoefficient, double temperatureAlign, double width,
             double step, double density, double heatCapacity, double meltingTemperature, double length, double capHeatTransmissionCoefficient)
         {
-            for(double i = 0; i <= length; i += step)
+            for(double i = 0; i < length+step; i += step)
             {
                 double logPart;
                 double firstLog;

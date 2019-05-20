@@ -20,15 +20,15 @@ namespace View.Forms
         public event EventHandler changeUser;
         public event EventHandler submit;
 
-        public int[] SelectedItemIndex
+        public string[] SelectedItemIndex
         {
             get
             {
-                int[] mas = new int[2];
-                mas[0] = Convert.ToInt32(this.TableView.SelectedRows[0].Cells[0].Value);
+                string[] mas = new string[2];
+                mas[0] =this.TableView.SelectedRows[0].Cells[0].Value.ToString();
                 try
                 {
-                    mas[1] = Convert.ToInt32(this.TableView.SelectedRows[0].Cells[1].Value);
+                    mas[1] = this.TableView.SelectedRows[0].Cells[1].Value.ToString();
                 }
                 catch (Exception)
                 {
@@ -508,6 +508,33 @@ namespace View.Forms
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void помощьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Для добавления записи в таблицу" +
+                "\n\t1) выберите таблицу;" +
+                "\n\t2) в поле 'выбранная строка' введите нужные данные и нажмите 'Ок'" +
+                "\nДля изменения записи в таблице" +
+                "\n\t1)Выберите нужную запись" +
+                "\n\t2)Нажмите на кнопку 'Изменить/Добавить'" +
+                "\n\t3)Измените данные и нажмите 'Ок'" +
+                "\nДля удаления записи из таблицы" +
+                "\n\t1)Выберите нужную запись" +
+                "\n\t2)Нажмите на кнопку 'Удалить'", "Помощь", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+               "Программу разработали студенты СПбГТИ(ТУ) 465 группы:\n" +
+               "\tВинокуров Никита Александрович\n" +
+               "\tТатаринцев Вадим Павлович\n" +
+               "Под руководством:\n" +
+               "\tПолосина Андрея Николаевича",
+               "Справка",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
         }
     }
 }

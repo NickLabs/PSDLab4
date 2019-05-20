@@ -14,7 +14,7 @@ namespace View.ViewInterfaces
         ArrayList ValuesToSubmit { get; set; }
         ArrayList ValuesToInsert { get; }
         int NumberOfSelectedRows { get; }
-        int[] SelectedItemIndex { get; }
+        string[] SelectedItemIndex { get; }
         event EventHandler materialChanged;
         event EventHandler delete;
         event EventHandler changeAdd;
