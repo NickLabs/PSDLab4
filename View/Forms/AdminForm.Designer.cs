@@ -33,7 +33,6 @@
             this.сменитьПользователяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TableView = new System.Windows.Forms.DataGridView();
@@ -51,10 +50,9 @@
             // 
             this.tablesList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tablesList.FormattingEnabled = true;
-            this.tablesList.Location = new System.Drawing.Point(8, 44);
-            this.tablesList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tablesList.Location = new System.Drawing.Point(6, 36);
             this.tablesList.Name = "tablesList";
-            this.tablesList.Size = new System.Drawing.Size(160, 24);
+            this.tablesList.Size = new System.Drawing.Size(121, 21);
             this.tablesList.TabIndex = 0;
             this.tablesList.SelectedValueChanged += new System.EventHandler(this.TableChanged);
             // 
@@ -64,47 +62,40 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сменитьПользователяToolStripMenuItem,
             this.помощьToolStripMenuItem,
-            this.справкаToolStripMenuItem,
-            this.выходToolStripMenuItem});
+            this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // сменитьПользователяToolStripMenuItem
             // 
             this.сменитьПользователяToolStripMenuItem.Name = "сменитьПользователяToolStripMenuItem";
-            this.сменитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.сменитьПользователяToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
             this.сменитьПользователяToolStripMenuItem.Text = "Сменить пользователя";
             this.сменитьПользователяToolStripMenuItem.Click += new System.EventHandler(this.сменитьПользователяToolStripMenuItem_Click);
             // 
             // помощьToolStripMenuItem
             // 
             this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
-            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.помощьToolStripMenuItem.Text = "Помощь";
+            this.помощьToolStripMenuItem.Click += new System.EventHandler(this.помощьToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
-            this.выходToolStripMenuItem.Text = "Выход";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(6, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 17);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Таблица";
             // 
@@ -112,11 +103,9 @@
             // 
             this.groupBox1.Controls.Add(this.tablesList);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(16, 33);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(184, 78);
+            this.groupBox1.Size = new System.Drawing.Size(138, 63);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Выбор таблицы";
@@ -124,20 +113,18 @@
             // TableView
             // 
             this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TableView.Location = new System.Drawing.Point(16, 118);
-            this.TableView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TableView.Location = new System.Drawing.Point(12, 96);
             this.TableView.Name = "TableView";
             this.TableView.ReadOnly = true;
             this.TableView.RowHeadersWidth = 51;
-            this.TableView.Size = new System.Drawing.Size(1035, 274);
+            this.TableView.Size = new System.Drawing.Size(776, 223);
             this.TableView.TabIndex = 4;
             // 
             // Modify
             // 
-            this.Modify.Location = new System.Drawing.Point(777, 400);
-            this.Modify.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Modify.Location = new System.Drawing.Point(583, 325);
             this.Modify.Name = "Modify";
-            this.Modify.Size = new System.Drawing.Size(165, 28);
+            this.Modify.Size = new System.Drawing.Size(124, 23);
             this.Modify.TabIndex = 6;
             this.Modify.Text = "Изменить/Добавить";
             this.Modify.UseVisualStyleBackColor = true;
@@ -145,10 +132,9 @@
             // 
             // Delete
             // 
-            this.Delete.Location = new System.Drawing.Point(951, 400);
-            this.Delete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Delete.Location = new System.Drawing.Point(713, 325);
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(100, 28);
+            this.Delete.Size = new System.Drawing.Size(75, 23);
             this.Delete.TabIndex = 7;
             this.Delete.Text = "Удалить";
             this.Delete.UseVisualStyleBackColor = true;
@@ -156,11 +142,9 @@
             // 
             // DBRow
             // 
-            this.DBRow.Location = new System.Drawing.Point(17, 437);
-            this.DBRow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DBRow.Location = new System.Drawing.Point(13, 355);
             this.DBRow.Name = "DBRow";
-            this.DBRow.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.DBRow.Size = new System.Drawing.Size(1033, 102);
+            this.DBRow.Size = new System.Drawing.Size(775, 83);
             this.DBRow.TabIndex = 8;
             this.DBRow.TabStop = false;
             this.DBRow.Text = "Выбранная строка";
@@ -168,27 +152,25 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 414);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(13, 336);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(173, 17);
+            this.label2.Size = new System.Drawing.Size(135, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Текущий режим работы: ";
             // 
             // addChangeStatus
             // 
             this.addChangeStatus.AutoSize = true;
-            this.addChangeStatus.Location = new System.Drawing.Point(205, 414);
-            this.addChangeStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.addChangeStatus.Location = new System.Drawing.Point(154, 336);
             this.addChangeStatus.Name = "addChangeStatus";
-            this.addChangeStatus.Size = new System.Drawing.Size(0, 17);
+            this.addChangeStatus.Size = new System.Drawing.Size(0, 13);
             this.addChangeStatus.TabIndex = 10;
             // 
             // AdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.addChangeStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DBRow);
@@ -199,7 +181,6 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AdminForm";
             this.Text = "AdminForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_FormClosed);
@@ -219,7 +200,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView TableView;

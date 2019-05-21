@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using View.ViewInterfaces;
 
@@ -20,15 +17,15 @@ namespace View.Forms
         public event EventHandler changeUser;
         public event EventHandler submit;
 
-        public int[] SelectedItemIndex
+        public string[] SelectedItemIndex
         {
             get
             {
-                int[] mas = new int[2];
-                mas[0] = Convert.ToInt32(this.TableView.SelectedRows[0].Cells[0].Value);
+                string[] mas = new string[2];
+                mas[0] =TableView.SelectedRows[0].Cells[0].Value.ToString();
                 try
                 {
-                    mas[1] = Convert.ToInt32(this.TableView.SelectedRows[0].Cells[1].Value);
+                    mas[1] = TableView.SelectedRows[0].Cells[1].Value.ToString();
                 }
                 catch (Exception)
                 {
@@ -42,7 +39,7 @@ namespace View.Forms
         {
             get
             {
-                return this.TableView.SelectedRows.Count;
+                return TableView.SelectedRows.Count;
             }
         }
         private int numberOfParams;
@@ -50,7 +47,7 @@ namespace View.Forms
         {
             get
             {
-                return this.tablesList.Text;
+                return tablesList.Text;
             }
         }
 
@@ -59,18 +56,18 @@ namespace View.Forms
             get
             {
                 ArrayList tmp = new ArrayList();
-                for (int i = 0; i < (this.DBRow.Controls.Count - 1) / 2; i++)
+                for (int i = 0; i < (DBRow.Controls.Count - 1) / 2; i++)
                 {
-                    tmp.Add(this.DBRow.Controls[i * 2 + 1].Text);
+                    tmp.Add(DBRow.Controls[i * 2 + 1].Text);
                 }
                 return tmp;
             }
             set
             {
                 //У нас каждый второй элемент в DBRow - нужный контрол
-                for (int i = 0; i < (this.DBRow.Controls.Count - 1) / 2; i++)
+                for (int i = 0; i < (DBRow.Controls.Count - 1) / 2; i++)
                 {
-                    this.DBRow.Controls[i * 2 + 1].Text = value[i].ToString();
+                    DBRow.Controls[i * 2 + 1].Text = value[i].ToString();
                 }
             }
         }
@@ -96,20 +93,20 @@ namespace View.Forms
 
         public void Start(string[] names)
         {
-            
-            this.tablesList.Items.AddRange(names);
-            this.Visible = true;
+            tablesList.Items.Clear();
+            tablesList.Items.AddRange(names);
+            Visible = true;
         }
 
         public void Stop()
         {
-            this.Visible = false;
+            Visible = false;
         }
 
         public void GenerateInputFields(string[] columnNames, string[] columnTypes, Dictionary<string, Dictionary<string, int>> columnReferencesTable)
         {
-            this.numberOfParams = columnNames.Length;
-            this.DBRow.Controls.Clear();
+            numberOfParams = columnNames.Length;
+            DBRow.Controls.Clear();
             int pad = 9;
             int forNames = 0;
 
@@ -126,7 +123,7 @@ namespace View.Forms
                 else if (columnNames[i].StartsWith("Иде"))
                 {
                     variableColumn = new TextBox();
-                    variableColumn.Leave += new System.EventHandler(UniqueID);
+                    variableColumn.Leave += new EventHandler(UniqueID);
                 }
                 else
                 {
@@ -134,11 +131,11 @@ namespace View.Forms
 
                     //this.tablesList.Items.Clear();
 
-                    (variableColumn as ComboBox).DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+                    (variableColumn as ComboBox).DropDownStyle = ComboBoxStyle.DropDownList;
                     (variableColumn as ComboBox).Items.AddRange(columnReferencesTable[columnNames[i]].Keys.ToArray());
                     if (columnNames.Contains("Ид "))
                     {
-                        variableColumn.Leave += new System.EventHandler(UniqueCompositeKey);
+                        variableColumn.Leave += new EventHandler(UniqueCompositeKey);
                     }
                 }
 
@@ -147,11 +144,11 @@ namespace View.Forms
                 {
                     paddingSize = 80;
                 }
-                ColumnName.Location = new System.Drawing.Point(pad, 20);
-                ColumnName.Size = new System.Drawing.Size(paddingSize, 40);
+                ColumnName.Location = new Point(pad, 20);
+                ColumnName.Size = new Size(paddingSize, 40);
                 ColumnName.Text = columnNames[i];
-                variableColumn.Location = new System.Drawing.Point(pad, 60);
-                variableColumn.Size = new System.Drawing.Size(paddingSize, 20);
+                variableColumn.Location = new Point(pad, 60);
+                variableColumn.Size = new Size(paddingSize, 20);
 
                 ColumnName.Name = "Label" + forNames;
                 variableColumn.Name = columnNames[i];
@@ -159,26 +156,26 @@ namespace View.Forms
 
                 if (columnTypes[i].Equals("INTEGER") && variableColumn.GetType().Equals(typeof(TextBox)))
                 {
-                    variableColumn.Leave += new System.EventHandler(ValidateInt);
+                    variableColumn.Leave += new EventHandler(ValidateInt);
                 }
                 else if (columnTypes[i].Equals("REAL") && variableColumn.GetType().Equals(typeof(TextBox)))
                 {
-                    variableColumn.Leave += new System.EventHandler(ValidateDouble);
+                    variableColumn.Leave += new EventHandler(ValidateDouble);
                 }
 
                 pad += paddingSize;
-                this.DBRow.Controls.Add(ColumnName);
-                this.DBRow.Controls.Add(variableColumn);
+                DBRow.Controls.Add(ColumnName);
+                DBRow.Controls.Add(variableColumn);
             }
             Button Submit = new Button();
-            Submit.Location = new System.Drawing.Point(694, 37);
+            Submit.Location = new Point(694, 37);
             Submit.Name = "Submit";
-            Submit.Size = new System.Drawing.Size(75, 23);
+            Submit.Size = new Size(75, 23);
             Submit.TabIndex = 0;
             Submit.Text = "Ок";
             Submit.UseVisualStyleBackColor = true;
-            Submit.Click += new System.EventHandler(SubmitRow);
-            this.DBRow.Controls.Add(Submit);
+            Submit.Click += new EventHandler(SubmitRow);
+            DBRow.Controls.Add(Submit);
         }
 
         public void SetChangeDeleteRules(bool isAllowed)
@@ -216,13 +213,13 @@ namespace View.Forms
 
                 if (dt.Rows.Count < 1)
                 {
-                    this.Modify.Enabled = false;
-                    this.Delete.Enabled = false;
+                    Modify.Enabled = false;
+                    Delete.Enabled = false;
                 }
                 else
                 {
-                    this.Modify.Enabled = true;
-                    this.Delete.Enabled = true;
+                    Modify.Enabled = true;
+                    Delete.Enabled = true;
                 }
             }
             else
@@ -259,13 +256,13 @@ namespace View.Forms
 
                 if (dt.Rows.Count < 1)
                 {
-                    this.Modify.Enabled = false;
-                    this.Delete.Enabled = false;
+                    Modify.Enabled = false;
+                    Delete.Enabled = false;
                 }
                 else
                 {
-                    this.Modify.Enabled = true;
-                    this.Delete.Enabled = true;
+                    Modify.Enabled = true;
+                    Delete.Enabled = true;
                 }
             }
         }
@@ -281,13 +278,13 @@ namespace View.Forms
             }
             if (dt.Rows.Count < 1)
             {
-                this.Modify.Enabled = false;
-                this.Delete.Enabled = false;
+                Modify.Enabled = false;
+                Delete.Enabled = false;
             }
             else
             {
-                this.Modify.Enabled = true;
-                this.Delete.Enabled = true;
+                Modify.Enabled = true;
+                Delete.Enabled = true;
             }
         }
 
@@ -329,7 +326,7 @@ namespace View.Forms
                 {
                     int s = Convert.ToInt32((sender as TextBox).Text);
                     if (s < 0) throw new Exception();
-                    this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = true;
+                    DBRow.Controls[DBRow.Controls.Count - 1].Enabled = true;
                 }
                 catch (Exception)
                 {
@@ -348,7 +345,7 @@ namespace View.Forms
                 {
                     double s = Convert.ToDouble((sender as TextBox).Text);
                     if (s < 0.0) throw new Exception();
-                    this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = true;
+                    DBRow.Controls[DBRow.Controls.Count - 1].Enabled = true;
                 }
                 catch (Exception)
                 {
@@ -361,27 +358,27 @@ namespace View.Forms
         private void UniqueID(object sender, EventArgs e)
         {
             var s = (sender as TextBox).Text;
-            foreach (DataGridViewRow row in this.TableView.Rows)
+            foreach (DataGridViewRow row in TableView.Rows)
             {
                 if (row.Index < TableView.Rows.Count - 1)
                 {
                     if (row.Cells[0].Value.ToString().Equals(s))
                     {
                         ShowNotUniqueIdError();
-                        this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = false;
+                        DBRow.Controls[DBRow.Controls.Count - 1].Enabled = false;
                     }
                 }
             }
-            this.DBRow.Controls[this.DBRow.Controls.Count - 1].Enabled = true;
+            DBRow.Controls[DBRow.Controls.Count - 1].Enabled = true;
         }
 
         private void UniqueCompositeKey(object sender, EventArgs e)
         {
             //Наверное лучше делать через презентер всё через ивент
             List<string> compositeKeyElements = new List<string>();
-            if (!this.DBRow.Controls.ContainsKey("Ид "))
+            if (!DBRow.Controls.ContainsKey("Ид "))
             {
-                foreach (Control c in this.DBRow.Controls)
+                foreach (Control c in DBRow.Controls)
                 {
                     if (c.Text.Contains("Ид "))
                     {
@@ -395,7 +392,7 @@ namespace View.Forms
                 if (compositeKeyElements.Count > 1)
                 {
                     List<List<string>> dataInTable = new List<List<string>>();
-                    foreach (DataGridViewRow row in this.TableView.Rows)
+                    foreach (DataGridViewRow row in TableView.Rows)
                     {
                         List<string> tmp = new List<string>();
                         for (int i = 0; i < compositeKeyElements.Count; i++)
@@ -456,9 +453,9 @@ namespace View.Forms
 
         private void DeleteClick(object sender, EventArgs e)
         {
-            if (this.TableView.SelectedRows.Count == 1)
+            if (TableView.SelectedRows.Count == 1)
             {
-                this.delete?.Invoke(this, null);
+                delete?.Invoke(this, null);
             }
             else
             {
@@ -468,11 +465,11 @@ namespace View.Forms
 
         public void ChangeAddCirculation(string status, ArrayList values)
         {
-            this.addChangeStatus.Text = status;
+            addChangeStatus.Text = status;
 
             if (status.Equals("Изменение"))
             {
-                this.ValuesToSubmit = values;
+                ValuesToSubmit = values;
                 if (DBRow.Controls[1].Name.StartsWith("Ид "))
                 {
                     DBRow.Controls[1].Enabled = false;
@@ -485,7 +482,7 @@ namespace View.Forms
             }
             else
             {
-                this.ValuesToSubmit = values;
+                ValuesToSubmit = values;
 
                 DBRow.Controls[1].Enabled = true;
                 DBRow.Controls[3].Enabled = true;
@@ -494,7 +491,7 @@ namespace View.Forms
 
         public void UpdateTable()
         {
-            this.TableView.Rows.Clear();
+            TableView.Rows.Clear();
         }
 
         private void сменитьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
@@ -508,6 +505,33 @@ namespace View.Forms
         private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void помощьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Для добавления записи в таблицу" +
+                "\n\t1) выберите таблицу;" +
+                "\n\t2) в поле 'выбранная строка' введите нужные данные и нажмите 'Ок'" +
+                "\nДля изменения записи в таблице" +
+                "\n\t1)Выберите нужную запись" +
+                "\n\t2)Нажмите на кнопку 'Изменить/Добавить'" +
+                "\n\t3)Измените данные и нажмите 'Ок'" +
+                "\nДля удаления записи из таблицы" +
+                "\n\t1)Выберите нужную запись" +
+                "\n\t2)Нажмите на кнопку 'Удалить'", "Помощь", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+               "Программу разработали студенты СПбГТИ(ТУ) 465 группы:\n" +
+               "\tВинокуров Никита Александрович\n" +
+               "\tТатаринцев Вадим Павлович\n" +
+               "Под руководством:\n" +
+               "\tПолосина Андрея Николаевича",
+               "Справка",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
         }
     }
 }

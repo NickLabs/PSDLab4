@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SQLite;
 using System.Data;
+using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 
 namespace DomainModel.Service
 {
@@ -39,8 +37,8 @@ namespace DomainModel.Service
             SQLiteCommand command = new SQLiteCommand();
             command.Connection = c;
             DataTable dt = c.GetSchema("Tables");
-            this.dataBaseRules = new Dictionary<string, Dictionary<string, string>>();
-            this.references = new Dictionary<string, Dictionary<string, string>>();
+            dataBaseRules = new Dictionary<string, Dictionary<string, string>>();
+            references = new Dictionary<string, Dictionary<string, string>>();
             foreach (DataRow d in dt.Rows)
             {
 

@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.ViewInterfaces
 {
@@ -14,7 +11,7 @@ namespace View.ViewInterfaces
         ArrayList ValuesToSubmit { get; set; }
         ArrayList ValuesToInsert { get; }
         int NumberOfSelectedRows { get; }
-        int[] SelectedItemIndex { get; }
+        string[] SelectedItemIndex { get; }
         event EventHandler materialChanged;
         event EventHandler delete;
         event EventHandler changeAdd;

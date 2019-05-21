@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.ViewInterfaces
 {
@@ -12,6 +9,8 @@ namespace View.ViewInterfaces
         string ChosenMaterial { get; }
         double[] GetCanalGeometry();
         double[] GetVariableParams();
+        double[] GetParams();
+        double[] GetCoefs();
         int NumberOfSteps { get; }
         event EventHandler calculate;
         event EventHandler materialChanged;
@@ -23,7 +22,7 @@ namespace View.ViewInterfaces
             double[] maxLimits);
         void DivideByZeroError();
         void SetData(double[] coefficients, double[] properties);
-        void SetResults(double[] temperature, double[] viscosity, double length, double output);
+        void SetResults(double[] temperature, double[] viscosity, double length, double output, string time);
         DataTable GetDataForReport();
         string GetFileName();
         double[] GetResults();

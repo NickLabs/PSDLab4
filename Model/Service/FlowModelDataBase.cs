@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel.Infrastructure;
-using System.Data.SQLite;
-using System.Data;
+﻿using DomainModel.Infrastructure;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 
 namespace DomainModel.Service
 {
@@ -28,7 +26,7 @@ namespace DomainModel.Service
             { "idRole","Ид Роль"},
             
             { "idMaterial","Ид Материал"},
-            { "idCoefficient","Ид Коеффициент"},
+            { "idCoefficient","Ид Коэффициент"},
             { "value","Значение"},
 
             { "idMat","Ид Материал "},
@@ -89,8 +87,8 @@ namespace DomainModel.Service
 
         public FlowModelDataBase()
         {
-            this.connection = new SQLiteConnection(dbName);
-            this.connection.Open();
+            connection = new SQLiteConnection(dbName);
+            connection.Open();
             command.Connection = connection;
             RusToEng = EngToRus.ToDictionary(x => x.Value, x => x.Key);
         }
@@ -226,7 +224,7 @@ namespace DomainModel.Service
         public string[] GetAllTables()
         {
             List<string> tables = new List<string>();
-            DataTable dt = this.connection.GetSchema("Tables");
+            DataTable dt = connection.GetSchema("Tables");
 
             foreach (DataRow row in dt.Rows)
             {
@@ -268,7 +266,7 @@ namespace DomainModel.Service
 
             DataTable dt = new DataTable();
             string query = String.Format("SELECT * FROM {0}", tableName);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, this.connection);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, connection);
             adapter.Fill(dt);
 
             

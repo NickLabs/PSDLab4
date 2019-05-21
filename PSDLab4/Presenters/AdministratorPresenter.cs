@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using View.ViewInterfaces;
-using DomainModel.Infrastructure;
+﻿using DomainModel.Infrastructure;
 using DomainModel.Service;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using View.ViewInterfaces;
 
 namespace PSDLab4.Presenters
 {
@@ -30,57 +28,57 @@ namespace PSDLab4.Presenters
         public void Start()
         {
             string[] names = dataBase.GetAllTables();
-            this.parser.Parse();
-            this.form.Start(names);
+            parser.Parse();
+            form.Start(names);
         }
 
         public void Close()
         {
-            this.form.Stop();
+            form.Stop();
         }
 
-        private void MaterialChanged(object sender, EventArgs e)
+        private void TableChanged(object sender, EventArgs e)
         {
-            //Из парсера взять правила по типам и зависимости для конкретного материала
+            //Из парсера взять правила по типам и зависимости для конкретной таблицы
             //отправить эти правила в форму
             columnReferencesTableNameKeys = new Dictionary<string, Dictionary<string, int>>();
             columnReferencesTableKeyNames = new Dictionary<string, Dictionary<int, string>>();
 
-            this.status = rowStatus.ADD;
-            string table = this.form.CurrentTable;
-            this.columnNames = this.parser.GetDataBaseRules()[dataBase.GetTranslationToEng(table)].Select(x => dataBase.GetTranslationToRus(x.Key)).ToArray();
-            string[] columnTypes = this.parser.GetDataBaseRules()[dataBase.GetTranslationToEng(table)].Select(x => x.Value).ToArray();
+            status = rowStatus.ADD;
+            string table = form.CurrentTable;
+            columnNames = parser.GetDataBaseRules()[dataBase.GetTranslationToEng(table)].Select(x => dataBase.GetTranslationToRus(x.Key)).ToArray();
+            string[] columnTypes = parser.GetDataBaseRules()[dataBase.GetTranslationToEng(table)].Select(x => x.Value).ToArray();
             numberOfColumns = columnNames.Length;
 
-            var ss = this.parser.GetReferences()[dataBase.GetTranslationToEng(table)];
+            var ss = parser.GetReferences()[dataBase.GetTranslationToEng(table)];
 
             //Получаем названия внешних таблиц
-            string[] refColumns = this.parser.GetReferences()[dataBase.GetTranslationToEng(table)].Select(x => this.dataBase.GetTranslationToRus(x.Key)).ToArray();
-            string[] outerTables = this.parser.GetReferences()[dataBase.GetTranslationToEng(table)].Select(x => this.dataBase.GetTranslationToRus(x.Value)).ToArray();
+            string[] refColumns = parser.GetReferences()[dataBase.GetTranslationToEng(table)].Select(x => dataBase.GetTranslationToRus(x.Key)).ToArray();
+            string[] outerTables = parser.GetReferences()[dataBase.GetTranslationToEng(table)].Select(x => dataBase.GetTranslationToRus(x.Value)).ToArray();
             if (outerTables.Length > 0)
             {
                 //Для каждой связной таблицы получаем айдишники и их текстовые представления для наглядности 
                 for (int i = 0; i < refColumns.Length; i++)
                 {
-                    Dictionary<string, int> nameKeys = this.dataBase.IdAndRelevantNames(outerTables[i], this.parser.GetTablesColumnNames(this.dataBase.GetTranslationToEng(outerTables[i])).Select(x=>this.dataBase.GetTranslationToRus(x)).ToArray());
-                    Dictionary<int, string> keyNames = this.dataBase.IdAndRelevantNameReverse(outerTables[i], this.parser.GetTablesColumnNames(this.dataBase.GetTranslationToEng(outerTables[i])).Select(x => this.dataBase.GetTranslationToRus(x)).ToArray());
-                    this.columnReferencesTableNameKeys.Add(refColumns[i], nameKeys);
-                    this.columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
+                    Dictionary<string, int> nameKeys = dataBase.IdAndRelevantNames(outerTables[i], parser.GetTablesColumnNames(dataBase.GetTranslationToEng(outerTables[i])).Select(x => dataBase.GetTranslationToRus(x)).ToArray());
+                    Dictionary<int, string> keyNames = dataBase.IdAndRelevantNameReverse(outerTables[i], parser.GetTablesColumnNames(dataBase.GetTranslationToEng(outerTables[i])).Select(x => dataBase.GetTranslationToRus(x)).ToArray());
+                    columnReferencesTableNameKeys.Add(refColumns[i], nameKeys);
+                    columnReferencesTableKeyNames.Add(refColumns[i], keyNames);
                 }
             }
 
-            this.form.GenerateInputFields(columnNames, columnTypes, this.columnReferencesTableNameKeys);
-            DataTable s = this.dataBase.GetTableData(table);
-            this.form.SetColumnNames(columnNames);
-            this.form.SetData(s, columnReferencesTableKeyNames);
+            form.GenerateInputFields(columnNames, columnTypes, columnReferencesTableNameKeys);
+            DataTable s = dataBase.GetTableData(table);
+            form.SetColumnNames(columnNames);
+            form.SetData(s, columnReferencesTableKeyNames);
 
             var ar = new ArrayList();
-            for (int i = 0; i < this.numberOfColumns; i++)
+            for (int i = 0; i < numberOfColumns; i++)
             {
                 ar.Add("");
             }
-            this.form.SetChangeDeleteRules(this.dataBase.GetRule(table));
-            this.form.ChangeAddCirculation("Добавление", ar);
+            form.SetChangeDeleteRules(dataBase.GetRule(table));
+            form.ChangeAddCirculation("Добавление", ar);
         }
 
         public AdministratorPresenter(IAdminForm form, IDataBaseModel dataBase, DatabaseParser parser)
@@ -88,7 +86,7 @@ namespace PSDLab4.Presenters
             this.form = form;
             this.dataBase = dataBase;
             this.parser = parser;
-            this.form.materialChanged += MaterialChanged;
+            this.form.materialChanged += TableChanged;
             this.form.changeAdd += ChangeAddCycle;
             this.form.delete += DataDeleted;
             this.form.submit += DataSubmitted;
@@ -97,7 +95,7 @@ namespace PSDLab4.Presenters
 
         private void ChangeUser(object sender, EventArgs e)
         {
-            this.form.Stop();
+            form.Stop();
             changeUser?.Invoke(this, null);
         }
 
@@ -106,7 +104,7 @@ namespace PSDLab4.Presenters
             if (status == rowStatus.ADD)
             {
                 ArrayList tmp = new ArrayList();
-                tmp = this.form.ValuesToSubmit;
+                tmp = form.ValuesToSubmit;
                 for (int i = 0; i < tmp.Count; i++)
                 {
                     if (columnNames[i].StartsWith("Ид ") && columnNames[i].Length > 2)
@@ -116,26 +114,26 @@ namespace PSDLab4.Presenters
                 }
                 try
                 {
-                    this.dataBase.InsertRow(this.form.CurrentTable, tmp);
-                    this.form.UpdateTable();
-                    this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+                    dataBase.InsertRow(form.CurrentTable, tmp);
+                    form.UpdateTable();
+                    form.SetData(dataBase.GetTableData(form.CurrentTable), columnReferencesTableKeyNames);
 
                     var ar = new ArrayList();
-                    for (int i = 0; i < this.numberOfColumns; i++)
+                    for (int i = 0; i < numberOfColumns; i++)
                     {
                         ar.Add("");
                     }
-                    this.form.ValuesToSubmit = ar;
+                    form.ValuesToSubmit = ar;
                 }
                 catch (Exception)
                 {
-                    this.form.ShowSQLInjectionError();
+                    form.ShowSQLInjectionError();
                 }
             }
             else
             {
                 ArrayList tmp = new ArrayList();
-                tmp = this.form.ValuesToSubmit;
+                tmp = form.ValuesToSubmit;
                 for (int i = 0; i < tmp.Count; i++)
                 {
                     if (columnNames[i].StartsWith("Ид ") && columnNames[i].Length > 2)
@@ -145,84 +143,88 @@ namespace PSDLab4.Presenters
                 }
                 try
                 {
-                    this.dataBase.UpdateRow(this.form.CurrentTable, tmp, columnNames);
-                    this.form.UpdateTable();
-                    this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+                    dataBase.UpdateRow(form.CurrentTable, tmp, columnNames);
+                    form.UpdateTable();
+                    form.SetData(dataBase.GetTableData(form.CurrentTable), columnReferencesTableKeyNames);
 
                     var ar = new ArrayList();
-                    for (int i = 0; i < this.numberOfColumns; i++)
+                    for (int i = 0; i < numberOfColumns; i++)
                     {
                         ar.Add("");
                     }
-                    this.form.ValuesToSubmit = ar;
+                    form.ValuesToSubmit = ar;
                 }
                 catch (Exception)
                 {
-                    this.form.ShowSQLInjectionError();
+                    form.ShowSQLInjectionError();
                 }
             }
         }
 
         private void DataDeleted(object sender, EventArgs e)
         {
-            if (this.columnNames[0].StartsWith("Ид "))
+            if (columnNames[0].StartsWith("Ид "))
             {
-                this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0], this.form.SelectedItemIndex[1], this.columnNames[0], this.columnNames[1]);
-                this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+
+                int firstIndex = columnReferencesTableNameKeys[columnNames[0]][form.SelectedItemIndex[0]];
+                int secondIndex = columnReferencesTableNameKeys[columnNames[1]][form.SelectedItemIndex[1]];
+                dataBase.DeleteRow(form.CurrentTable, firstIndex, secondIndex, columnNames[0], columnNames[1]);
+                form.UpdateTable();
+                form.SetData(dataBase.GetTableData(form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();
-                for (int i = 0; i < this.numberOfColumns; i++)
+                for (int i = 0; i < numberOfColumns; i++)
                 {
                     ar.Add("");
                 }
-                this.form.ValuesToSubmit = ar;
+                form.ValuesToSubmit = ar;
             }
             else
             {
-                this.dataBase.DeleteRow(this.form.CurrentTable, this.form.SelectedItemIndex[0]);
-                this.form.UpdateTable();
-                this.form.SetData(this.dataBase.GetTableData(this.form.CurrentTable), columnReferencesTableKeyNames);
+                int firstIndex = Convert.ToInt32(form.SelectedItemIndex[0]);
+                dataBase.DeleteRow(form.CurrentTable, firstIndex);
+                form.UpdateTable();
+                form.SetData(dataBase.GetTableData(form.CurrentTable), columnReferencesTableKeyNames);
                 var ar = new ArrayList();
-                for (int i = 0; i < this.numberOfColumns; i++)
+                for (int i = 0; i < numberOfColumns; i++)
                 {
                     ar.Add("");
                 }
-                this.form.ValuesToSubmit = ar;
+                form.ValuesToSubmit = ar;
             }
         }
 
         private void ChangeAddCycle(object sender, EventArgs e)
         {
 
-            if (this.status == rowStatus.ADD && this.form.NumberOfSelectedRows == 1)
+            if (status == rowStatus.ADD && form.NumberOfSelectedRows == 1)
             {
-                this.status = rowStatus.CHANGE;
-                this.form.ChangeAddCirculation("Изменение", this.form.ValuesToInsert);
+                status = rowStatus.CHANGE;
+                form.ChangeAddCirculation("Изменение", form.ValuesToInsert);
             }
-            else if (this.status == rowStatus.CHANGE && this.form.NumberOfSelectedRows == 1)
+            else if (status == rowStatus.CHANGE && form.NumberOfSelectedRows == 1)
             {
-                this.status = rowStatus.CHANGE;
-                this.form.ChangeAddCirculation("Изменение", this.form.ValuesToInsert);
+                status = rowStatus.CHANGE;
+                form.ChangeAddCirculation("Изменение", form.ValuesToInsert);
             }
-            else if (this.status == rowStatus.CHANGE && this.form.NumberOfSelectedRows < 1)
+            else if (status == rowStatus.CHANGE && form.NumberOfSelectedRows < 1)
             {
-                this.status = rowStatus.ADD;
+                status = rowStatus.ADD;
                 var ar = new ArrayList();
-                for (int i = 0; i < this.numberOfColumns; i++)
+                for (int i = 0; i < numberOfColumns; i++)
                 {
                     ar.Add("");
                 }
-                this.form.ChangeAddCirculation("Добавление", ar);
+                form.ChangeAddCirculation("Добавление", ar);
             }
 
             //Ошибочные случаи
-            else if (this.status == rowStatus.ADD && this.form.NumberOfSelectedRows != 1)
+            else if (status == rowStatus.ADD && form.NumberOfSelectedRows != 1)
             {
-                this.form.ShowChangeOrDeleteError();
+                form.ShowChangeOrDeleteError();
             }
-            else if (this.status == rowStatus.CHANGE && this.form.NumberOfSelectedRows > 1)
+            else if (status == rowStatus.CHANGE && form.NumberOfSelectedRows > 1)
             {
-                this.form.ShowChangeOrDeleteError();
+                form.ShowChangeOrDeleteError();
             }
 
         }
