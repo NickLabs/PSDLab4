@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using View.ViewInterfaces;
@@ -16,7 +13,7 @@ namespace View.Forms
 {
     public partial class ResearcherForm : Form, IResearcherForm
     {
-        public string ChosenMaterial { get { return this.materialType.SelectedItem.ToString(); } }
+        public string ChosenMaterial { get { return materialType.SelectedItem.ToString(); } }
         private string Filename = "";
         public double[] GetCanalGeometry()
         {
@@ -26,8 +23,8 @@ namespace View.Forms
 
         public double[] GetVariableParams()
         {
-            double[] results = {Convert.ToDouble(this.capSpeed.Text), Convert.ToDouble(this.temperature.Text),
-                    Convert.ToDouble(this.stepCanal.Text) };
+            double[] results = {Convert.ToDouble(capSpeed.Text), Convert.ToDouble(temperature.Text),
+                    Convert.ToDouble(stepCanal.Text) };
             return results;
         }
 
@@ -48,7 +45,7 @@ namespace View.Forms
         {
             get
             {
-                return Convert.ToInt32(this.stepCanal.Text);
+                return Convert.ToInt32(stepCanal.Text);
             }
         }
 
@@ -64,40 +61,40 @@ namespace View.Forms
 
         public void Start(string name, string[] materialNames)
         {
-            this.nameSurname.Text = name;
-            this.materialType.Items.Clear();
-            this.materialType.Items.AddRange(materialNames);
-            this.materialType.Text = "Поливинилхлорид";
+            nameSurname.Text = name;
+            materialType.Items.Clear();
+            materialType.Items.AddRange(materialNames);
+            materialType.Text = "Поливинилхлорид";
             materialChanged?.Invoke(this, null);
-            this.length.Text = "9,5";
-            this.width.Text = "2,5 ";
-            this.depth.Text = "0,001";
-            this.capSpeed.Text = "2";
-            this.temperature.Text = "160";
-            this.stepCanal.Text = "100";
+            length.Text = "9,5";
+            width.Text = "2,5 ";
+            depth.Text = "0,001";
+            capSpeed.Text = "2";
+            temperature.Text = "160";
+            stepCanal.Text = "100";
 
-            this.Visible = true;
+            Visible = true;
         }
         
         public void Stop()
         {
-            this.resultSet.Rows.Clear();
-            this.Visible = false;
-            this.materialType.Text = "";
-            this.length.Text = "";
-            this.width.Text = "";
-            this.depth.Text = "";
-            this.capSpeed.Text = "";
-            this.temperature.Text = "";
-            this.stepCanal.Text = "";
-            this.density.Text = "0";
-            this.heatCapacity.Text = "0";
-            this.meltingTemperature.Text = "0";
-            this.consistencyRatio.Text = "0";
-            this.viscosityCoefficient.Text = "0";
-            this.reductionTemperature.Text = "0";
-            this.flowIndex.Text = "0";
-            this.heatTransferCoefficient.Text = "0";
+            resultSet.Rows.Clear();
+            Visible = false;
+            materialType.Text = "";
+            length.Text = "";
+            width.Text = "";
+            depth.Text = "";
+            capSpeed.Text = "";
+            temperature.Text = "";
+            stepCanal.Text = "";
+            density.Text = "0";
+            heatCapacity.Text = "0";
+            meltingTemperature.Text = "0";
+            consistencyRatio.Text = "0";
+            viscosityCoefficient.Text = "0";
+            reductionTemperature.Text = "0";
+            flowIndex.Text = "0";
+            heatTransferCoefficient.Text = "0";
         }
 
         private void KeyPressHandle(object sender, KeyPressEventArgs e)
@@ -147,18 +144,17 @@ namespace View.Forms
             if (!length.Text.Equals("") && !width.Text.Equals("") && !depth.Text.Equals("") && !materialType.Text.Equals("") &&
                 !capSpeed.Text.Equals("") && !temperature.Text.Equals("") && !stepCanal.Text.Equals(""))
             {
-                double[] temporaryGeometry = {Convert.ToDouble(this.length.Text), Convert.ToDouble(this.width.Text),
-                    Convert.ToDouble(this.depth.Text) };
-                double[] temporaryVar = {Convert.ToDouble(this.capSpeed.Text), Convert.ToDouble(this.temperature.Text),
-                    Convert.ToDouble(this.stepCanal.Text) };
+                double[] temporaryGeometry = {Convert.ToDouble(length.Text), Convert.ToDouble(width.Text),
+                    Convert.ToDouble(depth.Text) };
+                double[] temporaryVar = {Convert.ToDouble(capSpeed.Text), Convert.ToDouble(temperature.Text),
+                    Convert.ToDouble(stepCanal.Text) };
 
-                this.calculate?.Invoke(this, null);
+                calculate?.Invoke(this, null);
             }
             else
             {
                 MessageBox.Show("Пожалуйста, заполните все поля перед началом расчёта", "Заполнены не все поля", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            
+            }          
         }
 
         private void MaterialTypeSelected(object sender, EventArgs e)
@@ -170,13 +166,12 @@ namespace View.Forms
             else
             {
                 materialChanged?.Invoke(this, null);
-                this.length.Text = "9,5";
-                this.width.Text = "2,5 ";
-                this.depth.Text = "0,001";
-                this.capSpeed.Text = "2";
-                this.temperature.Text = "160";
-                this.stepCanal.Text = "100";
-                
+                length.Text = "9,5";
+                width.Text = "2,5 ";
+                depth.Text = "0,001";
+                capSpeed.Text = "2";
+                temperature.Text = "160";
+                stepCanal.Text = "100";          
             }
         }
 
@@ -200,7 +195,7 @@ namespace View.Forms
                 switch (variable)
                 {
                     case -1:
-                        Control[] tmp = { this.length, this.width, this.depth };
+                        Control[] tmp = { length, width, depth };
                         foreach(Control c in tmp)
                         {
                             if (c.Text.Equals("0"))
@@ -210,10 +205,10 @@ namespace View.Forms
                         }
                         break;
                     case 0:
-                        this.capSpeed.BackColor = Color.Red;
+                        capSpeed.BackColor = Color.Red;
                         break;
                     case 1:
-                        this.temperature.BackColor = Color.Red;
+                        temperature.BackColor = Color.Red;
                         break;
                 }
             }
@@ -246,12 +241,12 @@ namespace View.Forms
 
         public void SetResults(double[] temperature, double[] viscosity, double length, double output, string time)
         {
-            Control[] tmp = { this.length, this.width, this.depth };
+            Control[] tmp = { this.length, width, depth };
             foreach (Control c in tmp)
             {
                 c.BackColor = SystemColors.Window;
             }
-            this.capSpeed.BackColor = SystemColors.Window;
+            capSpeed.BackColor = SystemColors.Window;
             this.temperature.BackColor = SystemColors.Window;
 
             Stopwatch t = new Stopwatch();
@@ -259,7 +254,7 @@ namespace View.Forms
 
             double currentLength = 0;
             resultSet.Rows.Clear();
-            double stepIncrease = length / Convert.ToInt32(this.stepCanal.Text);
+            double stepIncrease = length / Convert.ToInt32(stepCanal.Text);
             double[] steps = new double[temperature.Length];
             for(int i = 0; i < temperature.Length; i++)
             {
@@ -344,7 +339,7 @@ namespace View.Forms
 
         public double[] GetResults()
         {
-            double[] res = { Convert.ToDouble(this.resOutput.Text), Convert.ToDouble(resTemperature.Text), Convert.ToDouble(resViscosity.Text) };
+            double[] res = { Convert.ToDouble(resOutput.Text), Convert.ToDouble(resTemperature.Text), Convert.ToDouble(resViscosity.Text) };
             return res;
         }
 

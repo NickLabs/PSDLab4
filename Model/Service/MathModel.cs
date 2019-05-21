@@ -40,7 +40,7 @@ namespace DomainModel.Service
 
         public string GetTime()
         {
-            return this.t;
+            return t;
         }
 
         public void Calculate(double[] coefficients, double[] properties, double[] canalGeometry, double[] varParametrs, int numberOfSteps)
@@ -72,25 +72,25 @@ namespace DomainModel.Service
         }
         private void FormCoefficientCalculation(double depth, double width)
         {
-            this.formCoefficient = 0.125 * Math.Pow(depth / width, 2) - 0.625 * depth / width + 1;
+            formCoefficient = 0.125 * Math.Pow(depth / width, 2) - 0.625 * depth / width + 1;
         }
         private void InputStreamSpeedCalculation(double depth, double capSpeed)
         {
-            this.inputStreamSpeed = capSpeed / depth;
+            inputStreamSpeed = capSpeed / depth;
         }
         private void StreamVolumeConsumptionRateCalculation(double depth, double width, double capSpeed)
         {
-            this.streamVolumeConsumptionRate = ((depth * width * capSpeed) / 2) * this.formCoefficient;
+            streamVolumeConsumptionRate = ((depth * width * capSpeed) / 2) * formCoefficient;
         }
         private void CapHeatGainCalculation(double width, double viscosityTemperatureCoefficient,
             double capHeatTransmissionCoefficient, double capTemperature, double temperatureAlign)
         {
-            this.capHeatGain = width * capHeatTransmissionCoefficient * (1 / viscosityTemperatureCoefficient -
+            capHeatGain = width * capHeatTransmissionCoefficient * (1 / viscosityTemperatureCoefficient -
                  capTemperature + temperatureAlign);
         }
         private void FrictionHeatGainCalculation(double width, double depth, double consistencyCoefficient, double streamFollowIndex)
         {
-            this.frictionHeatGain = width * depth * consistencyCoefficient * Math.Pow(this.inputStreamSpeed, streamFollowIndex+1);
+            frictionHeatGain = width * depth * consistencyCoefficient * Math.Pow(inputStreamSpeed, streamFollowIndex+1);
         }
         private void TemperatureCalculation(double viscosityTemperatureCoefficient, double temperatureAlign, double width,
             double step, double density, double heatCapacity, double meltingTemperature, double length, double capHeatTransmissionCoefficient)
@@ -101,10 +101,10 @@ namespace DomainModel.Service
                 double firstLog;
                 double thirdLog;
                 double secondLog;
-                firstLog = (viscosityTemperatureCoefficient*this.frictionHeatGain+width*capHeatTransmissionCoefficient)/
-                   (viscosityTemperatureCoefficient*this.capHeatGain);
-                secondLog = 1 - Math.Exp(-1 * (i * viscosityTemperatureCoefficient * capHeatGain / (density * heatCapacity * this.streamVolumeConsumptionRate)));
-                thirdLog = Math.Exp(viscosityTemperatureCoefficient * (meltingTemperature - temperatureAlign - (i * capHeatGain) / (density * heatCapacity * this.streamVolumeConsumptionRate)));
+                firstLog = (viscosityTemperatureCoefficient*frictionHeatGain+width*capHeatTransmissionCoefficient)/
+                   (viscosityTemperatureCoefficient*capHeatGain);
+                secondLog = 1 - Math.Exp(-1 * (i * viscosityTemperatureCoefficient * capHeatGain / (density * heatCapacity * streamVolumeConsumptionRate)));
+                thirdLog = Math.Exp(viscosityTemperatureCoefficient * (meltingTemperature - temperatureAlign - (i * capHeatGain) / (density * heatCapacity * streamVolumeConsumptionRate)));
                 logPart = firstLog * secondLog + thirdLog;
                 double temperatureOnThisStep = temperatureAlign + 1 / viscosityTemperatureCoefficient * Math.Log(logPart);
                 temperaturesT.Add(temperatureOnThisStep);
@@ -112,16 +112,16 @@ namespace DomainModel.Service
         }
         private void ViscosityCalculation(double temperatureAllign, double viscosityTemperatureCoefficient,double consistencyCoefficientAllign, double flowIndex)
         {
-            foreach(double T in this.temperaturesT)
+            foreach(double T in temperaturesT)
             {
                 double consistencyCoefficient = consistencyCoefficientAllign*Math.Exp(-1*viscosityTemperatureCoefficient*(T-temperatureAllign));
-                double viscosityOnThisStep = consistencyCoefficient * Math.Pow(this.inputStreamSpeed, flowIndex-1);
-                this.viscosityT.Add(viscosityOnThisStep);
+                double viscosityOnThisStep = consistencyCoefficient * Math.Pow(inputStreamSpeed, flowIndex-1);
+                viscosityT.Add(viscosityOnThisStep);
             }
         }
         private void productionCalculation(double density)
         {
-            this.performance = density * this.streamVolumeConsumptionRate;
+            performance = density * streamVolumeConsumptionRate;
         }
     }
 }

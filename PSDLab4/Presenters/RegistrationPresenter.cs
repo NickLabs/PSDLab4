@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DomainModel.Infrastructure;
+using System;
 using View.ViewInterfaces;
-using DomainModel.Infrastructure;
-using Autofac;
 
 namespace PSDLab4.Presenters
 {
@@ -33,34 +28,34 @@ namespace PSDLab4.Presenters
 
         public void Start()
         {
-            this.registration.Start();
+            registration.Start();
         }
 
         public void Close()
         {
-            this.registration.Stop();
+            registration.Stop();
         }
 
         private void AuthentificationAttempt(object sender, EventArgs e)
         {
             bool isSuccesful = true;
             bool isAdmin = false;
-            bool[] temporary = this.dataBase.DoesUserExist(this.registration.GetLogin().ToLower(), this.registration.GetPassword());
+            bool[] temporary = dataBase.DoesUserExist(registration.GetLogin().ToLower(), registration.GetPassword());
             isSuccesful = temporary[0];
             isAdmin = temporary[1];       
             
             //Какой-то код с вызовом базы
             if (isSuccesful)
             {
-                userName = this.registration.GetLogin();
+                userName = registration.GetLogin();
                 if (isAdmin)
                 {
-                    this.Close();
+                    Close();
                     adminPass?.Invoke(this, null);
                 }
                 else
                 {
-                    this.Close();
+                    Close();
                     researcehrPass?.Invoke(this, null);  
                 }
             }
@@ -69,15 +64,15 @@ namespace PSDLab4.Presenters
                 numberOfTries = numberOfTries > 0 ? numberOfTries-1 : 0;
                 if (numberOfTries == 0)
                 {
-                    string[] tempLogPass = this.dataBase.GetUserLoginPassViaId(1).Split(' ');
+                    string[] tempLogPass = dataBase.GetUserLoginPassViaId(1).Split(' ');
                     string adminLogin = tempLogPass[0];
                     string adminPass = tempLogPass[1];
 
-                    this.registration.DeactivateLoginFunctionality(adminLogin, adminPass);
+                    registration.DeactivateLoginFunctionality(adminLogin, adminPass);
                 }
                 else
                 {
-                    this.registration.AuthentificationFail(numberOfTries);
+                    registration.AuthentificationFail(numberOfTries);
                 }      
             }
         }

@@ -1,14 +1,11 @@
-﻿using System;
+﻿using DomainModel.Infrastructure;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xceed.Words.NET;
-using View.ViewInterfaces;
-using DomainModel.Infrastructure;
-using System.Diagnostics;
-using System.IO;
 using System.Data;
+using System.IO;
+using System.Linq;
+using View.ViewInterfaces;
+using Xceed.Words.NET;
 
 namespace PSDLab4.Presenters
 {
@@ -41,45 +38,46 @@ namespace PSDLab4.Presenters
 
         private void ChangeUserLogics(object sender, EventArgs e)
         {
-            this.form.Stop();
-            this.changeUser?.Invoke(this, null);
+            form.Stop();
+            changeUser?.Invoke(this, null);
         }
 
         public void Start(string login)
         {
-            this.researcherId = this.dataBase.GetUserIdViaLogin(login);
-            this.researcherName = this.dataBase.GetUserNameViaId(this.researcherId);
-            this.form.Start(this.researcherName, this.dataBase.GetAllMaterials());
+            researcherId = dataBase.GetUserIdViaLogin(login);
+            researcherName = dataBase.GetUserNameViaId(researcherId);
+            form.Start(researcherName, dataBase.GetAllMaterials());
         }
 
         private void ModelCalculationsFinished(object sender, EventArgs e)
         {
-            double[] visc = this.model.GetViscosity();
-            double[] temper = this.model.GetTemperatures();
-            double perf = this.model.GetPerformance();
-            int canalId = dataBase.CreateCanalRow(this.form.GetCanalGeometry());
+            double[] visc = model.GetViscosity();
+            double[] temper = model.GetTemperatures();
+            double perf = model.GetPerformance();
+            int canalId = dataBase.CreateCanalRow(form.GetCanalGeometry());
             int experimentId = dataBase.CreateExperiment(visc[visc.Length - 1], temper[temper.Length - 1], perf,
-                this.researcherId, this.materialId, canalId);
-            this.dataBase.CreateVariablesValues(this.form.GetVariableParams(), experimentId);
-            this.form.SetResults(temper, visc, this.form.GetCanalGeometry()[0], perf, this.model.GetTime());
+
+            researcherId, materialId, canalId);
+            dataBase.CreateVariablesValues(form.GetVariableParams(), experimentId);
+            form.SetResults(temper, visc, form.GetCanalGeometry()[0], perf, model.GetTime());
         }
 
         private void FetchMaterialCoefficientsAndProperties(object sender, EventArgs e)
         {
-            this.materialId = this.dataBase.GetMaterialIdViaName(this.form.ChosenMaterial);
-            this.materialCoefficients = this.dataBase.FetchAllCoefficients(this.materialId);
-            this.materialProperties = this.dataBase.FetchAllProperties(this.materialId);
-            this.form.SetData(this.materialCoefficients, this.materialProperties);
-            this.minLimitations = this.dataBase.FetchLimitsMin(this.materialId);
-            this.maxLimitations = this.dataBase.FetchLimitsMax(this.materialId);
+            materialId = dataBase.GetMaterialIdViaName(form.ChosenMaterial);
+            materialCoefficients = dataBase.FetchAllCoefficients(materialId);
+            materialProperties = dataBase.FetchAllProperties(materialId);
+            form.SetData(materialCoefficients, materialProperties);
+            minLimitations = dataBase.FetchLimitsMin(materialId);
+            maxLimitations = dataBase.FetchLimitsMax(materialId);
         }
 
         private void Calculate(object sender, EventArgs e)
         {
             bool areInputParametrsCorrect = true;
             List<int> wrongInputParametrsIndexes = new List<int>();
-            double[] CanalGeometry = this.form.GetCanalGeometry();
-            double[] VariableParams = this.form.GetVariableParams();
+            double[] CanalGeometry = form.GetCanalGeometry();
+            double[] VariableParams = form.GetVariableParams();
             for (int i = 0; i < CanalGeometry.Length; i++)
             {
                 if (CanalGeometry[i] <= 0)
@@ -92,8 +90,8 @@ namespace PSDLab4.Presenters
 
             for (int i = 0; i < VariableParams.Length - 1; i++)
             {
-                if (VariableParams[i] < this.minLimitations[i] ||
-                    VariableParams[i] > this.maxLimitations[i])
+                if (VariableParams[i] < minLimitations[i] ||
+                    VariableParams[i] > maxLimitations[i])
                 {
                     areInputParametrsCorrect = false;
                     wrongInputParametrsIndexes.Add(i);
@@ -104,31 +102,34 @@ namespace PSDLab4.Presenters
             {
                 try
                 {
-                    this.model.Calculate(this.form.GetCoefs(), this.form.GetParams(),
-                        CanalGeometry, VariableParams, this.form.NumberOfSteps);
+
+                    model.Calculate(form.GetCoefs(), form.GetParams(),
+                        CanalGeometry, VariableParams, form.NumberOfSteps);
+
 
                 }
                 catch (DivideByZeroException)
                 {
-                    this.form.DivideByZeroError();
+                    form.DivideByZeroError();
                 }
             }
             else
             {
-                this.form.VariableOutOfBounds(wrongInputParametrsIndexes, minLimitations, maxLimitations);
+                form.VariableOutOfBounds(wrongInputParametrsIndexes, minLimitations, maxLimitations);
             }
         }
         public void Stop()
         {
-            this.form.Stop();
+            form.Stop();
         }
 
         public void GenerateReport(object sender, EventArgs e)
         {
-            DataTable dt = this.form.GetDataForReport();
-            string fileName = this.form.GetFileName();
+            DataTable dt = form.GetDataForReport();
+            string fileName = form.GetFileName();
             var doc = DocX.Create(fileName);
-            string text = "Отчёт о моделлировании";
+
+            string text = "Отчёт о моделировании";
             Formatting f = new Formatting();
             f.FontFamily = new Font("Times New Roman");
             f.Size = 32;
@@ -138,15 +139,16 @@ namespace PSDLab4.Presenters
             int rows = dt.Rows.Count;
             int columns = dt.Columns.Count+1;
 
-            string[] ParamStr = { "Длина, м", "Ширина, м", "Глубина, м", "Скорость крышки, м/с", "Темература крышки, °C", "Количество шагов по длине канала",
+            string[] ParamStr = { "Длина, м", "Ширина, м", "Глубина, м", "Скорость крышки, м/с", "Температура крышки, °C", "Количество шагов по длине канала",
             "Плотность, кг/м³", "Удельная теплоёмкость, Дж/( кг*°C )", "Температура плавления, °C ", "Коэффициент консистенции, Па*сⁿ", "Коэффициент теплоотдачи от крышки, Вт/(м²*с)",
             "Температурный коэффициент вязкости, 1/°C","Индекс течения материала","Температура приведения,  °C" };
 
             double[][] tmp = new double[4][];
-            tmp[0] = this.form.GetCanalGeometry();
-            tmp[1] = this.form.GetVariableParams();
-            tmp[2] = this.dataBase.FetchAllProperties(materialId);
-            tmp[3] = this.dataBase.FetchAllCoefficients(materialId);
+
+            tmp[0] = form.GetCanalGeometry();
+            tmp[1] = form.GetVariableParams();
+            tmp[2] = dataBase.FetchAllProperties(materialId);
+            tmp[3] = dataBase.FetchAllCoefficients(materialId);
             List<string> ParamsVal = new List<string>();
             foreach(double[] s in tmp)
             {
@@ -204,7 +206,7 @@ namespace PSDLab4.Presenters
                 paragraphForUnderLine.Alignment = Alignment.center;
             }
 
-            double[] results = this.form.GetResults();
+            double[] results = form.GetResults();
             string final = String.Format("Значения выходных параметров:\nПроизводительность, кг/с: {0}\nТемпература, °C: {1}\nВязкость, Па*с: {2}", results[0], results[1], results[2]);
             f.Size = 14;
             Paragraph fin = doc.InsertParagraph(final, false, f);

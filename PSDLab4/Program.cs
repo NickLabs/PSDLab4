@@ -4,7 +4,6 @@ using DomainModel.Service;
 
 using View.Forms;
 using View.ViewInterfaces;
-using System.Windows.Forms;
 using Autofac;
 using PSDLab4.Presenters;
 
