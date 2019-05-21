@@ -139,6 +139,12 @@ namespace PSDLab4.Presenters
             int rows = dt.Rows.Count;
             int columns = dt.Columns.Count+1;
 
+            text = $"Материал: {this.form.ChosenMaterial}\n";
+            f.Position = 2;
+            f.Size = 14;
+            Paragraph paragraph1 = doc.InsertParagraph(text, false, f);
+            paragraph1.Alignment = Alignment.left;
+
             string[] ParamStr = { "Длина, м", "Ширина, м", "Глубина, м", "Скорость крышки, м/с", "Температура крышки, °C", "Количество шагов по длине канала",
             "Плотность, кг/м³", "Удельная теплоёмкость, Дж/( кг*°C )", "Температура плавления, °C ", "Коэффициент консистенции, Па*сⁿ", "Коэффициент теплоотдачи от крышки, Вт/(м²*с)",
             "Температурный коэффициент вязкости, 1/°C","Индекс течения материала","Температура приведения,  °C" };
@@ -166,7 +172,7 @@ namespace PSDLab4.Presenters
             f.Position = 2;
             f.Size = 14;
             Paragraph paragraph = doc.InsertParagraph(text, false, f);
-            paragraphTitle.Alignment = Alignment.both;
+            paragraph.Alignment = Alignment.both;
 
             text = "Таблица 1, Значения вязкости и температуры";
             f.Size = 12;
