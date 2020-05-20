@@ -102,3 +102,24 @@ D:\Projects\PSDLab4-master\View\obj\Debug\View.csproj.CoreCompileInputs.cache
 D:\Projects\PSDLab4-master\View\obj\Debug\View.csproj.CopyComplete
 D:\Projects\PSDLab4-master\View\obj\Debug\View.dll
 D:\Projects\PSDLab4-master\View\obj\Debug\View.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\View.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\View.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\View.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\EntityFramework.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\System.Data.SQLite.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\Xceed.Words.NET.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\EntityFramework.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\System.Data.SQLite.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.csprojAssemblyReference.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.Forms.AdminForm.resources
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.Forms.RegistrationForm.resources
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.Forms.ResearcherForm.resources
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.csproj.GenerateResource.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.csproj.CopyComplete
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\View\obj\Debug\View.pdb

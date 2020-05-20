@@ -81,3 +81,19 @@ D:\Projects\PSDLab4-master\Model\obj\Debug\DomainModel.csproj.CoreCompileInputs.
 D:\Projects\PSDLab4-master\Model\obj\Debug\DomainModel.csproj.CopyComplete
 D:\Projects\PSDLab4-master\Model\obj\Debug\Model.dll
 D:\Projects\PSDLab4-master\Model\obj\Debug\Model.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\Model.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\Model.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\Model.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\EntityFramework.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\System.Data.SQLite.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\EntityFramework.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\System.Data.SQLite.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\obj\Debug\DomainModel.csprojAssemblyReference.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\obj\Debug\DomainModel.csproj.CopyComplete
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\obj\Debug\Model.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\Model\obj\Debug\Model.pdb

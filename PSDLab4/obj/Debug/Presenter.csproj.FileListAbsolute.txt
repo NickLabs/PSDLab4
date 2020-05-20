@@ -137,3 +137,31 @@ D:\Projects\PSDLab4-master\PSDLab4\obj\Debug\Presenter.csproj.CoreCompileInputs.
 D:\Projects\PSDLab4-master\PSDLab4\obj\Debug\Presenter.csproj.CopyComplete
 D:\Projects\PSDLab4-master\PSDLab4\obj\Debug\PSDLab4.exe
 D:\Projects\PSDLab4-master\PSDLab4\obj\Debug\PSDLab4.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\PSDLab4.exe.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\PSDLab4.exe
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\PSDLab4.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Autofac.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\EntityFramework.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Model.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\System.Data.SQLite.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\View.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Xceed.Words.NET.dll
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Model.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Model.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\View.pdb
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\View.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\Autofac.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\EntityFramework.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\System.Data.SQLite.xml
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\Presenter.csprojAssemblyReference.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.ResolveComReference.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\PSDLab4.Properties.Resources.resources
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.GenerateResource.cache
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\Presenter.csproj.CopyComplete
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\PSDLab4.exe
+C:\Users\prais\Desktop\Studies\6 семестр\6_РПК\c#MVPLab4\PSDLab4\PSDLab4\obj\Debug\PSDLab4.pdb
